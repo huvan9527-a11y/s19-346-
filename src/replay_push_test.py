@@ -1,85 +1,53 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Manual replay-push test for S19.
-
-This does NOT alter the paper account. It only replays the saved 2026-10-08
-morning S19 findings through ServerChan so the user can verify phone delivery.
+"""Manual dual-track ServerChan test: sends three clearly marked synthetic examples.
+Does not mutate trading or persistent dedup state.
 """
-import os
-import requests
 from datetime import datetime
 from zoneinfo import ZoneInfo
+import s19_paper as s19
 
-BJ = ZoneInfo("Asia/Shanghai")
-
-SIGNALS = [
-    {
-        "time":"09:31左右",
-        "code":"600241",
-        "name":"时代万恒",
-        "theme":"电池新能源",
-        "role":"龙头",
-        "streak":"4板",
-        "status":"已封板，历史回放 UNFILLED",
-    },
-    {
-        "time":"09:45前已确认",
-        "code":"605303",
-        "name":"园林股份",
-        "theme":"半导体",
-        "role":"龙头",
-        "streak":"3板",
-        "status":"已封板，历史回放 UNFILLED",
-    },
-    {
-        "time":"10:50–10:55左右",
-        "code":"002242",
-        "name":"九阳股份",
-        "theme":"机器人",
-        "role":"龙头",
-        "streak":"4板",
-        "status":"已封板，历史回放 UNFILLED",
-    },
-]
-
-def send(title, desp):
-    key=os.getenv("SERVERCHAN_SENDKEY","").strip()
-    if not key:
-        raise RuntimeError("SERVERCHAN_SENDKEY is not configured")
-    r=requests.post(
-        f"https://sctapi.ftqq.com/{key}.send",
-        data={"title":title[:32],"desp":desp},
-        timeout=20,
-    )
-    r.raise_for_status()
-    try:
-        js=r.json()
-        if isinstance(js,dict) and js.get("code") not in (None,0):
-            raise RuntimeError(f"ServerChan returned: {js}")
-    except ValueError:
-        pass
+def signal(code,name,theme,streak,sealed_count):
+    return dict(code=code,name=name,theme=theme,role="龙头",streak=streak,
+                theme_sealed=sealed_count,sealed=True,locked=True)
 
 def main():
-    now=datetime.now(BJ)
-    send(
-        "S19 方糖推送测试开始",
-        f"这是手动回放测试，不会修改模拟仓。\n\n"
-        f"触发时间：{now:%Y-%m-%d %H:%M:%S}\n\n"
-        "接下来会发送 3 条 2026-10-08 上午历史信号。"
-    )
-    for s in SIGNALS:
-        send(
-            f"S19 回放｜{s['name']}",
-            f"历史时间：{s['time']}\n\n"
-            f"股票：{s['name']} {s['code']}\n\n"
-            f"题材：{s['theme']}\n\n"
-            f"地位：{s['role']}\n\n"
-            f"连板：{s['streak']}\n\n"
-            f"状态：{s['status']}\n\n"
-            "说明：这是历史回放推送测试，不是实时买入指令。"
-        )
-    print("Replay push test completed: 4 messages sent.")
-    return 0
+    if not __import__("os").environ.get("SERVERCHAN_SENDKEY"):
+        raise RuntimeError("SERVERCHAN_SENDKEY missing")
+    # In-memory dedup test: uses the production push_dual_signals implementation.
+    state={"date":"TEST","sent":[]}
+    s19.load_push_state=lambda dt:state
+    s19.save_push_state=lambda ps:None
+    original=s19.serverchan_send
+    count=[0]
+    def send(title,body):
+        # Every outgoing test contains a clear synthetic-data disclaimer.
+        ok=original("[测试] "+title,
+                    "**合成测试数据，不是今天真实选股信号，也不是买入指令。**\n\n"+body)
+        if ok:count[0]+=1
+        return ok
+    s19.serverchan_send=send
+
+    strict=[
+        signal("600241","测试甲","严格小题材",3,4),
+        signal("605303","测试丙","严格半导体",3,4),
+    ]
+    broad=[
+        signal("002242","测试乙","放宽机器人",4,6),
+        signal("605303","测试丙","半导体",3,6),
+    ]
+    dt=datetime.now(ZoneInfo("Asia/Shanghai")).replace(hour=9,minute=35,second=0)
+    events=["UNFILLED 002242 测试乙｜已封板",
+            "UNFILLED 605303 测试丙｜已封板",
+            "UNFILLED 600241 测试甲｜已封板"]
+    s19.push_dual_signals(strict,broad,events,dt)
+    if count[0]!=3:
+        raise RuntimeError(f"expected 3 notifications, got {count[0]}")
+    before=count[0]
+    s19.push_dual_signals(strict,broad,events,dt)
+    if count[0]!=before:
+        raise RuntimeError("dedup failure: repeated notifications")
+    print("PASS: three push requests succeeded; duplicate invocation sent zero additional messages")
 
 if __name__=="__main__":
-    raise SystemExit(main())
+    main()
