@@ -31,6 +31,7 @@ jobs:
         env:
           TZ: Asia/Shanghai
           S19_SCAN_INTERVAL_SECONDS: '15'
+          SERVERCHAN_SENDKEY: ${{ secrets.SERVERCHAN_SENDKEY }}
         run: python src/run_continuous.py
 
       - name: Persist paper state
