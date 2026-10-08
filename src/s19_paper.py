@@ -10,7 +10,7 @@
 此版本仅用于模拟仓验证，不用于真实下单。
 """
 from __future__ import annotations
-import csv, json, re
+import csv, json, os, re
 from collections import defaultdict
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -23,6 +23,7 @@ STATE_P = ROOT / "state/account.json"
 TRADES_P = ROOT / "logs/trades.csv"
 EQUITY_P = ROOT / "logs/equity.csv"
 OUT_P = ROOT / "outputs/latest.md"
+PUSH_STATE_P = ROOT / "state/push_state.json"
 BJ = ZoneInfo("Asia/Shanghai")
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
 THS_FIELD = "199112,10,9001,330323,330324,330325,9002,330329,133971,133970,1968584,3475914,9003,9004"
@@ -188,6 +189,88 @@ def select_s19(items):
         used_theme.add(theme)
         used_code.add(x["code"])
     return out
+
+
+def load_push_state(dt):
+    """Daily de-dup state. Reset automatically on a new Beijing trading date."""
+    today=dt.strftime("%Y-%m-%d")
+    if PUSH_STATE_P.exists():
+        try:
+            data=json.loads(PUSH_STATE_P.read_text(encoding="utf-8"))
+            if data.get("date")==today:
+                return data
+        except Exception:
+            pass
+    return {"date":today,"sent":[]}
+
+def save_push_state(ps):
+    PUSH_STATE_P.parent.mkdir(parents=True,exist_ok=True)
+    PUSH_STATE_P.write_text(json.dumps(ps,ensure_ascii=False,indent=2),encoding="utf-8")
+
+def serverchan_send(title, desp):
+    key=os.getenv("SERVERCHAN_SENDKEY","").strip()
+    if not key:
+        print("PUSH_SKIP: SERVERCHAN_SENDKEY not configured")
+        return False
+    try:
+        r=requests.post(
+            f"https://sctapi.ftqq.com/{key}.send",
+            data={"title":title[:32],"desp":desp},
+            timeout=15
+        )
+        r.raise_for_status()
+        try:
+            js=r.json()
+            if isinstance(js,dict) and js.get("code") not in (None,0):
+                print(f"PUSH_ERROR: {js}")
+                return False
+        except Exception:
+            pass
+        return True
+    except Exception as e:
+        print(f"PUSH_ERROR {type(e).__name__}: {e}")
+        return False
+
+def push_events(events,cands,dt):
+    """Push first occurrence of each stock+state once per trading day."""
+    if not events:
+        return
+    by_code={x["code"]:x for x in cands}
+    ps=load_push_state(dt)
+    sent=set(ps.get("sent",[]))
+
+    for e in events:
+        m=re.match(r"^(AUCTION_WATCH|BUY|UNFILLED)\\s+(\\d{6})\\s+([^｜\\s]+)", e)
+        if not m:
+            continue
+        state,code,name=m.groups()
+        dedup=f"{code}|{state}"
+        if dedup in sent:
+            continue
+
+        x=by_code.get(code,{})
+        state_cn={
+            "AUCTION_WATCH":"竞价观察",
+            "BUY":"买入信号",
+            "UNFILLED":"信号出现但当前不可成交",
+        }.get(state,state)
+
+        title=f"S19 {state_cn}｜{name}"
+        desp=(
+            f"时间：{dt:%H:%M:%S}\\n\\n"
+            f"股票：{name} {code}\\n\\n"
+            f"题材：{x.get('theme','-')}\\n\\n"
+            f"地位：{x.get('role','-')}\\n\\n"
+            f"连板：{x.get('streak','-')}\\n\\n"
+            f"题材封板数：{x.get('theme_sealed','-')}\\n\\n"
+            f"当前状态：{'已封板' if x.get('sealed') else '可交易/观察'}\\n\\n"
+            f"事件：{e}"
+        )
+        if serverchan_send(title,desp):
+            sent.add(dedup)
+            ps["sent"]=sorted(sent)
+            save_push_state(ps)
+            print(f"PUSH_OK {dedup}")
 
 def load_state():
     if not STATE_P.exists():
@@ -404,6 +487,7 @@ def main():
     st["last_scan_time"]=dt.strftime("%H:%M:%S")
     mv,eq=mark_equity(st,dt)
     save_state(st)
+    push_events(events,cands,dt)
     write_report(st,dt,cands,events,mv,eq)
 
     print("\n".join(events) if events else "no trade")
