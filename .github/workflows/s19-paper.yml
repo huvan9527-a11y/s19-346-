@@ -3,10 +3,9 @@ name: S19 20万模拟仓
 on:
   workflow_dispatch:
   schedule:
-    # GitHub cron 使用 UTC。北京时间 09:45-10:55 = UTC 01:45-02:55
-    - cron: '45-59/5 1 * * 1-5'
-    - cron: '0-55/5 2 * * 1-5'
-    - cron: '0 3 * * 1-5'
+    # GitHub cron 使用 UTC；北京时间 09:40 = UTC 01:40。
+    # 只负责“启动一次”，启动后程序常驻到 10:57，每15秒扫描。
+    - cron: '40 1 * * 1-5'
 
 permissions:
   contents: write
@@ -18,6 +17,7 @@ concurrency:
 jobs:
   paper:
     runs-on: ubuntu-latest
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
 
@@ -27,10 +27,11 @@ jobs:
 
       - run: pip install -r requirements.txt
 
-      - name: Run S19 paper account
+      - name: Run S19 continuously
         env:
           TZ: Asia/Shanghai
-        run: python src/s19_paper.py
+          S19_SCAN_INTERVAL_SECONDS: '15'
+        run: python src/run_continuous.py
 
       - name: Persist paper state
         run: |
