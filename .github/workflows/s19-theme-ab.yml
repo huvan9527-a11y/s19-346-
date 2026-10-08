@@ -1,0 +1,36 @@
+name: S19 年度题材 A-B 信号审计
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -r requirements.txt
+      - name: Compare strict and broad themes on historical EOD pools
+        run: python src/compare_theme_history.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: S19-theme-AB-20251001-20260930
+          path: outputs/ab_theme_20251001_20260930/
+          if-no-files-found: warn
+      - name: Store reports
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add outputs/ab_theme_20251001_20260930/
+          if ! git diff --cached --quiet; then
+            git commit -m "research: update strict vs broad S19 theme audit"
+            git push
+          fi
