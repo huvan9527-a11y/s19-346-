@@ -267,7 +267,7 @@ def push_dual_signals(strict, broad, events, dt):
             continue
         title=f"S19 [{mode}] {stage_cn} {x['name']}"
         desc=(
-            f"北京时间：{dt:%Y-%m-%d %H:%M:%S}\n\n"
+            f"信号发现时间：{dt:%H:%M:%S}（北京时间）\n\n"
             f"股票：{x['name']} {code}\n\n"
             f"分类：**{mode}**\n\n"
             f"严格题材：{a['theme'] if a else '未命中'}\n\n"
