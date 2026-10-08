@@ -30,10 +30,30 @@ THS_FIELD = "199112,10,9001,330323,330324,330325,9002,330329,133971,133970,19685
 def now_bj():
     return datetime.now(BJ)
 
+THEME_RULES = [
+    ("电池新能源", ("固态电池","半固态","锂电","磷酸铁锂","圆柱锂","镍氢电池","新能源电池","电池材料","电池模组","储能电池")),
+    ("机器人", ("人形机器人","养老机器人","机器人","减速器","伺服系统")),
+    ("商业航天", ("商业航天","卫星互联网","卫星通信","太空算力")),
+    ("可控核聚变", ("可控核聚变","核聚变")),
+    ("半导体", ("半导体","芯片","光刻","封测")),
+    ("算力AI", ("算力","数据中心","AI服务器","人工智能")),
+    ("新能源电力", ("风电","光伏","抽水蓄能","电力主业","新能源")),
+    ("消费食品", ("食品","山姆渠道","白酒","葡萄酒")),
+]
+
+def canonical_theme(label):
+    """把同花顺细碎涨停原因归并到可统计的大题材；未命中的标签保持原样。"""
+    s=(label or "").strip()
+    for theme, keys in THEME_RULES:
+        if any(k in s for k in keys):
+            return theme
+    return s
+
 def concepts(raw):
     out=[]
     for x in re.split(r"[+＋]", raw or ""):
         x=re.sub(r"[（(].*?[)）]", "", x).strip()
+        x=canonical_theme(x)
         if x and len(x)<=12 and x not in out:
             out.append(x)
     return out
