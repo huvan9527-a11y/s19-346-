@@ -1,4 +1,4 @@
-name: S19 双轨推送测试
+name: S19 严格题材推送测试
 
 on:
   workflow_dispatch:
@@ -15,7 +15,7 @@ jobs:
 
       - run: pip install -r requirements.txt
 
-      - name: Test strict and broad ServerChan alerts
+      - name: Test strict S19 ServerChan alerts and dedup
         env:
           TZ: Asia/Shanghai
           SERVERCHAN_SENDKEY: ${{ secrets.SERVERCHAN_SENDKEY }}
