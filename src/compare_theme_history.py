@@ -65,9 +65,23 @@ def get_pool(day, session):
             payload = r.json()
             if payload.get("status_code") not in (None, 0):
                 raise ValueError(f"THS status_code={payload.get('status_code')}")
-            info = (payload.get("data") or {}).get("info")
+            block = payload.get("data") or {}
+            info = block.get("info")
             if not isinstance(info, list):
                 raise ValueError("missing data.info")
+            total = int((block.get("page") or {}).get("total") or len(info))
+            page_no = 1
+            while len(info) < total:
+                page_no += 1
+                next_params = dict(params, page=page_no)
+                more = session.get(url, params=next_params,
+                    headers={"User-Agent": UA, "Referer":"https://data.10jqka.com.cn/market/longhu/"},
+                    timeout=25)
+                more.raise_for_status()
+                next_info = (more.json().get("data") or {}).get("info") or []
+                if not next_info:
+                    raise ValueError(f"pagination incomplete: {len(info)}/{total}")
+                info.extend(next_info)
             # 0 rows: likely holiday; don't cache to avoid mistaking throttling for zero signals.
             if info:
                 path.write_text(json.dumps(info, ensure_ascii=False), encoding="utf-8")
@@ -80,7 +94,7 @@ def get_pool(day, session):
 def normalize(item, broad):
     code = str(item.get("code") or "").zfill(6)
     hd = str(item.get("high_days") or "")
-    m = re.search(r"(\\d+)\\s*板", hd)
+    m = re.search(r"(\d+)\s*板", hd)
     streak = int(m.group(1)) if m else 1
     try:
         pct = float(item.get("change_rate") or 0)
