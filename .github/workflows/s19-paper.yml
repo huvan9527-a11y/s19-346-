@@ -1,0 +1,45 @@
+name: S19 20万模拟仓
+
+on:
+  workflow_dispatch:
+  schedule:
+    # GitHub cron 使用 UTC。北京时间 09:45-10:55 = UTC 01:45-02:55
+    - cron: '45-59/5 1 * * 1-5'
+    - cron: '0-55/5 2 * * 1-5'
+    - cron: '0 3 * * 1-5'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: s19-paper
+  cancel-in-progress: false
+
+jobs:
+  paper:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - run: pip install -r requirements.txt
+
+      - name: Run S19 paper account
+        env:
+          TZ: Asia/Shanghai
+        run: python src/s19_paper.py
+
+      - name: Persist paper state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add state logs outputs
+          if git diff --cached --quiet; then
+            echo "No state changes"
+          else
+            git commit -m "paper: update S19 simulated account"
+            git push
+          fi
