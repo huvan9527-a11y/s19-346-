@@ -248,7 +248,7 @@ def push_dual_signals(strict, broad, events, dt):
     for code,x in by_code.items():
         a=strict_by.get(code)
         b=broad_by.get(code)
-        mode="双命中" if a and b else ("仅严格" if a else "仅放宽")
+        mode="双Top3" if a and b else ("仅严格Top3（放宽未入Top3）" if a else "仅放宽Top3")
         if dt.strftime("%H:%M") < CFG["entry_start"]:
             stage="AUCTION_WATCH"
             stage_cn="竞价观察"
@@ -269,9 +269,9 @@ def push_dual_signals(strict, broad, events, dt):
         desc=(
             f"信号发现时间：{dt:%H:%M:%S}（北京时间）\n\n"
             f"股票：{x['name']} {code}\n\n"
-            f"分类：**{mode}**\n\n"
-            f"严格题材：{a['theme'] if a else '未命中'}\n\n"
-            f"放宽题材：{b['theme'] if b else '未命中'}\n\n"
+            f"分类：**{mode}**（按两套最终Top3名单比较）\n\n"
+            f"严格Top3：{a['theme'] if a else '未入选'}\n\n"
+            f"放宽Top3：{b['theme'] if b else '未入选（不代表题材不合格）'}\n\n"
             f"连板：{x['streak']}，地位：{x['role']}\n\n"
             f"严格题材封板：{a['theme_sealed'] if a else '-'}\n\n"
             f"放宽题材封板：{b['theme_sealed'] if b else '-'}\n\n"
