@@ -1,4 +1,4 @@
-name: S19 上午回放推送测试
+name: S19 双轨推送测试
 
 on:
   workflow_dispatch:
@@ -15,7 +15,7 @@ jobs:
 
       - run: pip install -r requirements.txt
 
-      - name: Replay 2026-10-08 morning signals to ServerChan
+      - name: Test strict and broad ServerChan alerts
         env:
           TZ: Asia/Shanghai
           SERVERCHAN_SENDKEY: ${{ secrets.SERVERCHAN_SENDKEY }}
