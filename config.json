@@ -1,5 +1,5 @@
 {
-  "initial_cash": 200000.0,
+  "initial_cash": 200000,
   "max_positions": 3,
   "position_fraction": 0.3333333333,
   "min_theme_sealed": 4,
@@ -8,9 +8,10 @@
   "allow_second": true,
   "hold_days": 5,
   "stop_pct": 0.94,
-  "commission_bp_one_way": 3.0,
-  "slippage_bp": 5.0,
-  "scan_start": "09:45",
+  "commission_bp_one_way": 3,
+  "slippage_bp": 5,
   "scan_end": "10:57",
-  "timezone": "Asia/Shanghai"
+  "timezone": "Asia/Shanghai",
+  "monitor_start": "09:15",
+  "entry_start": "09:30"
 }
