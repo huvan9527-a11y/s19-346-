@@ -40,7 +40,7 @@ def main():
         print("weekend, skip")
         return 0
 
-    start=CFG["scan_start"]
+    start=CFG["monitor_start"]
     end=CFG["scan_end"]
 
     # If the scheduled job arrives early, wait in-process until the window opens.
