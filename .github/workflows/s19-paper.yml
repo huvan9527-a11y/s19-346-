@@ -3,9 +3,9 @@ name: S19 20万模拟仓
 on:
   workflow_dispatch:
   schedule:
-    # GitHub cron 使用 UTC；北京时间 09:40 = UTC 01:40。
-    # 只负责“启动一次”，启动后程序常驻到 10:57，每15秒扫描。
-    - cron: '40 1 * * 1-5'
+    # GitHub cron 使用 UTC；北京时间 09:10 = UTC 01:10。
+    # 提前启动以吸收 GitHub 排队延迟；09:15开始监控，09:30后才允许模拟买入。
+    - cron: '10 1 * * 1-5'
 
 permissions:
   contents: write
