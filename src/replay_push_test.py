@@ -29,17 +29,17 @@ def main():
     s19.serverchan_send=send
 
     strict=[
-        signal("600241","测试甲","严格小题材",3,4),
-        signal("605303","测试丙","严格半导体",3,4),
+        signal("600241","时代万恒","严格示例题材",4,4),
+        signal("605303","园林股份","严格半导体",3,4),
     ]
     broad=[
-        signal("002242","测试乙","放宽机器人",4,6),
-        signal("605303","测试丙","半导体",3,6),
+        signal("002242","九阳股份","放宽机器人",4,6),
+        signal("605303","园林股份","半导体",3,6),
     ]
     dt=datetime.now(ZoneInfo("Asia/Shanghai")).replace(hour=9,minute=35,second=0)
-    events=["UNFILLED 002242 测试乙｜已封板",
-            "UNFILLED 605303 测试丙｜已封板",
-            "UNFILLED 600241 测试甲｜已封板"]
+    events=["UNFILLED 002242 九阳股份｜已封板",
+            "UNFILLED 605303 园林股份｜已封板",
+            "UNFILLED 600241 时代万恒｜已封板"]
     s19.push_dual_signals(strict,broad,events,dt)
     if count[0]!=3:
         raise RuntimeError(f"expected 3 notifications, got {count[0]}")
