@@ -50,11 +50,12 @@ def canonical_theme(label):
             return theme
     return s
 
-def concepts(raw):
+def concepts(raw, broad=True):
     out=[]
     for x in re.split(r"[+＋]", raw or ""):
         x=re.sub(r"[（(].*?[)）]", "", x).strip()
-        x=canonical_theme(x)
+        if broad:
+            x=canonical_theme(x)
         if x and len(x)<=12 and x not in out:
             out.append(x)
     return out
@@ -107,7 +108,7 @@ def fetch_pool(date_yyyymmdd):
     js=r.json()
     return ((js.get("data") or {}).get("info") or [])
 
-def normalize(item):
+def normalize(item, broad=True):
     code=str(item.get("code") or item.get("stock_code") or "").zfill(6)
     name=str(item.get("name") or item.get("stock_name") or "")
     reason=item.get("reason_type") or item.get("reason") or ""
@@ -126,7 +127,7 @@ def normalize(item):
         sealed=True
     locked=bool(item.get("is_new") == 1 and sealed and inum(item.get("open_num"))==0)
     return {
-        "code":code,"name":name,"themes":concepts(reason),"streak":streak,
+        "code":code,"name":name,"themes":concepts(reason, broad),"streak":streak,
         "cur":cur,"lim":lim,"pct":pct,"first":str(first),
         "preview":preview,"sealed":sealed,"locked":locked
     }
@@ -145,11 +146,11 @@ def acceptance(x):
         return False
     return True
 
-def select_s19(items):
+def select_s19(items, broad=True):
     """S19 选股层：题材强度 -> 龙头/二龙头 -> 承接。
     注意：这里不包含“炸板回封”条件。
     """
-    xs=[normalize(i) for i in items]
+    xs=[normalize(i, broad) for i in items]
     themes=defaultdict(list)
     for x in xs:
         for t in x["themes"]:
@@ -231,46 +232,58 @@ def serverchan_send(title, desp):
         print(f"PUSH_ERROR {type(e).__name__}: {e}")
         return False
 
-def push_events(events,cands,dt):
-    """Push first occurrence of each stock+state once per trading day."""
-    if not events:
-        return
-    by_code={x["code"]:x for x in cands}
+def push_dual_signals(strict, broad, events, dt):
+    """One notification per stock/stage/mode, daily; broad side alone controls paper trades."""
+    strict_by={x["code"]:x for x in strict}
+    broad_by={x["code"]:x for x in broad}
+    by_code={**strict_by,**broad_by}
     ps=load_push_state(dt)
     sent=set(ps.get("sent",[]))
+    event_by_code={}
+    for event in events:
+        match=re.match(r"^(BUY|UNFILLED)\s+(\d{6})\b",event)
+        if match:
+            event_by_code[match.group(2)]=match.group(1)
 
-    for e in events:
-        m=re.match(r"^(AUCTION_WATCH|BUY|UNFILLED)\\s+(\\d{6})\\s+([^｜\\s]+)", e)
-        if not m:
+    for code,x in by_code.items():
+        a=strict_by.get(code)
+        b=broad_by.get(code)
+        mode="双命中" if a and b else ("仅严格" if a else "仅放宽")
+        if dt.strftime("%H:%M") < CFG["entry_start"]:
+            stage="AUCTION_WATCH"
+            stage_cn="竞价观察"
+        elif event_by_code.get(code)=="BUY":
+            stage="BUY"
+            stage_cn="模拟买入"
+        elif x["sealed"] or x["locked"] or event_by_code.get(code)=="UNFILLED":
+            stage="UNFILLED"
+            stage_cn="封板/不可确认成交"
+        else:
+            stage="SIGNAL"
+            stage_cn="候选信号（未模拟成交）"
+
+        key=f"{code}|{stage}|{mode}"
+        if key in sent:
             continue
-        state,code,name=m.groups()
-        dedup=f"{code}|{state}"
-        if dedup in sent:
-            continue
-
-        x=by_code.get(code,{})
-        state_cn={
-            "AUCTION_WATCH":"竞价观察",
-            "BUY":"买入信号",
-            "UNFILLED":"信号出现但当前不可成交",
-        }.get(state,state)
-
-        title=f"S19 {state_cn}｜{name}"
-        desp=(
-            f"时间：{dt:%H:%M:%S}\\n\\n"
-            f"股票：{name} {code}\\n\\n"
-            f"题材：{x.get('theme','-')}\\n\\n"
-            f"地位：{x.get('role','-')}\\n\\n"
-            f"连板：{x.get('streak','-')}\\n\\n"
-            f"题材封板数：{x.get('theme_sealed','-')}\\n\\n"
-            f"当前状态：{'已封板' if x.get('sealed') else '可交易/观察'}\\n\\n"
-            f"事件：{e}"
+        title=f"S19 [{mode}] {stage_cn} {x['name']}"
+        desc=(
+            f"北京时间：{dt:%Y-%m-%d %H:%M:%S}\n\n"
+            f"股票：{x['name']} {code}\n\n"
+            f"分类：**{mode}**\n\n"
+            f"严格题材：{a['theme'] if a else '未命中'}\n\n"
+            f"放宽题材：{b['theme'] if b else '未命中'}\n\n"
+            f"连板：{x['streak']}，地位：{x['role']}\n\n"
+            f"严格题材封板：{a['theme_sealed'] if a else '-'}\n\n"
+            f"放宽题材封板：{b['theme_sealed'] if b else '-'}\n\n"
+            f"股票当前：{'已封板' if x['sealed'] else '未确认封板'}\n\n"
+            f"信号：{stage_cn}\n\n"
+            f"模拟账户：仅放宽题材参与买卖；严格题材只观察。"
         )
-        if serverchan_send(title,desp):
-            sent.add(dedup)
+        if serverchan_send(title,desc):
+            sent.add(key)
             ps["sent"]=sorted(sent)
             save_push_state(ps)
-            print(f"PUSH_OK {dedup}")
+            print(f"PUSH_OK {key}")
 
 def load_state():
     if not STATE_P.exists():
@@ -467,11 +480,14 @@ def main():
 
     process_exits(st,dt)
     cands=[]
+    strict_cands=[]
     hm=dt.strftime("%H:%M")
 
     if CFG["monitor_start"]<=hm<=CFG["scan_end"]:
         try:
-            cands=select_s19(fetch_pool(dt.strftime("%Y%m%d")))
+            pool=fetch_pool(dt.strftime("%Y%m%d"))
+            cands=select_s19(pool, broad=True)
+            strict_cands=select_s19(pool, broad=False)
             if hm >= CFG["entry_start"]:
                 events=process_entries(st,cands,dt)
             else:
@@ -487,7 +503,7 @@ def main():
     st["last_scan_time"]=dt.strftime("%H:%M:%S")
     mv,eq=mark_equity(st,dt)
     save_state(st)
-    push_events(events,cands,dt)
+    push_dual_signals(strict_cands,cands,events,dt)
     write_report(st,dt,cands,events,mv,eq)
 
     print("\n".join(events) if events else "no trade")
