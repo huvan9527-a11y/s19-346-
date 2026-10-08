@@ -386,10 +386,17 @@ def main():
     cands=[]
     hm=dt.strftime("%H:%M")
 
-    if CFG["scan_start"]<=hm<=CFG["scan_end"]:
+    if CFG["monitor_start"]<=hm<=CFG["scan_end"]:
         try:
             cands=select_s19(fetch_pool(dt.strftime("%Y%m%d")))
-            events=process_entries(st,cands,dt)
+            if hm >= CFG["entry_start"]:
+                events=process_entries(st,cands,dt)
+            else:
+                events=[
+                    f"AUCTION_WATCH {x['code']} {x['name']}｜{x['role']}｜{x['theme']}｜"
+                    f"{'已封板' if x['sealed'] else '竞价观察'}"
+                    for x in cands
+                ]
         except Exception as e:
             events=[f"DATA_ERROR {type(e).__name__}: {e}"]
 
