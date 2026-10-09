@@ -29,7 +29,7 @@ jobs:
       - name: Run S19 continuously
         env:
           TZ: Asia/Shanghai
-          S19_SCAN_INTERVAL_SECONDS: '15'
+          S19_SCAN_INTERVAL_SECONDS: '30'
         run: python src/run_continuous.py
 
       - name: Persist paper state
