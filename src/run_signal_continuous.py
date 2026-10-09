@@ -23,7 +23,9 @@ def run_once():
     if not (s19.CFG["monitor_start"] <= hm(dt) <= s19.CFG["scan_end"]):
         return True
     try:
-        pool = s19.fetch_pool(dt.strftime("%Y%m%d"), timeout=8)
+        health=s19.load_push_state(dt)
+        pool = s19.fetch_live_pool(dt,health,timeout=8)
+        s19.save_push_state(health)
         cands = s19.select_s19(pool)
         print(
             f"SIGNAL_SCAN_OK {dt:%Y-%m-%d %H:%M:%S} "

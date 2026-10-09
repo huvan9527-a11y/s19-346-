@@ -10,7 +10,7 @@
 此版本仅用于模拟仓验证，不用于真实下单。
 """
 from __future__ import annotations
-import csv, json, os, re, math
+import csv, json, os, re, math, time
 from functools import lru_cache
 import exchange_calendars as xcals
 from collections import defaultdict
@@ -138,6 +138,29 @@ def fetch_pool(date_yyyymmdd, timeout=20, session=None):
                 raise ValueError("incomplete pool pagination")
             return result
     raise ValueError("pool pagination limit exceeded")
+
+def fetch_live_pool(dt, health, timeout=20):
+    """Retry empty live snapshots; a known populated day cannot silently become empty.
+
+    Only health metadata is retained, never old rows used as current signals.
+    Caller persists health in its own account / notification state.
+    """
+    day=dt.strftime("%Y-%m-%d")
+    if health.get("pool_date")!=day:
+        health["pool_date"]=day
+        health["pool_seen_nonempty"]=False
+    for attempt in range(3):
+        rows=fetch_pool(dt.strftime("%Y%m%d"),timeout=timeout)
+        if rows:
+            health["pool_seen_nonempty"]=True
+            return rows
+        if attempt<2:
+            print(f"POOL_EMPTY_RETRY {attempt+1}/2",flush=True)
+            time.sleep(1)
+    if health.get("pool_seen_nonempty"):
+        raise ValueError("live pool unexpectedly empty after retries; prior nonempty snapshot exists today")
+    # A truly empty day / pre-market is allowed only before any valid nonempty snapshot.
+    return []
 
 def normalize(item):
     code=str(item.get("code") or item.get("stock_code") or "").zfill(6)
@@ -548,7 +571,7 @@ def main():
 
     if CFG["monitor_start"]<=hm<=CFG["scan_end"]:
         try:
-            pool=fetch_pool(dt.strftime("%Y%m%d"))
+            pool=fetch_live_pool(dt,st)
             cands=select_s19(pool)
             print(f"SCAN_OK {dt:%Y-%m-%d %H:%M:%S} pool={len(pool)} candidates={len(cands)}")
             if hm >= CFG["entry_start"]:

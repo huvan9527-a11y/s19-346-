@@ -109,6 +109,37 @@ class Safety(unittest.TestCase):
         with patch.object(s,'fetch_pool',side_effect=ValueError('bad payload')):
             self.assertEqual(s.main(),1)
         self.assertEqual(json.loads(s.STATE_P.read_text())['cash'],200000)
+    def test_empty_pool_recovers_before_notification(self):
+        rows=[{'code':'600001'}]*24
+        health={}
+        with patch.object(s,'fetch_pool',side_effect=[rows,[],rows]),patch.object(s.time,'sleep'):
+            self.assertEqual(s.fetch_live_pool(DT,health),rows)
+            self.assertEqual(s.fetch_live_pool(DT,health),rows)
+        self.assertTrue(health['pool_seen_nonempty'])
+    def test_persistent_empty_after_nonempty_is_error(self):
+        health={'pool_date':'2026-10-09','pool_seen_nonempty':True}
+        with patch.object(s,'fetch_pool',return_value=[]),patch.object(s.time,'sleep'):
+            with self.assertRaisesRegex(ValueError,'unexpectedly empty'):
+                s.fetch_live_pool(DT,health)
+    def test_empty_at_new_day_not_previous_day_error(self):
+        health={'pool_date':'2026-10-08','pool_seen_nonempty':True}
+        with patch.object(s,'fetch_pool',return_value=[]),patch.object(s.time,'sleep'):
+            self.assertEqual(s.fetch_live_pool(DT,health),[])
+        self.assertFalse(health['pool_seen_nonempty'])
+    def test_signal_empty_anomaly_never_sends_no_signal(self):
+        s.save_push_state({'date':'2026-10-09','sent':[],
+                           'pool_date':'2026-10-09','pool_seen_nonempty':True})
+        with patch.object(s,'fetch_pool',return_value=[]),patch.object(s.time,'sleep'),patch.object(s,'serverchan_send',return_value=True) as send:
+            self.assertFalse(signal.run_once())
+            self.assertEqual(send.call_count,1)
+            self.assertEqual(send.call_args.args[0],'S19 数据获取异常')
+        self.assertNotIn('STATUS|NO_SIGNAL',s.load_push_state(DT)['sent'])
+    def test_paper_empty_anomaly_is_failure_without_old_signals(self):
+        s.save_state({'cash':200000,'positions':{},'pool_date':'2026-10-09','pool_seen_nonempty':True})
+        with patch.object(s,'fetch_pool',return_value=[]),patch.object(s.time,'sleep'),patch.object(s,'process_entries') as entries:
+            self.assertEqual(s.main(),1)
+            entries.assert_not_called()
+        self.assertEqual(json.loads(s.STATE_P.read_text())['cash'],200000)
     def test_quote_parser(self):
         arr=['0']*49
         for index,value in {1:'demo',2:'600001',3:'10',4:'10',5:'10',6:'10000',9:'9.99',10:'1000',19:'10.01',20:'1000',30:'20261009100000',47:'11',48:'9'}.items(): arr[index]=value
