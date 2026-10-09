@@ -10,7 +10,9 @@
 此版本仅用于模拟仓验证，不用于真实下单。
 """
 from __future__ import annotations
-import csv, json, os, re
+import csv, json, os, re, math
+from functools import lru_cache
+import exchange_calendars as xcals
 from collections import defaultdict
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -24,12 +26,30 @@ TRADES_P = ROOT / "logs/trades.csv"
 EQUITY_P = ROOT / "logs/equity.csv"
 OUT_P = ROOT / "outputs/latest.md"
 PUSH_STATE_P = ROOT / "state/push_state.json"
-BJ = ZoneInfo("Asia/Shanghai")
+BJ = ZoneInfo(CFG.get("timezone", "Asia/Shanghai"))
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
 THS_FIELD = "199112,10,9001,330323,330324,330325,9002,330329,133971,133970,1968584,3475914,9003,9004"
 
 def now_bj():
     return datetime.now(BJ)
+
+@lru_cache(maxsize=1)
+def calendar():
+    # XSHG has a bounded, explicit holiday calendar. Unknown dates fail closed.
+    return xcals.get_calendar("XSHG")
+
+def is_session(day):
+    return calendar().is_session(str(day))
+
+def trading_time(dt):
+    clock = dt.astimezone(BJ).strftime("%H:%M:%S")
+    return is_session(dt.date()) and ("09:30:00" <= clock < "11:30:00" or "13:00:00" <= clock < "14:57:00")
+
+def atomic_json(path, data):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temp = path.with_suffix(path.suffix + ".tmp")
+    temp.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    temp.replace(path)
 
 def concepts(raw):
     """严格题材：只拆分原始标签，不合并不同概念。"""
@@ -42,7 +62,8 @@ def concepts(raw):
 
 def fnum(x, default=0.0):
     try:
-        return float(x)
+        value = float(x)
+        return value if math.isfinite(value) else default
     except Exception:
         return default
 
@@ -67,26 +88,56 @@ def parse_preview(raw):
         else:
             val=v
         try:
-            out.append(float(val))
-        except Exception:
+            number=float(val)
+            # THS scalar time_preview is percent change, not a share price.
+            level=number if isinstance(v,dict) and "price" in v else 1+number/100
+            if math.isfinite(level) and level>0:
+                out.append(level)
+        except (TypeError,ValueError):
             pass
     return out
 
-def fetch_pool(date_yyyymmdd, timeout=20):
+def fetch_pool(date_yyyymmdd, timeout=20, session=None):
     url="https://data.10jqka.com.cn/dataapi/limit_up/limit_up_pool"
-    params={
-        "page":1,"limit":200,"field":THS_FIELD,
-        "filter":"HS,GEM2STAR","order_field":"330324",
-        "order_type":"0","date":date_yyyymmdd
-    }
-    r=requests.get(
-        url, params=params,
-        headers={"User-Agent":UA,"Referer":"https://data.10jqka.com.cn/market/longhu/"},
-        timeout=timeout
-    )
-    r.raise_for_status()
-    js=r.json()
-    return ((js.get("data") or {}).get("info") or [])
+    result=[]
+    seen=set()
+    total=None
+    for page in range(1, 51):
+        params={"page":page,"limit":200,"field":THS_FIELD,
+                "filter":"HS,GEM2STAR","order_field":"330324",
+                "order_type":"0","date":date_yyyymmdd}
+        r=(session or requests).get(url, params=params,
+            headers={"User-Agent":UA,"Referer":"https://data.10jqka.com.cn/market/longhu/"},timeout=timeout)
+        r.raise_for_status()
+        js=r.json()
+        if not isinstance(js,dict) or js.get("status_code") not in (None,0):
+            raise ValueError("invalid limit-pool response/status")
+        block=js.get("data")
+        if not isinstance(block,dict) or not isinstance(block.get("info"),list):
+            raise ValueError("missing limit-pool data.info")
+        rows=block["info"]
+        meta=block.get("page") or {}
+        declared=meta.get("total")
+        if declared is not None:
+            declared=int(declared)
+            if declared<0 or (total is not None and declared!=total):
+                raise ValueError("pool changed during pagination")
+            total=declared
+        for row in rows:
+            if not isinstance(row,dict): raise ValueError("invalid pool row")
+            code=str(row.get("code") or row.get("stock_code") or "").zfill(6)
+            if not re.fullmatch(r"[0-9]{6}",code) or code=="000000" or code in seen:
+                raise ValueError("invalid/duplicate pool code")
+            seen.add(code)
+            result.append(row)
+        if total is not None and len(result)>=total:
+            if len(result)!=total: raise ValueError("pool total mismatch")
+            return result
+        if not rows or (total is None and len(rows)<200):
+            if total is not None and len(result)!=total:
+                raise ValueError("incomplete pool pagination")
+            return result
+    raise ValueError("pool pagination limit exceeded")
 
 def normalize(item):
     code=str(item.get("code") or item.get("stock_code") or "").zfill(6)
@@ -102,9 +153,15 @@ def normalize(item):
     pct=fnum(item.get("change_rate") or item.get("zf"))
     first=item.get("first_limit_up_time") or item.get("first_time") or item.get("first_limit_up") or ""
     preview=parse_preview(item.get("time_preview"))
-    sealed=bool(lim>0 and cur>0 and cur >= lim-0.011)
-    if lim<=0 and pct>=9.85 and not code.startswith(("300","301","688","689")):
-        sealed=True
+    # Never infer a tradable price from an approximate percent threshold.
+    # Missing limit price is resolved from a fresh quote before execution.
+    sealed=bool(lim>0 and cur>0 and cur >= lim-0.005)
+    if lim<=0:
+        if "ST" in name.upper(): threshold=4.85
+        elif code.startswith(("300","301","688","689")): threshold=19.7
+        elif code.startswith(("4","8","92")): threshold=29.7
+        else: threshold=9.85
+        sealed=pct>=threshold
     locked=bool(item.get("is_new") == 1 and sealed and inum(item.get("open_num"))==0)
     return {
         "code":code,"name":name,"themes":concepts(reason),"streak":streak,
@@ -116,7 +173,7 @@ def acceptance(x):
     """保留 S19 的承接思想；数据缺失时不额外制造新条件。"""
     tp=x["preview"]
     if len(tp)<4:
-        return True
+        return False
     cur=tp[-1]
     hi=max(tp)
     avg=sum(tp)/len(tp)
@@ -157,17 +214,15 @@ def select_s19(items):
 
     cand.sort(key=lambda z:(-z[3],-z[1]["streak"],z[1]["first"] or "999999"))
     out=[]
-    used_theme=set()
     used_code=set()
     for theme,x,role,cnt in cand:
         if len(out)>=CFG["top_n"]:
             break
-        if theme in used_theme or x["code"] in used_code:
+        if x["code"] in used_code:
             continue
         if not acceptance(x):
             continue
         out.append({"theme":theme,"role":role,"theme_sealed":cnt,**x})
-        used_theme.add(theme)
         used_code.add(x["code"])
     return out
 
@@ -185,32 +240,22 @@ def load_push_state(dt):
     return {"date":today,"sent":[]}
 
 def save_push_state(ps):
-    PUSH_STATE_P.parent.mkdir(parents=True,exist_ok=True)
-    PUSH_STATE_P.write_text(json.dumps(ps,ensure_ascii=False,indent=2),encoding="utf-8")
+    atomic_json(PUSH_STATE_P, ps)
 
 def serverchan_send(title, desp):
     key=os.getenv("SERVERCHAN_SENDKEY","").strip()
-    if not key:
-        print("PUSH_SKIP: SERVERCHAN_SENDKEY not configured")
-        return False
+    if not key: raise RuntimeError("SERVERCHAN_SENDKEY not configured")
     try:
-        r=requests.post(
-            f"https://sctapi.ftqq.com/{key}.send",
-            data={"title":title[:32],"desp":desp},
-            timeout=15
-        )
-        r.raise_for_status()
-        try:
-            js=r.json()
-            if isinstance(js,dict) and js.get("code") not in (None,0):
-                print(f"PUSH_ERROR: {js}")
-                return False
-        except Exception:
-            pass
-        return True
-    except Exception as e:
-        print(f"PUSH_ERROR {type(e).__name__}: {e}")
-        return False
+        response=requests.post(f"https://sctapi.ftqq.com/{key}.send",
+            data={"title":title[:32],"desp":desp},timeout=15)
+        response.raise_for_status()
+        payload=response.json()
+    except Exception as exc:
+        # Request exception text can contain the credential-bearing URL.
+        raise RuntimeError(f"notification transport failed: {type(exc).__name__}") from None
+    if not isinstance(payload,dict) or payload.get("code") != 0:
+        raise RuntimeError("notification rejected or invalid response")
+    return True
 
 def push_signals(cands,events,dt):
     """Strict S19 alerts, plus one daily status notification when no candidate/data error occurs."""
@@ -284,8 +329,7 @@ def load_state():
     return json.loads(STATE_P.read_text(encoding="utf-8"))
 
 def save_state(st):
-    STATE_P.parent.mkdir(parents=True,exist_ok=True)
-    STATE_P.write_text(json.dumps(st,ensure_ascii=False,indent=2),encoding="utf-8")
+    atomic_json(STATE_P, st)
 
 def append_csv(path,row):
     path.parent.mkdir(parents=True,exist_ok=True)
@@ -295,62 +339,79 @@ def append_csv(path,row):
 def quote_simple(code):
     sec=("sh" if code.startswith("6") else "sz")+code
     try:
-        r=requests.get(
-            "https://qt.gtimg.cn/q="+sec,
-            headers={"User-Agent":UA,"Referer":"https://gu.qq.com/"},
-            timeout=10
-        )
-        arr=r.content.decode("gbk","ignore").split("~")
-        if len(arr)<6:
-            return None
-        return {
-            "name":arr[1],"price":fnum(arr[3]),
-            "prev_close":fnum(arr[4]),"open":fnum(arr[5])
-        }
+        response=requests.get("https://qt.gtimg.cn/q="+sec,
+            headers={"User-Agent":UA,"Referer":"https://gu.qq.com/"},timeout=10)
+        response.raise_for_status()
+        arr=response.content.decode("gbk","strict").split("~")
+        if len(arr)<49 or arr[2]!=code: return None
+        timestamp=datetime.strptime(arr[30],"%Y%m%d%H%M%S").replace(tzinfo=BJ)
+        return {"name":arr[1],"price":fnum(arr[3]),"prev_close":fnum(arr[4]),
+                "open":fnum(arr[5]),"volume":fnum(arr[6]),
+                "bid":fnum(arr[9]),"bid_size":fnum(arr[10]),
+                "ask":fnum(arr[19]),"ask_size":fnum(arr[20]),
+                "upper":fnum(arr[47]),"lower":fnum(arr[48]),"timestamp":timestamp}
     except Exception:
         return None
 
+def valid_quote(q,dt,max_age=None):
+    if not q or not isinstance(q.get("timestamp"),datetime): return False
+    age=(dt-q["timestamp"]).total_seconds()
+    return (q["timestamp"].date()==dt.date() and -5<=age<=(CFG["max_quote_age_seconds"] if max_age is None else max_age)
+            and q.get("price",0)>0 and q.get("volume",0)>0
+            and 0<q.get("lower",0)<q.get("upper",0)
+            and q["lower"]<=q["price"]<=q["upper"])
+
+def execution_quote(code,side,shares,dt):
+    if not trading_time(dt): return None
+    q=quote_simple(code)
+    if not valid_quote(q,dt): return None
+    book="ask" if side=="BUY" else "bid"
+    price=q.get(book,0)
+    # Tencent level-one sizes are in lots (100 shares). Conservative full-fill only.
+    if price<=0 or q.get(book+"_size",0)*100<shares: return None
+    if not q["lower"]<=price<=q["upper"]: return None
+    if side=="BUY" and (q["price"]>=q["upper"]-0.005 or price>=q["upper"]-0.005): return None
+    if side=="SELL" and (q["price"]<=q["lower"]+0.005 or price<=q["lower"]+0.005): return None
+    slipped=price*(1+(1 if side=="BUY" else -1)*CFG["slippage_bp"]/10000)
+    if not q["lower"]<slipped<q["upper"]: return None
+    fill=(math.ceil(slipped*100) if side=="BUY" else math.floor(slipped*100))/100
+    if not q["lower"]<fill<q["upper"]: return None
+    return q,fill
+
 def trade_days_held(entry_date, now_date):
-    a=datetime.strptime(entry_date,"%Y-%m-%d").date()
-    d=a
-    n=0
-    while d<now_date:
-        d+=timedelta(days=1)
-        if d.weekday()<5:
-            n+=1
-    return n
+    start=datetime.strptime(entry_date,"%Y-%m-%d").date()+timedelta(days=1)
+    if start>now_date: return 0
+    return len(calendar().sessions_in_range(str(start),str(now_date)))
 
 def process_exits(st,dt):
-    to_del=[]
+    events=[]
+    if not trading_time(dt): return events
     for code,p in list(st["positions"].items()):
-        q=quote_simple(code)
-        if not q or q["price"]<=0:
-            continue
         held=trade_days_held(p["entry_date"],dt.date())
-        reason=None
-        px=None
-        if q["price"]<=p["stop"] and held>=1:
-            reason="STOP"
-            px=q["price"]
-        elif held>=CFG["hold_days"]:
-            reason="HOLD5"
-            px=q["price"]
-        if not reason:
+        if held<1: continue  # T+1
+        q=quote_simple(code)
+        if not valid_quote(q,dt):
+            events.append(f"UNFILLED_SELL {code}｜行情缺失/过期")
             continue
+        reason="STOP" if q["price"]<=p["stop"] else ("HOLD5" if held>=CFG["hold_days"] else None)
+        if not reason: continue
+        execution=execution_quote(code,"SELL",p["shares"],now_bj())
+        if execution is None:
+            events.append(f"UNFILLED_SELL {code}｜无法确认可成交买盘")
+            continue
+        _,px=execution
         amount=p["shares"]*px
-        fee=amount*CFG["commission_bp_one_way"]/10000
+        fee=amount*(CFG["commission_bp_one_way"]+CFG["sell_tax_bp"])/10000
         st["cash"]+=amount-fee
-        append_csv(TRADES_P,[
-            dt.isoformat(),"SELL",code,p["name"],f"{px:.3f}",p["shares"],
-            f"{amount:.2f}",f"{fee:.2f}",reason,p.get("tag",""),
-            f"{st['cash']:.2f}"
-        ])
-        to_del.append(code)
-    for c in to_del:
-        del st["positions"][c]
+        append_csv(TRADES_P,[dt.isoformat(),"SELL",code,p["name"],f"{px:.2f}",p["shares"],
+            f"{amount:.2f}",f"{fee:.2f}",reason,p.get("tag",""),f"{st['cash']:.2f}"])
+        del st["positions"][code]
+        events.append(f"SELL {code} {p['name']} {p['shares']}股 @ {px:.2f}｜{reason}")
+    return events
 
 def process_entries(st,cands,dt):
     events=[]
+    if not trading_time(dt): return events
     for x in cands:
         if len(st["positions"])>=CFG["max_positions"]:
             break
@@ -369,17 +430,16 @@ def process_entries(st,cands,dt):
             events.append(f"UNFILLED {x['code']} {x['name']}｜接近封死")
             continue
 
-        fill=x["cur"]*(1+CFG["slippage_bp"]/10000)
-        if x["lim"]>0 and fill>=x["lim"]:
-            events.append(f"UNFILLED {x['code']} {x['name']}｜滑点后触及涨停")
+        execution=execution_quote(x["code"],"BUY",100,now_bj())
+        if execution is None:
+            events.append(f"UNFILLED {x['code']}｜行情/盘口不可确认成交")
             continue
-
-        budget=min(
-            CFG["initial_cash"]*CFG["position_fraction"],
-            st["cash"]*0.99
-        )
+        quote,fill=execution
+        budget=min(CFG["initial_cash"]*CFG["position_fraction"],st["cash"]*0.99)
         shares=int(budget/fill/100)*100
-        if shares<=0:
+        if shares<=0: continue
+        if quote["ask_size"]*100<shares:
+            events.append(f"UNFILLED {x['code']}｜卖一数量不足")
             continue
 
         amount=shares*fill
@@ -406,10 +466,19 @@ def process_entries(st,cands,dt):
 
 def mark_equity(st,dt):
     mv=0.0
+    stale=[]
     for code,p in st["positions"].items():
         q=quote_simple(code)
-        px=(q or {}).get("price") or p["entry"]
+        mark_valid=valid_quote(q,dt,180 if dt.strftime("%H:%M")>="15:00" else None)
+        if mark_valid:
+            p["last_mark"]=q["price"]
+            p["last_mark_time"]=q["timestamp"].isoformat()
+        px=p.get("last_mark",p["entry"])
+        if not mark_valid:
+            stale.append(code)
+            print(f"VALUATION_STALE {code}: using last mark/cost",flush=True)
         mv+=p["shares"]*px
+    st["valuation_stale_codes"]=stale
     eq=st["cash"]+mv
     append_csv(EQUITY_P,[
         dt.isoformat(),f"{st['cash']:.2f}",f"{mv:.2f}",
@@ -427,6 +496,7 @@ def write_report(st,dt,cands,events,mv,eq):
         f"- 持仓市值：¥{mv:,.2f}",
         f"- 总权益：¥{eq:,.2f}",
         f"- 收益率：{(eq/CFG['initial_cash']-1)*100:.2f}%","",
+        f"- 估值状态：{'含旧估值/成本价，非完整实时净值' if st.get('valuation_stale_codes') else '有效'}",
         "## 本次 S19 候选"
     ]
     if cands:
@@ -467,11 +537,12 @@ def main():
     st=load_state()
     events=[]
 
-    if dt.weekday()>=5:
+    if not is_session(dt.date()):
         print("weekend, skip")
         return 0
 
-    process_exits(st,dt)
+    events=process_exits(st,dt)
+    failed=False
     cands=[]
     hm=dt.strftime("%H:%M")
 
@@ -481,26 +552,28 @@ def main():
             cands=select_s19(pool)
             print(f"SCAN_OK {dt:%Y-%m-%d %H:%M:%S} pool={len(pool)} candidates={len(cands)}")
             if hm >= CFG["entry_start"]:
-                events=process_entries(st,cands,dt)
+                events+=process_entries(st,cands,now_bj())
             else:
-                events=[
+                events+=[
                     f"AUCTION_WATCH {x['code']} {x['name']}｜{x['role']}｜{x['theme']}｜"
                     f"{'已封板' if x['sealed'] else '竞价观察'}"
                     for x in cands
                 ]
         except Exception as e:
-            events=[f"DATA_ERROR {type(e).__name__}: {e}"]
-            print(events[0])
+            failed=True
+            events.append(f"DATA_ERROR {type(e).__name__}: {e}")
+            print(events[-1])
 
     st["last_scan_date"]=dt.strftime("%Y-%m-%d")
     st["last_scan_time"]=dt.strftime("%H:%M:%S")
-    mv,eq=mark_equity(st,dt)
+    mv,eq=mark_equity(st,now_bj())
+    failed=failed or bool(st.get("valuation_stale_codes")) or any("行情缺失/过期" in e for e in events)
     save_state(st)
     # Push notifications run in the independent s19-signal-push workflow.
     write_report(st,dt,cands,events,mv,eq)
 
     print("\n".join(events) if events else "no trade")
-    return 0
+    return 1 if failed else 0
 
 if __name__=="__main__":
     raise SystemExit(main())

@@ -14,6 +14,7 @@ from collections import defaultdict
 from datetime import date, timedelta
 from pathlib import Path
 import requests
+from s19_paper import is_session, fetch_pool
 
 ROOT = Path(__file__).resolve().parents[1]
 CFG = json.loads((ROOT / "config.json").read_text(encoding="utf-8"))
@@ -53,43 +54,17 @@ def get_pool(day, session):
         data = json.loads(path.read_text(encoding="utf-8"))
         if isinstance(data, list):
             return data
-    url = "https://data.10jqka.com.cn/dataapi/limit_up/limit_up_pool"
-    params = {"page": 1, "limit": 200, "field": FIELDS, "filter": "HS,GEM2STAR",
-              "order_field": "330324", "order_type": "0", "date": day}
     for attempt in range(3):
         try:
-            r = session.get(url, params=params,
-                headers={"User-Agent": UA, "Referer":"https://data.10jqka.com.cn/market/longhu/"},
-                timeout=25)
-            r.raise_for_status()
-            payload = r.json()
-            if payload.get("status_code") not in (None, 0):
-                raise ValueError(f"THS status_code={payload.get('status_code')}")
-            block = payload.get("data") or {}
-            info = block.get("info")
-            if not isinstance(info, list):
-                raise ValueError("missing data.info")
-            total = int((block.get("page") or {}).get("total") or len(info))
-            page_no = 1
-            while len(info) < total:
-                page_no += 1
-                next_params = dict(params, page=page_no)
-                more = session.get(url, params=next_params,
-                    headers={"User-Agent": UA, "Referer":"https://data.10jqka.com.cn/market/longhu/"},
-                    timeout=25)
-                more.raise_for_status()
-                next_info = (more.json().get("data") or {}).get("info") or []
-                if not next_info:
-                    raise ValueError(f"pagination incomplete: {len(info)}/{total}")
-                info.extend(next_info)
-            # 0 rows: likely holiday; don't cache to avoid mistaking throttling for zero signals.
+            info=fetch_pool(day, timeout=25, session=session)
             if info:
-                path.write_text(json.dumps(info, ensure_ascii=False), encoding="utf-8")
+                path.write_text(json.dumps(info,ensure_ascii=False),encoding="utf-8")
             return info
         except (requests.RequestException, ValueError) as exc:
-            if attempt == 2:
+            if attempt==2:
                 raise RuntimeError(f"{day}: {exc}") from exc
-            time.sleep(2 * (attempt + 1))
+            time.sleep(2*(attempt+1))
+
 
 def normalize(item, broad):
     code = str(item.get("code") or "").zfill(6)
@@ -125,15 +100,13 @@ def select(items, broad):
             candidates.append((theme,members[1],"二龙头",count))
     candidates.sort(key=lambda t:(-t[3],-t[1]["streak"],t[1]["first"]))
     out = []
-    used_themes=set()
     used_codes=set()
     for theme,x,role,num in candidates:
         if len(out)>=int(CFG["top_n"]): break
-        if theme in used_themes or x["code"] in used_codes: continue
+        if x["code"] in used_codes: continue
         out.append({"code":x["code"],"name":x["name"],"theme":theme,
                     "role":role,"streak":x["streak"],"theme_sealed":num,
                     "eod_sealed":x["sealed"]})
-        used_themes.add(theme)
         used_codes.add(x["code"])
     return out
 
@@ -153,7 +126,7 @@ def main():
     seen={"strict":set(),"broad":set()}
     s=requests.Session()
     while d<=end:
-        if d.weekday()<5:
+        if is_session(d):
             day=d.strftime("%Y%m%d")
             try:
                 pool=get_pool(day,s)
@@ -162,7 +135,7 @@ def main():
                 missing.append(day)
                 d+=timedelta(days=1)
                 continue
-            if pool:
+            if pool is not None:
                 sessions+=1
                 a=select(pool,False)
                 b=select(pool,True)
@@ -203,6 +176,7 @@ def main():
     }
     (OUTPUT/"summary.json").write_text(json.dumps(summary,ensure_ascii=False,indent=2),encoding="utf-8")
     print(json.dumps(summary,ensure_ascii=False,indent=2),flush=True)
+    return 1 if missing else 0
 
 if __name__=="__main__":
-    main()
+    raise SystemExit(main())

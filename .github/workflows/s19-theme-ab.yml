@@ -32,5 +32,6 @@ jobs:
           git add outputs/ab_theme_20251001_20260930/
           if ! git diff --cached --quiet; then
             git commit -m "research: update strict vs broad S19 theme audit"
+            git pull --rebase origin main
             git push
           fi

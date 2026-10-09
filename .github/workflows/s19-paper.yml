@@ -3,8 +3,8 @@ name: S19 20万模拟仓
 on:
   workflow_dispatch:
   schedule:
-    # GitHub cron 使用 UTC；北京时间 08:45 = UTC 00:45，提前启动并等待监控窗口。
-    - cron: '45 0 * * 1-5'
+    # GitHub cron 使用 UTC；北京时间 09:05 = UTC 01:05，保留开盘前等待且适配托管任务 6 小时上限。
+    - cron: '5 1 * * 1-5'
 
 permissions:
   contents: write
@@ -16,7 +16,7 @@ concurrency:
 jobs:
   paper:
     runs-on: ubuntu-latest
-    timeout-minutes: 180
+    timeout-minutes: 360
     steps:
       - uses: actions/checkout@v4
 
@@ -32,14 +32,25 @@ jobs:
           S19_SCAN_INTERVAL_SECONDS: '30'
         run: python src/run_continuous.py
 
+      - name: Preserve diagnostics and account snapshot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper-state-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            state/account.json
+            logs/
+            outputs/latest.md
       - name: Persist paper state
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add state logs outputs
+          git add state/account.json logs outputs/latest.md
           if git diff --cached --quiet; then
             echo "No state changes"
           else
             git commit -m "paper: update S19 simulated account"
+            git pull --rebase origin main
             git push
           fi

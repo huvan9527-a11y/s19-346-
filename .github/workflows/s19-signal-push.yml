@@ -28,8 +28,24 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Daily deduplication key
+        id: day
+        env:
+          TZ: Asia/Shanghai
+        run: echo "date=$(date +%F)" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache/restore@v4
+        with:
+          path: state/push_state.json
+          key: s19-push-${{ steps.day.outputs.date }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: s19-push-${{ steps.day.outputs.date }}-
       - name: Scan and push strict S19 signals independently
         env:
           TZ: Asia/Shanghai
           SERVERCHAN_SENDKEY: ${{ secrets.SERVERCHAN_SENDKEY }}
         run: python src/run_signal_continuous.py
+
+      - uses: actions/cache/save@v4
+        if: always() && steps.day.outputs.date != ''
+        with:
+          path: state/push_state.json
+          key: s19-push-${{ steps.day.outputs.date }}-${{ github.run_id }}-${{ github.run_attempt }}
