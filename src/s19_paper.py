@@ -72,7 +72,7 @@ def parse_preview(raw):
             pass
     return out
 
-def fetch_pool(date_yyyymmdd):
+def fetch_pool(date_yyyymmdd, timeout=20):
     url="https://data.10jqka.com.cn/dataapi/limit_up/limit_up_pool"
     params={
         "page":1,"limit":200,"field":THS_FIELD,
@@ -82,7 +82,7 @@ def fetch_pool(date_yyyymmdd):
     r=requests.get(
         url, params=params,
         headers={"User-Agent":UA,"Referer":"https://data.10jqka.com.cn/market/longhu/"},
-        timeout=20
+        timeout=timeout
     )
     r.raise_for_status()
     js=r.json()
