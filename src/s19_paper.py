@@ -496,7 +496,7 @@ def main():
     st["last_scan_time"]=dt.strftime("%H:%M:%S")
     mv,eq=mark_equity(st,dt)
     save_state(st)
-    push_signals(cands,events,dt)
+    # Push notifications run in the independent s19-signal-push workflow.
     write_report(st,dt,cands,events,mv,eq)
 
     print("\n".join(events) if events else "no trade")
