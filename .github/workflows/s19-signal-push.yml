@@ -1,0 +1,35 @@
+name: S19 实时信号推送
+
+on:
+  workflow_dispatch:
+  schedule:
+    # GitHub cron uses UTC; 00:45 UTC = 08:45 Beijing.
+    # Start early to absorb queue delay; actual monitoring begins at 09:15 Beijing.
+    - cron: '45 0 * * 1-5'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: s19-signal-push
+  cancel-in-progress: false
+
+jobs:
+  signal:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Scan and push strict S19 signals independently
+        env:
+          TZ: Asia/Shanghai
+          SERVERCHAN_SENDKEY: ${{ secrets.SERVERCHAN_SENDKEY }}
+        run: python src/run_signal_continuous.py
