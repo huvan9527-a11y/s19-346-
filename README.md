@@ -32,3 +32,7 @@ python -m unittest discover -s tests -v
 ```
 
 回归测试使用构造行情，不访问市场、不推送消息、不改真实账户。推送格式测试 `replay_push_test.py` 会真的发送测试通知，只供手工运行。
+
+## 上午回顾按钮
+
+打开 Actions → S19 上午回顾 → Run workflow。日期留空表示北京时间今天，或输入 YYYY-MM-DD。运行结束后点击任务 Summary 查看回顾，或下载 morning-review 文件包中的 Markdown / JSON。只读扫描和推送日志，不发送通知、不修改账户、不补造盘中成交；已过期或仍在运行的日志会标记缺失。
