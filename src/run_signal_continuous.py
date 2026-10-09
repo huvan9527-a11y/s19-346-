@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """Independent S19 live-signal scanner. Does not touch the simulated account."""
+import json
 import os
 import sys
 import time
@@ -15,6 +16,16 @@ INTERVAL = 5
 
 def hm(dt):
     return dt.strftime("%H:%M")
+
+def journal(dt, record):
+    # Local append only: never delay signal delivery for extra market requests.
+    try:
+        path=ROOT/"logs"/"signals"/f"{dt:%Y-%m-%d}.jsonl"
+        path.parent.mkdir(parents=True,exist_ok=True)
+        with path.open("a",encoding="utf-8") as f:
+            f.write(json.dumps({"time":dt.isoformat(),**record},ensure_ascii=False)+"\n")
+    except OSError as exc:
+        print(f"JOURNAL_ERROR {type(exc).__name__}",flush=True)
 
 def run_once():
     dt = s19.now_bj()
@@ -32,13 +43,16 @@ def run_once():
             f"pool={len(pool)} candidates={len(cands)}",
             flush=True,
         )
+        journal(dt,{"status":"SCAN_OK","pool":pool,"candidates":cands})
         # No simulated BUY/SELL events are passed here: alerts reflect the
         # strict S19 market signal; simulated fills remain in the paper workflow.
         s19.push_signals(cands, [], dt)
+        journal(dt,{"status":"PUSH_COMPLETE","sent":s19.load_push_state(dt).get("sent",[])})
         return True
     except Exception as exc:
         event = f"DATA_ERROR {type(exc).__name__}: {exc}"
         print(event, flush=True)
+        journal(dt,{"status":"ERROR","error":event})
         try:
             s19.push_signals([], [event], dt)
         except Exception as push_exc:
@@ -53,6 +67,7 @@ def main():
         print("non-trading day, skip", flush=True)
         return 0
 
+    print(f"SIGNAL_START {dt.isoformat()} window={s19.CFG['monitor_start']}–{s19.CFG['scan_end']} interval={INTERVAL}s",flush=True)
     start = s19.CFG["monitor_start"]
     end = s19.CFG["scan_end"]
 

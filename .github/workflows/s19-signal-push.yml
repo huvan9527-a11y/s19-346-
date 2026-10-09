@@ -49,3 +49,13 @@ jobs:
         with:
           path: state/push_state.json
           key: s19-push-${{ steps.day.outputs.date }}-${{ github.run_id }}-${{ github.run_attempt }}
+
+      - name: Preserve signal snapshots and delivery state
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: signal-review-${{ github.run_id }}-${{ github.run_attempt }}
+          retention-days: 30
+          path: |
+            logs/signals/
+            state/push_state.json

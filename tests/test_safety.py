@@ -8,6 +8,7 @@ from unittest.mock import patch,Mock
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'src'))
 import s19_paper as s
 import run_signal_continuous as signal
+import run_continuous as paper
 
 DT=datetime(2026,10,9,10,0,tzinfo=s.BJ)
 
@@ -23,6 +24,7 @@ class Safety(unittest.TestCase):
         self.addCleanup(self.tmp.cleanup)
         for name in ('TRADES_P','STATE_P','EQUITY_P','OUT_P','PUSH_STATE_P'):
             p=patch.object(s,name,Path(self.tmp.name)/name);p.start();self.addCleanup(p.stop)
+        journal_root=patch.object(signal,'ROOT',Path(self.tmp.name));journal_root.start();self.addCleanup(journal_root.stop)
         self.clock=patch.object(s,'now_bj',return_value=DT);self.clock.start();self.addCleanup(self.clock.stop)
     def test_holidays_and_holding_sessions(self):
         self.assertFalse(s.is_session('2026-10-01'))
@@ -140,6 +142,45 @@ class Safety(unittest.TestCase):
             self.assertEqual(s.main(),1)
             entries.assert_not_called()
         self.assertEqual(json.loads(s.STATE_P.read_text())['cash'],200000)
+    def test_signal_runner_waits_and_scans(self):
+        times=[DT.replace(hour=8,minute=45),DT.replace(hour=9,minute=14),
+               DT.replace(hour=9,minute=15),DT.replace(hour=9,minute=15),DT.replace(hour=10,minute=58)]
+        with patch.object(s,'now_bj',side_effect=times),patch.dict('os.environ',{'SERVERCHAN_SENDKEY':'test'}),patch.object(signal,'run_once',return_value=True) as scan,patch.object(signal.time,'sleep'):
+            self.assertEqual(signal.main(),0)
+            self.assertEqual(scan.call_count,1)
+    def test_signal_runner_late_fails(self):
+        with patch.object(s,'now_bj',return_value=DT.replace(hour=11)),patch.dict('os.environ',{'SERVERCHAN_SENDKEY':'test'}),patch.object(signal,'run_once') as scan:
+            self.assertEqual(signal.main(),1)
+            scan.assert_not_called()
+    def test_signal_holiday_skips(self):
+        with patch.object(s,'now_bj',return_value=DT.replace(day=1)),patch.dict('os.environ',{'SERVERCHAN_SENDKEY':'test'}),patch.object(signal,'run_once') as scan:
+            self.assertEqual(signal.main(),0)
+            scan.assert_not_called()
+    def test_paper_runner_late_fails(self):
+        with patch.object(s,'now_bj',return_value=DT.replace(hour=15,minute=2)),patch.object(paper,'run_once') as scan:
+            self.assertEqual(paper.main(),1)
+            scan.assert_not_called()
+    def test_paper_runner_afternoon_exit_and_close(self):
+        times=[DT.replace(hour=13),DT.replace(hour=13),DT.replace(hour=13),
+               DT.replace(hour=13),DT.replace(hour=15,minute=1),DT.replace(hour=15,minute=1),
+               DT.replace(hour=15,minute=2)]
+        with patch.object(s,'now_bj',side_effect=times),patch.object(paper,'run_once',return_value=0) as scan,patch.object(paper.time,'sleep'):
+            self.assertEqual(paper.main(),0)
+            self.assertEqual(scan.call_count,2)
+    def test_signal_snapshots_survive_push_failure(self):
+        with patch.object(s,'fetch_pool',return_value=[{'code':'600001'}]),patch.object(s,'select_s19',return_value=[]),patch.object(s,'serverchan_send',side_effect=RuntimeError('failed')):
+            self.assertFalse(signal.run_once())
+        records=[json.loads(line) for line in (signal.ROOT/'logs/signals/2026-10-09.jsonl').read_text().splitlines()]
+        self.assertEqual(records[0]['status'],'SCAN_OK')
+        self.assertEqual(records[0]['pool'][0]['code'],'600001')
+        self.assertEqual(records[1]['status'],'ERROR')
+    def test_serverchan_rejects_bad_payload_and_redacts_url(self):
+        with patch.dict('os.environ',{'SERVERCHAN_SENDKEY':'fake-secret'}):
+            with patch.object(s.requests,'post',return_value=Mock(json=lambda:{'code':1})):
+                with self.assertRaises(RuntimeError): s.serverchan_send('test','test')
+            with patch.object(s.requests,'post',side_effect=RuntimeError('https://fake-secret.send')):
+                with self.assertRaises(RuntimeError) as error: s.serverchan_send('test','test')
+                self.assertNotIn('fake-secret',str(error.exception))
     def test_quote_parser(self):
         arr=['0']*49
         for index,value in {1:'demo',2:'600001',3:'10',4:'10',5:'10',6:'10000',9:'9.99',10:'1000',19:'10.01',20:'1000',30:'20261009100000',47:'11',48:'9'}.items(): arr[index]=value
