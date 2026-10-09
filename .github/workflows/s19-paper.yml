@@ -3,9 +3,8 @@ name: S19 20万模拟仓
 on:
   workflow_dispatch:
   schedule:
-    # GitHub cron 使用 UTC；北京时间 09:10 = UTC 01:10。
-    # 提前启动以吸收 GitHub 排队延迟；09:15开始监控，09:30后才允许模拟买入。
-    - cron: '10 1 * * 1-5'
+    # GitHub cron 使用 UTC；北京时间 08:45 = UTC 00:45，提前启动并等待监控窗口。
+    - cron: '45 0 * * 1-5'
 
 permissions:
   contents: write
@@ -17,7 +16,7 @@ concurrency:
 jobs:
   paper:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 180
     steps:
       - uses: actions/checkout@v4
 
@@ -31,7 +30,6 @@ jobs:
         env:
           TZ: Asia/Shanghai
           S19_SCAN_INTERVAL_SECONDS: '15'
-          SERVERCHAN_SENDKEY: ${{ secrets.SERVERCHAN_SENDKEY }}
         run: python src/run_continuous.py
 
       - name: Persist paper state
