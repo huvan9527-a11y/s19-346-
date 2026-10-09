@@ -47,6 +47,9 @@ def main():
     while hm() < start:
         time.sleep(min(INTERVAL, 15))
 
+    # Signal scanner has priority: let it make the first request and reduce shared upstream load.
+    time.sleep(10)
+
     # If GitHub schedules us late but still inside the window, begin immediately.
     # Re-scan continuously until the cutoff.
     while hm() <= end:
