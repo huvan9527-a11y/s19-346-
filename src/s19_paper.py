@@ -213,15 +213,36 @@ def serverchan_send(title, desp):
         return False
 
 def push_signals(cands,events,dt):
-    """严格 S19：每只股票同一状态在当日只推送一次。"""
-    if not cands:
-        return
-    by_code={x["code"]:x for x in cands}
+    """Strict S19 alerts, plus one daily status notification when no candidate/data error occurs."""
+    in_window = CFG["monitor_start"] <= dt.strftime("%H:%M") <= CFG["scan_end"]
     ps=load_push_state(dt)
     sent=set(ps.get("sent",[]))
+
+    if not cands:
+        if not in_window:
+            return
+        error_event=next((e for e in events if e.startswith("DATA_ERROR")),None)
+        stage="DATA_ERROR" if error_event else "NO_SIGNAL"
+        key=f"STATUS|{stage}"
+        if key not in sent:
+            title="S19 数据获取异常" if error_event else "S19 扫描正常｜暂无严格信号"
+            detail=error_event if error_event else "本轮扫描完成，当前没有股票同时满足严格 S19 条件。"
+            desc=(
+                f"信号发现时间：{dt:%H:%M:%S}（北京时间）\n\n"
+                f"扫描状态：{detail}\n\n"
+                "说明：这是扫描状态提示，不是买入信号。"
+            )
+            if serverchan_send(title,desc):
+                sent.add(key)
+                ps["sent"]=sorted(sent)
+                save_push_state(ps)
+                print(f"PUSH_OK {key}")
+        return
+
+    by_code={x["code"]:x for x in cands}
     event_by_code={}
     for event in events:
-        m=re.match(r"^(BUY|UNFILLED)\\s+(\\d{6})\\b",event)
+        m=re.match(r"^(BUY|UNFILLED)\s+(\d{6})\b",event)
         if m:
             event_by_code[m.group(2)]=m.group(1)
     for code,x in by_code.items():
@@ -242,13 +263,13 @@ def push_signals(cands,events,dt):
             continue
         title=f"S19 {stage_cn}｜{x['name']}"
         desc=(
-            f"信号发现时间：{dt:%H:%M:%S}（北京时间）\\n\\n"
-            f"股票：{x['name']} {code}\\n\\n"
-            f"题材：{x['theme']}（严格原始题材）\\n\\n"
-            f"题材封板：{x['theme_sealed']}只\\n\\n"
-            f"连板：{x['streak']}板\\n\\n"
-            f"地位：{x['role']}\\n\\n"
-            f"执行状态：{stage}（{stage_cn}）\\n\\n"
+            f"信号发现时间：{dt:%H:%M:%S}（北京时间）\n\n"
+            f"股票：{x['name']} {code}\n\n"
+            f"题材：{x['theme']}（严格原始题材）\n\n"
+            f"题材封板：{x['theme_sealed']}只\n\n"
+            f"连板：{x['streak']}板\n\n"
+            f"地位：{x['role']}\n\n"
+            f"执行状态：{stage}（{stage_cn}）\n\n"
             "说明：信号发现时间为扫描时间，不代表真实可成交时刻。"
         )
         if serverchan_send(title,desc):
@@ -458,6 +479,7 @@ def main():
         try:
             pool=fetch_pool(dt.strftime("%Y%m%d"))
             cands=select_s19(pool)
+            print(f"SCAN_OK {dt:%Y-%m-%d %H:%M:%S} pool={len(pool)} candidates={len(cands)}")
             if hm >= CFG["entry_start"]:
                 events=process_entries(st,cands,dt)
             else:
@@ -468,6 +490,7 @@ def main():
                 ]
         except Exception as e:
             events=[f"DATA_ERROR {type(e).__name__}: {e}"]
+            print(events[0])
 
     st["last_scan_date"]=dt.strftime("%Y-%m-%d")
     st["last_scan_time"]=dt.strftime("%H:%M:%S")
