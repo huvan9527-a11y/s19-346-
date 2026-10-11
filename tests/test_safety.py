@@ -20,6 +20,8 @@ def quote(**changes):
 
 class Safety(unittest.TestCase):
     def setUp(self):
+        gate_patch=patch.object(s.market_gate,"get_gate",return_value={"allowed":True,"index_pct":1.0,"opening_limit_down":0,"reason":"ok","date":"2026-10-09"})
+        gate_patch.start();self.addCleanup(gate_patch.stop)
         self.tmp=tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
         for name in ('TRADES_P','STATE_P','EQUITY_P','OUT_P','PUSH_STATE_P'):
@@ -173,7 +175,7 @@ class Safety(unittest.TestCase):
         records=[json.loads(line) for line in (signal.ROOT/'logs/signals/2026-10-09.jsonl').read_text().splitlines()]
         self.assertEqual(records[0]['status'],'SCAN_OK')
         self.assertEqual(records[0]['pool'][0]['code'],'600001')
-        self.assertEqual(records[1]['status'],'ERROR')
+        self.assertEqual(records[-1]['status'],'ERROR')
     def test_serverchan_rejects_bad_payload_and_redacts_url(self):
         with patch.dict('os.environ',{'SERVERCHAN_SENDKEY':'fake-secret'}):
             with patch.object(s.requests,'post',return_value=Mock(json=lambda:{'code':1})):

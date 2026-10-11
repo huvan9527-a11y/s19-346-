@@ -18,6 +18,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
 import requests
+import market_gate
 
 ROOT = Path(__file__).resolve().parents[1]
 CFG = json.loads((ROOT / "config.json").read_text(encoding="utf-8"))
@@ -280,7 +281,7 @@ def serverchan_send(title, desp):
         raise RuntimeError("notification rejected or invalid response")
     return True
 
-def push_signals(cands,events,dt):
+def push_signals(cands,events,dt,gate=None):
     """Strict S19 alerts, plus one daily status notification when no candidate/data error occurs."""
     in_window = CFG["monitor_start"] <= dt.strftime("%H:%M") <= CFG["scan_end"]
     ps=load_push_state(dt)
@@ -337,7 +338,8 @@ def push_signals(cands,events,dt):
             f"题材封板：{x['theme_sealed']}只\n\n"
             f"连板：{x['streak']}板\n\n"
             f"地位：{x['role']}\n\n"
-            f"执行状态：{stage}（{stage_cn}）\n\n"
+            f"执行状态：{stage}（{stage_cn}）\n\n"+
+            ((market_gate.description(gate)+"\n\n") if gate else "")+
             "说明：信号发现时间为扫描时间，不代表真实可成交时刻。"
         )
         if serverchan_send(title,desc):
@@ -345,6 +347,19 @@ def push_signals(cands,events,dt):
             ps["sent"]=sorted(sent)
             save_push_state(ps)
             print(f"PUSH_OK {key}")
+
+def push_market_gate_warning(gate,dt):
+    if dt.strftime("%H:%M")<CFG["entry_start"]: return
+    causes=[]
+    if gate["index_pct"] is not None and gate["index_pct"]<=0: causes.append("INDEX_NONPOSITIVE")
+    if gate["opening_limit_down"] is not None and gate["opening_limit_down"]>CFG.get("max_open_limit_down",10): causes.append("OPEN_LIMITDOWN_GT10")
+    if not causes: return
+    ps=load_push_state(dt);sent=set(ps.get("sent",[]))
+    new=[cause for cause in causes if "STATUS|MARKET_GATE|"+cause not in sent]
+    if not new: return
+    serverchan_send("S19 风险提醒｜禁止模拟新开仓",f"{dt:%H:%M:%S} 北京时间\n\n"+market_gate.description(gate)+"\n\n已有持仓退出和原选股信号推送不受此开仓限制影响。")
+    sent.update("STATUS|MARKET_GATE|"+cause for cause in new)
+    ps["sent"]=sorted(sent);save_push_state(ps)
 
 def load_state():
     if not STATE_P.exists():
@@ -435,6 +450,10 @@ def process_exits(st,dt):
 def process_entries(st,cands,dt):
     events=[]
     if not trading_time(dt): return events
+    gate=market_gate.get_gate(dt,CFG,start_worker=False)
+    st["market_gate"]=gate
+    if not gate["allowed"]:
+        return ["ENTRY_BLOCKED "+market_gate.description(gate)]
     for x in cands:
         if len(st["positions"])>=CFG["max_positions"]:
             break
@@ -520,6 +539,7 @@ def write_report(st,dt,cands,events,mv,eq):
         f"- 总权益：¥{eq:,.2f}",
         f"- 收益率：{(eq/CFG['initial_cash']-1)*100:.2f}%","",
         f"- 估值状态：{'含旧估值/成本价，非完整实时净值' if st.get('valuation_stale_codes') else '有效'}",
+        "- "+market_gate.description(st["market_gate"]) if st.get("market_gate") else "- 开仓门槛：本轮未评估",
         "## 本次 S19 候选"
     ]
     if cands:

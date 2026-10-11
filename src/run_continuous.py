@@ -5,6 +5,7 @@ import subprocess
 import sys
 import time
 import s19_paper as s19
+import market_gate
 
 INTERVAL=int(os.getenv('S19_SCAN_INTERVAL_SECONDS','30'))
 
@@ -22,6 +23,8 @@ def main():
     while s19.now_bj().strftime('%H:%M')<=s19.CFG['paper_end']:
         dt=s19.now_bj()
         hm=dt.strftime('%H:%M')
+        if hm<=s19.CFG['scan_end']:
+            market_gate.get_gate(dt,s19.CFG)
         if hm<=s19.CFG['scan_end'] or s19.trading_time(dt) or hm>='15:00':
             scans+=1
             failed=(run_once()!=0) or failed

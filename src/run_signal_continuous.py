@@ -10,6 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
+import market_gate
 import s19_paper as s19  # shared market-data and strict S19 selection rules
 
 INTERVAL = 5
@@ -46,7 +47,10 @@ def run_once():
         journal(dt,{"status":"SCAN_OK","pool":pool,"candidates":cands})
         # No simulated BUY/SELL events are passed here: alerts reflect the
         # strict S19 market signal; simulated fills remain in the paper workflow.
-        s19.push_signals(cands, [], dt)
+        gate=market_gate.get_gate(s19.now_bj(),s19.CFG)
+        journal(dt,{"status":"MARKET_GATE","gate":gate})
+        s19.push_signals(cands, [], dt,gate=gate)
+        s19.push_market_gate_warning(gate,dt)
         journal(dt,{"status":"PUSH_COMPLETE","sent":s19.load_push_state(dt).get("sent",[])})
         return True
     except Exception as exc:

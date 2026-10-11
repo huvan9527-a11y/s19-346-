@@ -39,6 +39,7 @@ jobs:
           name: paper-state-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             state/account.json
+            state/market_gate.json
             logs/
             outputs/latest.md
       - name: Persist paper state
