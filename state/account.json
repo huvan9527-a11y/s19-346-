@@ -1,6 +1,16 @@
 {
   "cash": 200000.0,
   "positions": {},
-  "last_scan_date": "2026-10-08",
-  "last_scan_time": "11:14:27"
+  "last_scan_date": "2026-10-12",
+  "last_scan_time": "15:01:49",
+  "pool_date": "2026-10-12",
+  "pool_seen_nonempty": true,
+  "valuation_stale_codes": [],
+  "market_gate": {
+    "allowed": false,
+    "index_pct": null,
+    "opening_limit_down": null,
+    "reason": "883958涨幅不可用/过期；开盘跌停家数不可用/统计中",
+    "date": "2026-10-12"
+  }
 }
