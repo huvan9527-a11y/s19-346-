@@ -203,7 +203,18 @@ def main():
         print("non-trading day, skip", flush=True)
         return 0
 
-    candidates, source_day = prepare_premarket_pool(dt)
+    try:
+        candidates, source_day = prepare_premarket_pool(dt)
+    except Exception as exc:
+        event = f"DATA_ERROR {type(exc).__name__}: {exc}"
+        print(event, flush=True)
+        journal(dt, {"status": "ERROR", "error": event})
+        try:
+            s19.push_signals([], [event], dt)
+        except Exception as push_exc:
+            print(f"STATUS_PUSH_ERROR {type(push_exc).__name__}: {push_exc}", flush=True)
+        return 1
+
     print(
         f"SIGNAL_START {dt.isoformat()} window={s19.CFG['monitor_start']}–"
         f"{s19.CFG['scan_end']} interval={INTERVAL}s",
