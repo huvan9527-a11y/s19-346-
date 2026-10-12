@@ -130,13 +130,11 @@ class Safety(unittest.TestCase):
         with patch.object(s,'fetch_pool',return_value=[]),patch.object(s.time,'sleep'):
             self.assertEqual(s.fetch_live_pool(DT,health),[])
         self.assertFalse(health['pool_seen_nonempty'])
-    def test_signal_empty_anomaly_never_sends_no_signal(self):
-        s.save_push_state({'date':'2026-10-09','sent':[],
-                           'pool_date':'2026-10-09','pool_seen_nonempty':True})
-        with patch.object(s,'fetch_pool',return_value=[]),patch.object(s.time,'sleep'),patch.object(s,'serverchan_send',return_value=True) as send:
-            self.assertFalse(signal.run_once())
+    def test_signal_empty_premarket_pool_reports_observation_only(self):
+        with patch.object(signal,'prepare_premarket_pool',return_value=([],'2026-10-08')),patch.object(s,'serverchan_send',return_value=True) as send:
+            self.assertTrue(signal.run_once())
             self.assertEqual(send.call_count,1)
-            self.assertEqual(send.call_args.args[0],'S19 数据获取异常')
+            self.assertIn('暂无候选',send.call_args.args[0])
         self.assertNotIn('STATUS|NO_SIGNAL',s.load_push_state(DT)['sent'])
     def test_paper_empty_anomaly_is_failure_without_old_signals(self):
         s.save_state({'cash':200000,'positions':{},'pool_date':'2026-10-09','pool_seen_nonempty':True})
@@ -170,12 +168,21 @@ class Safety(unittest.TestCase):
             self.assertEqual(paper.main(),0)
             self.assertEqual(scan.call_count,2)
     def test_signal_snapshots_survive_push_failure(self):
-        with patch.object(s,'fetch_pool',return_value=[{'code':'600001'}]),patch.object(s,'select_s19',return_value=[]),patch.object(s,'serverchan_send',side_effect=RuntimeError('failed')):
+        with patch.object(signal,'prepare_premarket_pool',return_value=([],'2026-10-08')),patch.object(s,'serverchan_send',side_effect=RuntimeError('failed')):
             self.assertFalse(signal.run_once())
         records=[json.loads(line) for line in (signal.ROOT/'logs/signals/2026-10-09.jsonl').read_text().splitlines()]
-        self.assertEqual(records[0]['status'],'SCAN_OK')
-        self.assertEqual(records[0]['pool'][0]['code'],'600001')
         self.assertEqual(records[-1]['status'],'ERROR')
+    def test_near_limit_alert_requires_fresh_quote(self):
+        candidate=dict(code='600001',name='demo',theme='theme',role='龙头',streak=2)
+        with patch.object(s,'quote_simple',return_value=quote(price=10.5)),patch.object(s,'serverchan_send',return_value=True) as send:
+            self.assertTrue(signal.run_once([candidate],'2026-10-08'))
+            send.assert_not_called()
+        with patch.object(s,'quote_simple',return_value=quote(price=10.9,timestamp=DT-timedelta(seconds=16))),patch.object(s,'serverchan_send',return_value=True) as send:
+            self.assertTrue(signal.run_once([candidate],'2026-10-08'))
+            send.assert_not_called()
+        with patch.object(s,'quote_simple',return_value=quote(price=10.9)),patch.object(s,'serverchan_send',return_value=True) as send:
+            self.assertTrue(signal.run_once([candidate],'2026-10-08'))
+            self.assertEqual(send.call_count,1)
     def test_serverchan_rejects_bad_payload_and_redacts_url(self):
         with patch.dict('os.environ',{'SERVERCHAN_SENDKEY':'fake-secret'}):
             with patch.object(s.requests,'post',return_value=Mock(json=lambda:{'code':1})):
