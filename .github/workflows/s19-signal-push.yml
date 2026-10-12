@@ -38,9 +38,10 @@ jobs:
           path: |
             state/push_state.json
             state/market_gate.json
+            state/premarket_candidates.json
           key: s19-push-${{ steps.day.outputs.date }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: s19-push-${{ steps.day.outputs.date }}-
-      - name: Scan and push strict S19 signals independently
+      - name: Prepare prior-close S19 watchlist and monitor live quotes
         env:
           TZ: Asia/Shanghai
           SERVERCHAN_SENDKEY: ${{ secrets.SERVERCHAN_SENDKEY }}
