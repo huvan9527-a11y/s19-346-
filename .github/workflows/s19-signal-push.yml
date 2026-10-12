@@ -66,3 +66,4 @@ jobs:
             logs/signals/
             state/push_state.json
             state/market_gate.json
+            state/premarket_candidates.json
