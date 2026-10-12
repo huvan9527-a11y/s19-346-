@@ -102,9 +102,6 @@ def run_once(candidates=None, source_day=None):
         return True
     if not (s19.CFG["monitor_start"] <= hm(dt) <= s19.CFG["scan_end"]):
         return True
-    if hm(dt) < s19.CFG["entry_start"]:
-        return True
-
     try:
         if candidates is None:
             candidates, source_day = prepare_premarket_pool(dt)
@@ -143,9 +140,18 @@ def run_once(candidates=None, source_day=None):
 
             status = "WATCH"
             if gap <= PRESEAL_BUFFER_POINTS:
-                status = "PRESEAL"
-                key = f"{code}|PRESEAL"
+                in_auction = hm(dt) < s19.CFG["entry_start"]
+                status = "AUCTION_NEAR_LIMIT" if in_auction else "PRESEAL"
+                key = f"{code}|{status}"
                 quote_age = max(0.0, (dt - quote["timestamp"]).total_seconds())
+                if in_auction:
+                    title = f"S19 竞价临近涨停观察｜{candidate.get('name', code)}"
+                    lead = "这是集合竞价阶段的参考价提醒；开盘价及连续竞价走势仍可能变化。"
+                    ending = "仅作候选观察，不代表买入指令或保证可成交。"
+                else:
+                    title = f"S19 封板前提醒｜{candidate.get('name', code)}"
+                    lead = "这是封板前候选提醒，不代表买入指令或保证可成交。"
+                    ending = ""
                 body = (
                     f"信号发现时间：{dt:%H:%M:%S}（北京时间）\n\n"
                     f"行情时间：{quote['timestamp']:%H:%M:%S}（北京时间），"
@@ -159,9 +165,9 @@ def run_once(candidates=None, source_day=None):
                     f"{PRESEAL_BUFFER_POINTS:.2f} 个百分点\n\n"
                     f"盘前池来源：{source_day or '未知'} 收盘数据\n\n"
                     f"{market_gate.description(gate)}\n\n"
-                    "这是封板前候选提醒，不代表买入指令或保证可成交。"
+                    f"{lead} {ending}"
                 )
-                if send_once(key, f"S19 封板前提醒｜{candidate.get('name', code)}", body, dt):
+                if send_once(key, title, body, dt):
                     pushed.append(code)
 
             evaluated.append({
