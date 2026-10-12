@@ -18,7 +18,7 @@ class Gate(unittest.TestCase):
   self.assertTrue(g.evaluate(cache(),DT,CFG)['allowed'])
   self.assertFalse(g.evaluate(cache(pct=0),DT,CFG)['allowed'])
   self.assertFalse(g.evaluate(cache(pct=-0.1),DT,CFG)['allowed'])
-  self.assertFalse(g.evaluate(cache(count=11),DT,CFG)['allowed'])
+  self.assertTrue(g.evaluate(cache(count=11),DT,CFG)['allowed'])
  def test_missing_stale_and_previous_day(self):
   self.assertFalse(g.evaluate({},DT,CFG)['allowed'])
   self.assertFalse(g.evaluate(cache(),DT+timedelta(seconds=91),CFG)['allowed'])
@@ -41,12 +41,15 @@ class Gate(unittest.TestCase):
   with self.assertRaises(ValueError):g.parse_open_quotes(text,['sh600001'],'2026-10-13')
  def test_entries_blocked_before_quote(self):
   st={'cash':200000,'positions':{}}
-  gate=g.evaluate(cache(count=11),DT,CFG)
+  gate=g.evaluate(cache(pct=-1,count=11),DT,CFG)
   with patch.object(s.market_gate,'get_gate',return_value=gate),patch.object(s,'execution_quote') as quote:
    events=s.process_entries(st,[{'code':'600001'}],DT)
    quote.assert_not_called()
    self.assertTrue(events[0].startswith('ENTRY_BLOCKED'))
   self.assertEqual(st['cash'],200000)
+ def test_opening_count_not_required(self):
+  self.assertTrue(g.evaluate({'date':'2026-10-12','index':{'pct':1,'time':DT.isoformat()}},DT,CFG)['allowed'])
+  self.assertFalse(g.evaluate(cache(pct=1),DT.replace(hour=9,minute=25),CFG)['allowed'])
  def test_signals_unfiltered_and_warning_dedup(self):
   with tempfile.TemporaryDirectory() as tmp,patch.object(s,'PUSH_STATE_P',Path(tmp)/'push.json'),patch.object(s,'serverchan_send',return_value=True) as send:
    gate=g.evaluate(cache(pct=-1,count=11),DT,CFG)
