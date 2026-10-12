@@ -117,19 +117,13 @@ def refresh(dt,cfg):
         cache['index']=fetch_index(dt);cache.pop('index_error',None)
     except Exception as exc:
         cache.pop('index',None);cache['index_error']=f'{type(exc).__name__}: {exc}'
-    if 'opening' not in cache and dt.strftime('%H:%M')>='09:30':
-        try:cache['opening']=fetch_open_count(dt);cache.pop('opening_error',None)
-        except Exception as exc:cache['opening_error']=f'{type(exc).__name__}: {exc}'
-        # Opening enumeration can take time: refresh index after completing it.
-        try:cache['index']=fetch_index(datetime.now(BJ));cache.pop('index_error',None)
-        except Exception as exc:cache.pop('index',None);cache['index_error']=f'{type(exc).__name__}: {exc}'
     cache['refreshed_at']=datetime.now(BJ).isoformat()
     CACHE.parent.mkdir(parents=True,exist_ok=True)
     tmp=CACHE.with_suffix('.tmp');tmp.write_text(json.dumps(cache,ensure_ascii=False,indent=2),encoding='utf-8');tmp.replace(CACHE)
 
 def evaluate(cache,dt,cfg):
-    reasons=[];pct=None;count=None
-    if dt.strftime('%H:%M')<'09:30': reasons.append('竞价观察，开盘统计尚未确认')
+    reasons=[];pct=None
+    if dt.strftime('%H:%M')<'09:30': reasons.append('竞价阶段禁止模拟开仓')
     if cache.get('date')==dt.date().isoformat():
         index=cache.get('index') or {}
         try:
@@ -137,16 +131,10 @@ def evaluate(cache,dt,cfg):
             if not -5<=age<=cfg.get('market_index_max_age_seconds',90): raise ValueError()
             pct=finite(index['pct'])
         except (KeyError,ValueError,TypeError): pass
-        opening=cache.get('opening') or {}
-        if opening.get('date')==dt.date().isoformat():
-            value=opening.get('count')
-            if isinstance(value,int) and not isinstance(value,bool) and value>=0: count=value
-    if pct is None:reasons.append('883958涨幅不可用/过期')
-    elif pct<=0:reasons.append('883958当日涨幅不大于0%')
-    if count is None:reasons.append('开盘跌停家数不可用/统计中')
-    elif count>cfg.get('max_open_limit_down',10):reasons.append('开盘跌停家数超过10')
-    return {'allowed':not reasons,'index_pct':pct,'opening_limit_down':count,
-            'reason':'；'.join(reasons) if reasons else '两项开仓门槛均满足',
+    if pct is None: reasons.append('883958涨幅不可用/过期')
+    elif pct<=0: reasons.append('883958当日涨幅不大于0%')
+    return {'allowed':not reasons,'index_pct':pct,'opening_limit_down':None,
+            'reason':'；'.join(reasons) if reasons else '连板指数开仓门槛满足',
             'date':dt.date().isoformat()}
 
 def get_gate(dt,cfg,start_worker=True):
@@ -155,7 +143,7 @@ def get_gate(dt,cfg,start_worker=True):
     age=999999
     try:age=(dt-datetime.fromisoformat(cache['refreshed_at'])).total_seconds()
     except (KeyError,TypeError,ValueError):pass
-    interval=60 if cache.get('opening_error') else 30
+    interval=30
     if start_worker and (cache.get('date')!=dt.date().isoformat() or age>=interval):
         with _LOCK:
             if _WORKER is None or not _WORKER.is_alive():
@@ -165,6 +153,4 @@ def get_gate(dt,cfg,start_worker=True):
 
 def description(gate):
     pct='不可用' if gate['index_pct'] is None else f"{gate['index_pct']:+.2f}%"
-    count='不可用/统计中' if gate['opening_limit_down'] is None else str(gate['opening_limit_down'])
-    status='允许模拟开仓' if gate['allowed'] else '禁止模拟新开仓'
-    return f"模拟仓门槛：{status}；883958涨幅 {pct}；开盘跌停 {count} 家。{gate['reason']}。原选股信号仍有效，不代表成交。"
+    return f"模拟仓门槛：{status}；883958涨幅 {pct}。{gate['reason']}。原选股信号仍有效，不代表成交。"
