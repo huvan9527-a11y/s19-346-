@@ -153,4 +153,5 @@ def get_gate(dt,cfg,start_worker=True):
 
 def description(gate):
     pct='不可用' if gate['index_pct'] is None else f"{gate['index_pct']:+.2f}%"
+    status='允许模拟开仓' if gate['allowed'] else '禁止模拟新开仓'
     return f"模拟仓门槛：{status}；883958涨幅 {pct}。{gate['reason']}。原选股信号仍有效，不代表成交。"
