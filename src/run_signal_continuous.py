@@ -16,8 +16,7 @@ import s19_paper as s19
 
 INTERVAL = 5
 POOL_PATH = ROOT / "state" / "premarket_candidates.json"
-PRESEAL_BUFFER_POINTS = float(s19.CFG.get("preseal_buffer_points", 3.0))
-QUOTE_MAX_AGE = int(s19.CFG.get("signal_quote_max_age_seconds", 15))
+QUOTE_MAX_AGE = int(s19.CFG["max_quote_age_seconds"])
 
 
 def hm(dt):
@@ -130,45 +129,36 @@ def run_once(candidates=None, source_day=None):
                 evaluated.append({"code": code, "status": "LIMIT_OR_PREVIOUS_CLOSE_MISSING"})
                 continue
 
-            if gap <= 0:
-                evaluated.append({
-                    "code": code, "status": "SEALED_BEFORE_PRESEAL_ALERT",
-                    "price": quote["price"], "upper": quote["upper"],
-                    "quote_time": quote["timestamp"].isoformat(),
-                })
-                continue
-
-            status = "WATCH"
-            if gap <= PRESEAL_BUFFER_POINTS:
-                in_auction = hm(dt) < s19.CFG["entry_start"]
-                status = "AUCTION_NEAR_LIMIT" if in_auction else "PRESEAL"
-                key = f"{code}|{status}"
-                quote_age = max(0.0, (dt - quote["timestamp"]).total_seconds())
-                if in_auction:
-                    title = f"S19 竞价临近涨停观察｜{candidate.get('name', code)}"
-                    lead = "这是集合竞价阶段的参考价提醒；开盘价及连续竞价走势仍可能变化。"
-                    ending = "仅作候选观察，不代表买入指令或保证可成交。"
-                else:
-                    title = f"S19 封板前提醒｜{candidate.get('name', code)}"
-                    lead = "这是封板前候选提醒，不代表买入指令或保证可成交。"
-                    ending = ""
-                body = (
-                    f"信号发现时间：{dt:%H:%M:%S}（北京时间）\n\n"
-                    f"行情时间：{quote['timestamp']:%H:%M:%S}（北京时间），"
-                    f"行情年龄：{quote_age:.1f} 秒\n\n"
-                    f"股票：{candidate.get('name', '')} {code}\n\n"
-                    f"盘前题材：{candidate.get('theme', '')}；"
-                    f"角色：{candidate.get('role', '')}；"
-                    f"前一交易日连板：{candidate.get('streak', 0)}\n\n"
-                    f"现价：{quote['price']:.2f}；涨停价：{quote['upper']:.2f}\n\n"
-                    f"距涨停：{gap:.2f} 个百分点；提醒阈值："
-                    f"{PRESEAL_BUFFER_POINTS:.2f} 个百分点\n\n"
-                    f"盘前池来源：{source_day or '未知'} 收盘数据\n\n"
-                    f"{market_gate.description(gate)}\n\n"
-                    f"{lead} {ending}"
-                )
-                if send_once(key, title, body, dt):
-                    pushed.append(code)
+            in_auction = hm(dt) < s19.CFG["entry_start"]
+            sealed = quote["price"] >= quote["upper"] - 0.005
+            status = "AUCTION_WATCH" if in_auction else ("UNFILLED" if sealed else "SIGNAL")
+            key = f"{code}|{status}"
+            quote_age = max(0.0, (dt - quote["timestamp"]).total_seconds())
+            if in_auction:
+                title = f"S19 竞价观察｜{candidate.get('name', code)}"
+                stage_note = "集合竞价参考价可能变化；这是候选观察，不代表买入指令或保证成交。"
+            elif sealed:
+                title = f"S19 已封板/未确认可成交｜{candidate.get('name', code)}"
+                stage_note = "当前行情显示已到涨停价，不代表能够成交。"
+            else:
+                title = f"S19 候选信号｜{candidate.get('name', code)}"
+                stage_note = "这是 S19 候选信号，不代表买入指令或保证成交。"
+            body = (
+                f"信号发现时间：{dt:%H:%M:%S}（北京时间）\\n\\n"
+                f"行情时间：{quote['timestamp']:%H:%M:%S}（北京时间），"
+                f"行情年龄：{quote_age:.1f} 秒\\n\\n"
+                f"股票：{candidate.get('name', '')} {code}\\n\\n"
+                f"盘前题材：{candidate.get('theme', '')}；"
+                f"角色：{candidate.get('role', '')}；"
+                f"前一交易日连板：{candidate.get('streak', 0)}\\n\\n"
+                f"现价：{quote['price']:.2f}；涨停价：{quote['upper']:.2f}\\n\\n"
+                f"距涨停：{gap:.2f} 个百分点（仅行情展示，不作为筛选条件）\\n\\n"
+                f"盘前池来源：{source_day or '未知'} 收盘数据\\n\\n"
+                f"{market_gate.description(gate)}\\n\\n"
+                f"{stage_note}"
+            )
+            if send_once(key, title, body, dt):
+                pushed.append(code)
 
             evaluated.append({
                 "code": code, "status": status, "price": quote["price"],
