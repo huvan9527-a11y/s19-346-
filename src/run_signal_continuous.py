@@ -16,7 +16,8 @@ import s19_paper as s19
 
 INTERVAL = 5
 POOL_PATH = ROOT / "state" / "premarket_candidates.json"
-QUOTE_MAX_AGE = int(s19.CFG["max_quote_age_seconds"])
+QUOTE_MAX_AGE = min(15, int(s19.CFG["max_quote_age_seconds"]))
+PRESEAL_BUFFER_POINTS = 3.0
 
 
 def hm(dt):
@@ -130,6 +131,12 @@ def run_once(candidates=None, source_day=None):
                 continue
 
             in_auction = hm(dt) < s19.CFG["entry_start"]
+            if gap < -0.01 or gap > PRESEAL_BUFFER_POINTS:
+                evaluated.append({"code": code, "status": "OUTSIDE_PRESEAL_RANGE", "gap_points": round(gap, 4)})
+                continue
+            if in_auction and hm(dt) < "09:25":
+                evaluated.append({"code": code, "status": "EARLY_AUCTION_OBSERVATION"})
+                continue
             sealed = quote["price"] >= quote["upper"] - 0.005
             status = "AUCTION_WATCH" if in_auction else ("UNFILLED" if sealed else "SIGNAL")
             key = f"{code}|{status}"
@@ -144,17 +151,17 @@ def run_once(candidates=None, source_day=None):
                 title = f"S19 候选信号｜{candidate.get('name', code)}"
                 stage_note = "这是 S19 候选信号，不代表买入指令或保证成交。"
             body = (
-                f"信号发现时间：{dt:%H:%M:%S}（北京时间）\\n\\n"
+                f"信号发现时间：{dt:%H:%M:%S}（北京时间）\n\n"
                 f"行情时间：{quote['timestamp']:%H:%M:%S}（北京时间），"
-                f"行情年龄：{quote_age:.1f} 秒\\n\\n"
-                f"股票：{candidate.get('name', '')} {code}\\n\\n"
+                f"行情年龄：{quote_age:.1f} 秒\n\n"
+                f"股票：{candidate.get('name', '')} {code}\n\n"
                 f"盘前题材：{candidate.get('theme', '')}；"
                 f"角色：{candidate.get('role', '')}；"
-                f"前一交易日连板：{candidate.get('streak', 0)}\\n\\n"
-                f"现价：{quote['price']:.2f}；涨停价：{quote['upper']:.2f}\\n\\n"
-                f"距涨停：{gap:.2f} 个百分点（仅行情展示，不作为筛选条件）\\n\\n"
-                f"盘前池来源：{source_day or '未知'} 收盘数据\\n\\n"
-                f"{market_gate.description(gate)}\\n\\n"
+                f"前一交易日连板：{candidate.get('streak', 0)}\n\n"
+                f"现价：{quote['price']:.2f}；涨停价：{quote['upper']:.2f}\n\n"
+                f"距涨停：{gap:.2f} 个百分点（临近涨停提醒门槛：{PRESEAL_BUFFER_POINTS:.1f}）\n\n"
+                f"盘前池来源：{source_day or '未知'} 收盘数据\n\n"
+                f"{market_gate.description(gate)}\n\n"
                 f"{stage_note}"
             )
             if send_once(key, title, body, dt):
