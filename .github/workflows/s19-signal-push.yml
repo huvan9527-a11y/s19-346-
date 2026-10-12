@@ -53,6 +53,7 @@ jobs:
           path: |
             state/push_state.json
             state/market_gate.json
+            state/premarket_candidates.json
           key: s19-push-${{ steps.day.outputs.date }}-${{ github.run_id }}-${{ github.run_attempt }}
 
       - name: Preserve signal snapshots and delivery state
