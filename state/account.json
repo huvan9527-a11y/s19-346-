@@ -1,16 +1,16 @@
 {
   "cash": 200000.0,
   "positions": {},
-  "last_scan_date": "2026-10-16",
-  "last_scan_time": "15:01:39",
-  "pool_date": "2026-10-16",
+  "last_scan_date": "2026-10-19",
+  "last_scan_time": "15:01:30",
+  "pool_date": "2026-10-19",
   "pool_seen_nonempty": true,
   "valuation_stale_codes": [],
   "market_gate": {
-    "allowed": true,
-    "index_pct": 0.37297924077455136,
+    "allowed": false,
+    "index_pct": null,
     "opening_limit_down": null,
-    "reason": "连板指数开仓门槛满足",
-    "date": "2026-10-16"
+    "reason": "883958涨幅不可用/过期",
+    "date": "2026-10-19"
   }
 }
