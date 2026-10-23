@@ -1,16 +1,16 @@
 {
   "cash": 200000.0,
   "positions": {},
-  "last_scan_date": "2026-10-22",
-  "last_scan_time": "15:01:37",
-  "pool_date": "2026-10-22",
+  "last_scan_date": "2026-10-23",
+  "last_scan_time": "15:01:35",
+  "pool_date": "2026-10-23",
   "pool_seen_nonempty": true,
   "valuation_stale_codes": [],
   "market_gate": {
     "allowed": false,
-    "index_pct": -0.43517369613517154,
+    "index_pct": -4.547507568281983,
     "opening_limit_down": null,
     "reason": "883958当日涨幅不大于0%",
-    "date": "2026-10-22"
+    "date": "2026-10-23"
   }
 }
