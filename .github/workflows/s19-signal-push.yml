@@ -1,69 +1,14 @@
-name: S19 实时信号推送
-
+name: S19 旧独立推送入口（已合并）
 on:
   workflow_dispatch:
-  schedule:
-    # GitHub cron uses UTC; 00:45 UTC = 08:45 Beijing.
-    # Start early to absorb queue delay; actual monitoring begins at 09:15 Beijing.
-    - cron: '45 0 * * 1-5'
-
 permissions:
   contents: read
-
-concurrency:
-  group: s19-signal-push
-  cancel-in-progress: false
-
 jobs:
-  signal:
+  notice:
     runs-on: ubuntu-latest
-    timeout-minutes: 180
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-
-      - name: Daily deduplication key
-        id: day
-        env:
-          TZ: Asia/Shanghai
-        run: echo "date=$(date +%F)" >> "$GITHUB_OUTPUT"
-      - uses: actions/cache/restore@v4
-        with:
-          path: |
-            state/push_state.json
-            state/market_gate.json
-            state/premarket_candidates.json
-          key: s19-push-${{ steps.day.outputs.date }}-${{ github.run_id }}-${{ github.run_attempt }}
-          restore-keys: s19-push-${{ steps.day.outputs.date }}-
-      - name: Prepare prior-close S19 watchlist and monitor live quotes
-        env:
-          TZ: Asia/Shanghai
-          SERVERCHAN_SENDKEY: ${{ secrets.SERVERCHAN_SENDKEY }}
-        run: python src/run_signal_continuous.py
-
-      - uses: actions/cache/save@v4
-        if: always() && steps.day.outputs.date != ''
-        with:
-          path: |
-            state/push_state.json
-            state/market_gate.json
-            state/premarket_candidates.json
-          key: s19-push-${{ steps.day.outputs.date }}-${{ github.run_id }}-${{ github.run_attempt }}
-
-      - name: Preserve signal snapshots and delivery state
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: signal-review-${{ github.run_id }}-${{ github.run_attempt }}
-          retention-days: 30
-          path: |
-            logs/signals/
-            state/push_state.json
-            state/market_gate.json
-            state/premarket_candidates.json
+      - name: Unified workflow information
+        run: |
+          echo '独立推送已停用，避免与模拟仓使用不同候选池或重复推送。'
+          echo '请运行 S19 统一实时模拟与推送（s19-paper.yml）。'
+          echo '本入口不扫描、不通知、不修改账户。' >> "$GITHUB_STEP_SUMMARY"

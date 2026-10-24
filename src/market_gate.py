@@ -122,18 +122,18 @@ def refresh(dt,cfg):
     tmp=CACHE.with_suffix('.tmp');tmp.write_text(json.dumps(cache,ensure_ascii=False,indent=2),encoding='utf-8');tmp.replace(CACHE)
 
 def evaluate(cache,dt,cfg):
-    reasons=[];pct=None
+    reasons=[];pct=None;index_time=None
     if dt.strftime('%H:%M')<'09:30': reasons.append('竞价阶段禁止模拟开仓')
     if cache.get('date')==dt.date().isoformat():
         index=cache.get('index') or {}
         try:
             age=(dt-datetime.fromisoformat(index['time'])).total_seconds()
             if not -5<=age<=cfg.get('market_index_max_age_seconds',90): raise ValueError()
-            pct=finite(index['pct'])
+            pct=finite(index['pct']);index_time=index['time']
         except (KeyError,ValueError,TypeError): pass
     if pct is None: reasons.append('883958涨幅不可用/过期')
     elif pct<=0: reasons.append('883958当日涨幅不大于0%')
-    return {'allowed':not reasons,'index_pct':pct,'opening_limit_down':None,
+    return {'allowed':not reasons,'index_pct':pct,'index_time':index_time,'checked_at':dt.isoformat(),'opening_limit_down':None,'opening_limit_down_required':False,
             'reason':'；'.join(reasons) if reasons else '连板指数开仓门槛满足',
             'date':dt.date().isoformat()}
 

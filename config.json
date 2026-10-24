@@ -19,5 +19,10 @@
   "sell_tax_bp": 5,
   "max_open_limit_down": 10,
   "market_index_code": "883958",
-  "market_index_max_age_seconds": 90
+  "market_index_max_age_seconds": 90,
+  "session_interval_seconds": 5,
+  "pool_refresh_seconds": 15,
+  "pool_max_age_seconds": 30,
+  "checkpoint_seconds": 300,
+  "intent_timeout_seconds": 300
 }
