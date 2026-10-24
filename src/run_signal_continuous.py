@@ -238,4 +238,4 @@ def main():
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit('Independent notification runner retired; use python src/run_session.py. See README.')

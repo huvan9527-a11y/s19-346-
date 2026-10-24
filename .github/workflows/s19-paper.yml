@@ -1,57 +1,96 @@
-name: S19 20万模拟仓
-
+name: S19 统一实时模拟与推送
 on:
   workflow_dispatch:
+    inputs:
+      phase:
+        description: '运行时段；auto按北京时间自动选择'
+        type: choice
+        options: [auto, morning, afternoon]
+        default: auto
+      no_notify:
+        description: '关闭通知；仍只在实际交易日/时段采集和模拟'
+        type: boolean
+        default: false
   schedule:
-    # GitHub cron 使用 UTC；北京时间 09:05 = UTC 01:05，保留开盘前等待且适配托管任务 6 小时上限。
-    - cron: '5 1 * * 1-5'
-
+    # 提前启动并等待；拆分时段，避免覆盖全天逼近托管6小时上限。
+    - cron: '0 0 * * 1-5'  # 北京时间08:00，等09:15；上午至11:31
+    - cron: '0 4 * * 1-5'  # 北京时间12:00，等12:55；下午至15:01
 permissions:
   contents: write
-
 concurrency:
-  group: s19-paper
+  group: s19-unified-runtime
   cancel-in-progress: false
-
 jobs:
-  paper:
+  session:
     runs-on: ubuntu-latest
-    timeout-minutes: 360
+    timeout-minutes: 270
+    env:
+      TZ: Asia/Shanghai
     steps:
       - uses: actions/checkout@v4
-
+        with:
+          fetch-depth: 1
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-
       - run: pip install -r requirements.txt
-
-      - name: Run S19 continuously
+      - name: Restore authoritative account and notification outbox
+        run: python src/runtime_store.py restore
+      - name: Start nonblocking checkpoint publisher
+        run: |
+          python -u src/runtime_store.py watch > "$RUNNER_TEMP/s19-checkpoint.log" 2>&1 &
+          echo "$!" > "$RUNNER_TEMP/s19-checkpoint.pid"
+      - name: Collect shared evidence, monitor exits, simulate and notify
         env:
-          TZ: Asia/Shanghai
-          S19_SCAN_INTERVAL_SECONDS: '30'
-        run: python src/run_continuous.py
-
-      - name: Preserve diagnostics and account snapshot
+          SERVERCHAN_SENDKEY: ${{ secrets.SERVERCHAN_SENDKEY }}
+          SESSION_PHASE: ${{ github.event_name == 'schedule' && (github.event.schedule == '0 0 * * 1-5' && 'morning' || 'afternoon') || inputs.phase || 'auto' }}
+          NO_NOTIFY: ${{ inputs.no_notify && '1' || '0' }}
+        run: |
+          args=()
+          if [ "$NO_NOTIFY" = '1' ]; then args+=(--no-notify); fi
+          python -u src/run_session.py --phase "$SESSION_PHASE" "${args[@]}"
+      - name: Stop background publisher before final commit
+        if: always()
+        run: |
+          if [ -f "$RUNNER_TEMP/s19-checkpoint.pid" ]; then
+            publisher_pid=$(cat "$RUNNER_TEMP/s19-checkpoint.pid")
+            kill "$publisher_pid" 2>/dev/null || true
+            for attempt in $(seq 1 120); do
+              if ! kill -0 "$publisher_pid" 2>/dev/null; then break; fi
+              sleep 1
+            done
+            if kill -0 "$publisher_pid" 2>/dev/null; then
+              echo 'Checkpoint publisher has not drained; final save must not overlap.'
+              exit 1
+            fi
+          fi
+      - name: Publish final frozen account and evidence
+        if: always()
+        run: |
+          if [ -f "$RUNNER_TEMP/s19-checkpoint.pid" ] && kill -0 "$(cat "$RUNNER_TEMP/s19-checkpoint.pid")" 2>/dev/null; then
+            echo 'Publisher still active; preserving artifacts instead of racing the runtime branch.'
+            exit 1
+          fi
+          if [ -f state/checkpoint.json ]; then
+            python src/runtime_store.py save
+          else
+            echo 'No checkpoint: non-trading day, missed session or failure before initialization.'
+          fi
+      - name: Preserve diagnostics, account and source snapshots
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: paper-state-${{ github.run_id }}-${{ github.run_attempt }}
+          name: s19-session-${{ github.run_id }}-${{ github.run_attempt }}
+          retention-days: 90
           path: |
             state/account.json
+            state/checkpoint.json
             state/market_gate.json
             logs/
             outputs/latest.md
-      - name: Persist paper state
+            ${{ runner.temp }}/s19-checkpoint.log
+      - name: Publish readable summary
         if: always()
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add state/account.json logs outputs/latest.md
-          if git diff --cached --quiet; then
-            echo "No state changes"
-          else
-            git commit -m "paper: update S19 simulated account"
-            git pull --rebase origin main
-            git push
-          fi
+          if [ -f outputs/latest.md ]; then cat outputs/latest.md >> "$GITHUB_STEP_SUMMARY"; fi
+          if [ -f "$RUNNER_TEMP/s19-checkpoint.log" ]; then tail -15 "$RUNNER_TEMP/s19-checkpoint.log"; fi

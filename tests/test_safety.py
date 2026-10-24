@@ -142,13 +142,15 @@ class Safety(unittest.TestCase):
             self.assertEqual(s.main(),1)
             entries.assert_not_called()
         self.assertEqual(json.loads(s.STATE_P.read_text())['cash'],200000)
-    def test_signal_runner_waits_and_scans(self):
+    @patch.object(signal, 'prepare_premarket_pool', return_value=([], '2026-10-08'))
+    def test_signal_runner_waits_and_scans(self, _pool):
         times=[DT.replace(hour=8,minute=45),DT.replace(hour=9,minute=14),
                DT.replace(hour=9,minute=15),DT.replace(hour=9,minute=15),DT.replace(hour=10,minute=58)]
         with patch.object(s,'now_bj',side_effect=times),patch.dict('os.environ',{'SERVERCHAN_SENDKEY':'test'}),patch.object(signal,'run_once',return_value=True) as scan,patch.object(signal.time,'sleep'):
             self.assertEqual(signal.main(),0)
             self.assertEqual(scan.call_count,1)
-    def test_signal_runner_late_fails(self):
+    @patch.object(signal, 'prepare_premarket_pool', return_value=([], '2026-10-08'))
+    def test_signal_runner_late_fails(self, _pool):
         with patch.object(s,'now_bj',return_value=DT.replace(hour=11)),patch.dict('os.environ',{'SERVERCHAN_SENDKEY':'test'}),patch.object(signal,'run_once') as scan:
             self.assertEqual(signal.main(),1)
             scan.assert_not_called()

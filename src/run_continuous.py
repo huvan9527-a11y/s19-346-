@@ -33,4 +33,5 @@ def main():
     return 1 if failed or scans==0 else 0
 
 if __name__=='__main__':
-    raise SystemExit(main())
+    from run_session import main as unified_main
+    raise SystemExit(unified_main())
