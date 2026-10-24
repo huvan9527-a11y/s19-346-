@@ -1,5 +1,5 @@
 {
-  "cash": 200000.0,
+  "cash": 200000,
   "positions": {},
   "last_scan_date": "2026-10-23",
   "last_scan_time": "15:01:35",
@@ -12,5 +12,10 @@
     "opening_limit_down": null,
     "reason": "883958当日涨幅不大于0%",
     "date": "2026-10-23"
+  },
+  "migration": {
+    "date": "2026-10-24",
+    "source_commit": "4548d4f5fb9a67fb87ca16d956ba1f3637bf2326",
+    "note": "Preserved existing paper account and history; no new market data or fills inferred."
   }
 }
