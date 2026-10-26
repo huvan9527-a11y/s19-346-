@@ -12,9 +12,10 @@ on:
         type: boolean
         default: false
   schedule:
-    # 提前启动并等待；拆分时段，避免覆盖全天逼近托管6小时上限。
-    - cron: '0 0 * * 1-5'  # 北京时间08:00，等09:15；上午至11:31
-    - cron: '0 4 * * 1-5'  # 北京时间12:00，等12:55；下午至15:01
+    # 为调度延迟预留余量；UTC周日到周四21:47对应北京时间周一到周五05:47。
+    # GitHub schedule不保证准点；运行程序仍严格限制实际交易时段。
+    - cron: '47 21 * * 0-4'  # 北京时间05:47预热，等09:15；上午至11:31
+    - cron: '17 2 * * 1-5'   # 北京时间10:17排队，上午结束后等12:55；下午至15:01
 permissions:
   contents: write
 concurrency:
@@ -23,7 +24,7 @@ concurrency:
 jobs:
   session:
     runs-on: ubuntu-latest
-    timeout-minutes: 270
+    timeout-minutes: 355
     env:
       TZ: Asia/Shanghai
     steps:
@@ -43,7 +44,7 @@ jobs:
       - name: Collect shared evidence, monitor exits, simulate and notify
         env:
           SERVERCHAN_SENDKEY: ${{ secrets.SERVERCHAN_SENDKEY }}
-          SESSION_PHASE: ${{ github.event_name == 'schedule' && (github.event.schedule == '0 0 * * 1-5' && 'morning' || 'afternoon') || inputs.phase || 'auto' }}
+          SESSION_PHASE: ${{ github.event_name == 'schedule' && (github.event.schedule == '47 21 * * 0-4' && 'morning' || 'afternoon') || inputs.phase || 'auto' }}
           NO_NOTIFY: ${{ inputs.no_notify && '1' || '0' }}
         run: |
           args=()
