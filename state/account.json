@@ -2,15 +2,15 @@
   "cash": 200000,
   "positions": {},
   "last_scan_date": "2026-10-27",
-  "last_scan_time": "10:30:40",
+  "last_scan_time": "10:35:43",
   "pool_date": "2026-10-27",
   "pool_seen_nonempty": true,
   "valuation_stale_codes": [],
   "market_gate": {
     "allowed": true,
-    "index_pct": 2.8230534197121404,
-    "index_time": "2026-10-27T10:30:00+08:00",
-    "checked_at": "2026-10-27T10:30:40.139535+08:00",
+    "index_pct": 3.2767703694936756,
+    "index_time": "2026-10-27T10:35:00+08:00",
+    "checked_at": "2026-10-27T10:35:43.440035+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "连板指数开仓门槛满足",
@@ -75,11 +75,11 @@
       "key": "2026-10-27|002086|UNFILLED",
       "title": "S19 已封板/未成交｜东方海洋",
       "body": "2026-10-27T10:30:17.265235+08:00\n002086 东方海洋｜“羊”字辈｜龙头\n题材封板4只；连板3\n模拟仓门槛：允许模拟开仓；883958涨幅 +2.98%。连板指数开仓门槛满足。原选股信号仍有效，不代表成交。\n指数行情时间：2026-10-27T10:29:00+08:00；这是当时读数，不是收盘值。\n候选来自当日实时池；提醒不等于模拟买入。\n扫描证据：40429165413-1:1926\n\n记录编号：2026-10-27|002086|UNFILLED",
-      "status": "pending",
+      "status": "expired",
       "created_at": "2026-10-27T10:30:17.265235+08:00",
       "expires_at": "2026-10-27T10:32:17.265235+08:00",
-      "attempts": 1,
-      "next_attempt": "2026-10-27T10:31:22.981889+08:00",
+      "attempts": 2,
+      "next_attempt": "2026-10-27T10:33:31.612632+08:00",
       "live_signal": true,
       "last_error": "RuntimeError: notification transport failed: HTTPError"
     }
@@ -96,7 +96,7 @@
         "name": "光洋股份",
         "theme": "汽车零部件",
         "role": "龙头",
-        "selection_scans": 519
+        "selection_scans": 572
       },
       "001219": {
         "first_selected_at": "2026-10-27T09:50:15.228000+08:00",
@@ -104,7 +104,7 @@
         "name": "青岛食品",
         "theme": "三季报增长",
         "role": "龙头",
-        "selection_scans": 418
+        "selection_scans": 471
       },
       "002724": {
         "first_selected_at": "2026-10-27T10:24:22.018872+08:00",
@@ -120,31 +120,31 @@
         "name": "东方海洋",
         "theme": "“羊”字辈",
         "role": "龙头",
-        "selection_scans": 3
+        "selection_scans": 52
       }
     }
   },
-  "saved_at": "2026-10-27T10:30:40.139535+08:00",
+  "saved_at": "2026-10-27T10:35:43.440035+08:00",
   "equity": 200000,
-  "valuation_at": "2026-10-27T10:30:40.139535+08:00",
+  "valuation_at": "2026-10-27T10:35:43.440035+08:00",
   "health": {
-    "cycles": 832,
+    "cycles": 885,
     "pool_errors": 0,
     "quote_errors": 0,
     "fills": 0,
     "first_cycle": "2026-10-27T09:15:04.051590+08:00",
-    "last_cycle": "2026-10-27T10:30:40.139535+08:00",
+    "last_cycle": "2026-10-27T10:35:43.440035+08:00",
     "entry_coverage_start": "2026-10-27T09:30:04.610782+08:00",
     "opening_delay_seconds": 4.610782,
     "pool_ok": true,
     "quote_error": null
   },
-  "last_pool_size": 42,
+  "last_pool_size": 43,
   "last_valid_gate": {
     "allowed": true,
-    "index_pct": 2.8230534197121404,
-    "index_time": "2026-10-27T10:30:00+08:00",
-    "checked_at": "2026-10-27T10:30:40.139535+08:00",
+    "index_pct": 3.2767703694936756,
+    "index_time": "2026-10-27T10:35:00+08:00",
+    "checked_at": "2026-10-27T10:35:43.440035+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "连板指数开仓门槛满足",
