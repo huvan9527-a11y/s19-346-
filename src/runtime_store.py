@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Checkpoint account+outbox+evidence on a dedicated Git branch without blocking scans.
 
-Run restore once before the session. watch publishes frozen prefixes every 5 min.
+Run restore once before the session. watch publishes frozen prefixes every minute.
 No force-push; remote failures fail the final persistence step, never reset cash.
 """
 import argparse
@@ -154,7 +154,7 @@ def main():
                 save()
             except Exception as exc:
                 print('RUNTIME_CHECKPOINT_ERROR ' + str(exc), flush=True)
-            stop.wait(300)
+            stop.wait(60)
 
 
 if __name__ == '__main__':

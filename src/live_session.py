@@ -383,6 +383,7 @@ class Engine:
                 shares, '%.2f' % amount, '%.2f' % fee, intent['reason'], tag, '%.2f' % self.state['cash']])
 
     def step(self, now, candidates, pool_ok, gate, quotes, quote_error=None):
+        before = encoded({k: self.state.get(k) for k in ('cash', 'pending_intents', 'fill_ids', 'notifications')})
         self.notifications.drain(now)
         self.stats['cycles'] += 1
         self.stats['first_cycle'] = self.stats['first_cycle'] or iso(now)
@@ -485,8 +486,12 @@ class Engine:
         self.state['last_scan_date'] = now.date().isoformat()
         self.state['last_scan_time'] = now.strftime('%H:%M:%S')
         self.state['health'] = dict(self.stats, pool_ok=pool_ok, quote_error=quote_error)
-        self.save_account(now)
-        self.report(now)
+        after = encoded({k: self.state.get(k) for k in ('cash', 'pending_intents', 'fill_ids', 'notifications')})
+        if before != after:
+            self.checkpoint(now)
+        else:
+            self.save_account(now)
+            self.report(now)
         # State/outbox are durable locally before any network send is dispatched.
         self.notifications.start(now)
         print('SCAN_OK %s pool=%s candidates=%s' % (now.strftime('%Y-%m-%d %H:%M:%S'), self.state.get('last_pool_size', -1), len(candidates)), flush=True)

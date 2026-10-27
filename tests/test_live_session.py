@@ -71,6 +71,20 @@ class EngineTests(unittest.TestCase):
         self.assertIn(fill['fill_id'],state['fill_ids'])
         self.assertAlmostEqual(state['cash'],200000-fill['amount']-fill['fee'])
 
+
+    def test_intents_and_fills_checkpoint_immediately_before_periodic_save(self):
+        self.step()
+        checkpoint=json.loads((self.root/'state/checkpoint.json').read_text())
+        self.assertEqual(len(checkpoint['account']['pending_intents']),1)
+        self.step(DT+timedelta(seconds=5))
+        checkpoint=json.loads((self.root/'state/checkpoint.json').read_text())
+        self.assertTrue(checkpoint['account']['positions'])
+        self.assertEqual(checkpoint['account']['fill_ids'],self.engine.state['fill_ids'])
+        self.assertEqual(checkpoint['account']['cash'],self.engine.state['cash'])
+        for item in checkpoint['journal']+checkpoint['exports']:
+            data=(self.root/item['path']).read_bytes()[:item['size']]
+            self.assertEqual(hashlib.sha256(data).hexdigest(),item['sha256'])
+
     def test_failed_pool_cancels_buy_but_sell_continues(self):
         self.step()
         self.step(DT+timedelta(seconds=5),pool_ok=False,cand=[])
