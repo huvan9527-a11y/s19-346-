@@ -1,0 +1,55 @@
+{
+  "schema": "s19-session-v2",
+  "saved_at": "2026-10-27T09:15:04.049168+08:00",
+  "run_id": "40429165413-1",
+  "final": false,
+  "account": {
+    "cash": 200000,
+    "positions": {},
+    "last_scan_date": "2026-10-23",
+    "last_scan_time": "15:01:35",
+    "pool_date": "2026-10-23",
+    "pool_seen_nonempty": true,
+    "valuation_stale_codes": [],
+    "market_gate": {
+      "allowed": false,
+      "index_pct": -4.547507568281983,
+      "opening_limit_down": null,
+      "reason": "883958当日涨幅不大于0%",
+      "date": "2026-10-23"
+    },
+    "migration": {
+      "date": "2026-10-24",
+      "source_commit": "4548d4f5fb9a67fb87ca16d956ba1f3637bf2326",
+      "note": "Preserved existing paper account and history; no new market data or fills inferred."
+    },
+    "pending_intents": {},
+    "notifications": {},
+    "fill_ids": [],
+    "schema": "s19-session-v2",
+    "engine_day": "2026-10-27",
+    "phase": "morning",
+    "day_activity": {},
+    "saved_at": "2026-10-27T09:15:04.049168+08:00"
+  },
+  "report": "# S19 统一实时模拟仓\n\n- 更新时间：2026-10-27T09:15:04.049168+08:00\n- 候选口径：当日实时涨停池；推送与模拟仓共享本轮候选和行情证据。\n- 现金：200000.00；总权益：200000.00；持仓：0；待确认意向：0。\n- 估值状态：有效\n- 模拟仓门槛：禁止模拟新开仓；883958涨幅 -4.55%。883958当日涨幅不大于0%。原选股信号仍有效，不代表成交。\n指数行情时间：不可用；这是当时读数，不是收盘值。\n- 开盘跌停家数限制：当前未启用，保持本次修复前实际执行口径。\n- 通知：启用；成功0，待重试0，已过期0。\n- 运行覆盖与错误：`{\"cycles\": 0, \"entry_coverage_start\": null, \"fills\": 0, \"first_cycle\": null, \"last_cycle\": null, \"pool_errors\": 0, \"quote_errors\": 0}`\n\n## 本轮候选\n\n- 无；需结合上面的数据状态判断，不能把数据失败当成无信号。\n\n## 今日首次候选与模拟执行\n\n| 股票 | 首次入选 | 题材/角色 | 模拟成交 | 最近状态/原因 |\n|---|---|---|---|---|\n\n- 分时段覆盖：`{}`\n\n## 持仓与待确认意向\n\n```json\n{\"pending_intents\": {}, \"positions\": {}}\n```\n\n> 仅模拟：信号后必须出现源时间严格更新的下一次盘口才能记成交。盘口快照不能证明实盘排队/成交。\n",
+  "journal": [
+    {
+      "path": "logs/sessions/2026-10-27/0915-40429165413-1.jsonl",
+      "size": 398,
+      "sha256": "09a556ce8a1826460b8ac515271d3c6528cd9163c35e1b61a252701b7945f86a"
+    }
+  ],
+  "exports": [
+    {
+      "path": "logs/trades.csv",
+      "size": 70,
+      "sha256": "ead32baf0730f4180b3d4ae52e42771bcaa8a26429bfadec1781b247916ff007"
+    },
+    {
+      "path": "logs/equity.csv",
+      "size": 272144,
+      "sha256": "b0fa850dc3530f89f7cc1b4a8951a814cf824acf748d694d438b5930f4780cb2"
+    }
+  ]
+}
