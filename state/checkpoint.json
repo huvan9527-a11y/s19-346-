@@ -1,24 +1,24 @@
 {
   "schema": "s19-session-v2",
-  "saved_at": "2026-10-27T09:30:04.610782+08:00",
+  "saved_at": "2026-10-27T09:35:04.748834+08:00",
   "run_id": "40429165413-1",
   "final": false,
   "account": {
     "cash": 200000,
     "positions": {},
     "last_scan_date": "2026-10-27",
-    "last_scan_time": "09:30:04",
+    "last_scan_time": "09:35:04",
     "pool_date": "2026-10-27",
     "pool_seen_nonempty": true,
     "valuation_stale_codes": [],
     "market_gate": {
-      "allowed": false,
-      "index_pct": null,
-      "index_time": null,
-      "checked_at": "2026-10-27T09:30:04.610782+08:00",
+      "allowed": true,
+      "index_pct": 1.541443402754128,
+      "index_time": "2026-10-27T09:34:00+08:00",
+      "checked_at": "2026-10-27T09:35:04.748834+08:00",
       "opening_limit_down": null,
       "opening_limit_down_required": false,
-      "reason": "883958涨幅不可用/过期",
+      "reason": "连板指数开仓门槛满足",
       "date": "2026-10-27"
     },
     "migration": {
@@ -27,30 +27,52 @@
       "note": "Preserved existing paper account and history; no new market data or fills inferred."
     },
     "pending_intents": {},
-    "notifications": {},
+    "notifications": {
+      "2026-10-27|STATUS|NO_SIGNAL": {
+        "key": "2026-10-27|STATUS|NO_SIGNAL",
+        "title": "S19 扫描正常｜本轮暂无候选",
+        "body": "2026-10-27T09:35:04.748834+08:00\n当日实时池已成功获取，本轮没有通过全部S19条件的股票。后续继续监控。\n\n记录编号：2026-10-27|STATUS|NO_SIGNAL",
+        "status": "pending",
+        "created_at": "2026-10-27T09:35:04.748834+08:00",
+        "expires_at": "2026-10-27T09:37:04.748834+08:00",
+        "attempts": 0,
+        "next_attempt": "2026-10-27T09:35:04.748834+08:00",
+        "live_signal": true
+      }
+    },
     "fill_ids": [],
     "schema": "s19-session-v2",
     "engine_day": "2026-10-27",
     "phase": "morning",
     "day_activity": {},
-    "saved_at": "2026-10-27T09:30:04.610782+08:00",
+    "saved_at": "2026-10-27T09:35:04.748834+08:00",
     "equity": 200000,
-    "valuation_at": "2026-10-27T09:30:04.610782+08:00",
+    "valuation_at": "2026-10-27T09:35:04.748834+08:00",
     "health": {
-      "cycles": 181,
+      "cycles": 241,
       "pool_errors": 0,
       "quote_errors": 0,
       "fills": 0,
       "first_cycle": "2026-10-27T09:15:04.051590+08:00",
-      "last_cycle": "2026-10-27T09:30:04.610782+08:00",
+      "last_cycle": "2026-10-27T09:35:04.748834+08:00",
       "entry_coverage_start": "2026-10-27T09:30:04.610782+08:00",
       "opening_delay_seconds": 4.610782,
       "pool_ok": true,
       "quote_error": null
     },
-    "last_pool_size": 5
+    "last_pool_size": 20,
+    "last_valid_gate": {
+      "allowed": true,
+      "index_pct": 1.541443402754128,
+      "index_time": "2026-10-27T09:34:00+08:00",
+      "checked_at": "2026-10-27T09:35:04.748834+08:00",
+      "opening_limit_down": null,
+      "opening_limit_down_required": false,
+      "reason": "连板指数开仓门槛满足",
+      "date": "2026-10-27"
+    }
   },
-  "report": "# S19 统一实时模拟仓\n\n- 更新时间：2026-10-27T09:30:04.610782+08:00\n- 候选口径：当日实时涨停池；推送与模拟仓共享本轮候选和行情证据。\n- 现金：200000.00；总权益：200000.00；持仓：0；待确认意向：0。\n- 估值状态：有效\n- 模拟仓门槛：禁止模拟新开仓；883958涨幅 不可用。883958涨幅不可用/过期。原选股信号仍有效，不代表成交。\n指数行情时间：None；这是当时读数，不是收盘值。\n- 开盘跌停家数限制：当前未启用，保持本次修复前实际执行口径。\n- 通知：启用；成功0，待重试0，已过期0。\n- 运行覆盖与错误：`{\"cycles\": 181, \"entry_coverage_start\": \"2026-10-27T09:30:04.610782+08:00\", \"fills\": 0, \"first_cycle\": \"2026-10-27T09:15:04.051590+08:00\", \"last_cycle\": \"2026-10-27T09:30:04.610782+08:00\", \"opening_delay_seconds\": 4.610782, \"pool_errors\": 0, \"quote_errors\": 0}`\n\n## 本轮候选\n\n- 无；需结合上面的数据状态判断，不能把数据失败当成无信号。\n\n## 今日首次候选与模拟执行\n\n| 股票 | 首次入选 | 题材/角色 | 模拟成交 | 最近状态/原因 |\n|---|---|---|---|---|\n\n- 分时段覆盖：`{}`\n\n## 持仓与待确认意向\n\n```json\n{\"pending_intents\": {}, \"positions\": {}}\n```\n\n> 仅模拟：信号后必须出现源时间严格更新的下一次盘口才能记成交。盘口快照不能证明实盘排队/成交。\n",
+  "report": "# S19 统一实时模拟仓\n\n- 更新时间：2026-10-27T09:35:04.748834+08:00\n- 候选口径：当日实时涨停池；推送与模拟仓共享本轮候选和行情证据。\n- 现金：200000.00；总权益：200000.00；持仓：0；待确认意向：0。\n- 估值状态：有效\n- 模拟仓门槛：允许模拟开仓；883958涨幅 +1.54%。连板指数开仓门槛满足。原选股信号仍有效，不代表成交。\n指数行情时间：2026-10-27T09:34:00+08:00；这是当时读数，不是收盘值。\n- 开盘跌停家数限制：当前未启用，保持本次修复前实际执行口径。\n- 通知：启用；成功0，待重试1，已过期0。\n- 运行覆盖与错误：`{\"cycles\": 241, \"entry_coverage_start\": \"2026-10-27T09:30:04.610782+08:00\", \"fills\": 0, \"first_cycle\": \"2026-10-27T09:15:04.051590+08:00\", \"last_cycle\": \"2026-10-27T09:35:04.748834+08:00\", \"opening_delay_seconds\": 4.610782, \"pool_errors\": 0, \"quote_errors\": 0}`\n\n## 本轮候选\n\n- 无；需结合上面的数据状态判断，不能把数据失败当成无信号。\n\n## 今日首次候选与模拟执行\n\n| 股票 | 首次入选 | 题材/角色 | 模拟成交 | 最近状态/原因 |\n|---|---|---|---|---|\n\n- 分时段覆盖：`{}`\n\n## 持仓与待确认意向\n\n```json\n{\"pending_intents\": {}, \"positions\": {}}\n```\n\n> 仅模拟：信号后必须出现源时间严格更新的下一次盘口才能记成交。盘口快照不能证明实盘排队/成交。\n",
   "journal": [
     {
       "path": "logs/sessions/2026-10-27/0915-40429165413-1.jsonl",
@@ -69,8 +91,13 @@
     },
     {
       "path": "logs/sessions/2026-10-27/0930-40429165413-1.jsonl",
-      "size": 1340,
-      "sha256": "06a770e0b24f1ed48cc3e271db0d91748fde3cc8966494633a3133ba3889b5f6"
+      "size": 179068,
+      "sha256": "c7fcb11670793e4a86b6b1831ee5a1e7153e45afc0ab84b77d94517e11f3b7a8"
+    },
+    {
+      "path": "logs/sessions/2026-10-27/0935-40429165413-1.jsonl",
+      "size": 1592,
+      "sha256": "be388bf920dcd75de7ac3ba5c19fc6e37fc9a2b7f9468930edb7d581b258d46d"
     }
   ],
   "exports": [
@@ -81,8 +108,8 @@
     },
     {
       "path": "logs/equity.csv",
-      "size": 283185,
-      "sha256": "16b62a3ce0fc0aa58426af6fe1159b64e15fc36e3918cc57cb8a71e836192b9b"
+      "size": 286845,
+      "sha256": "80bcd2cc2f68fab9fb11f614becd992cef3c705b2d0d1aa941e7fcb1f9a39823"
     }
   ]
 }
