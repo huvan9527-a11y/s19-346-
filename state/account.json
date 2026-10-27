@@ -2,18 +2,18 @@
   "cash": 200000,
   "positions": {},
   "last_scan_date": "2026-10-27",
-  "last_scan_time": "10:40:47",
+  "last_scan_time": "10:45:51",
   "pool_date": "2026-10-27",
   "pool_seen_nonempty": true,
   "valuation_stale_codes": [],
   "market_gate": {
-    "allowed": true,
-    "index_pct": 3.2964127218275907,
-    "index_time": "2026-10-27T10:40:00+08:00",
-    "checked_at": "2026-10-27T10:40:47.457097+08:00",
+    "allowed": false,
+    "index_pct": null,
+    "index_time": null,
+    "checked_at": "2026-10-27T10:45:51.046916+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
-    "reason": "连板指数开仓门槛满足",
+    "reason": "883958涨幅不可用/过期",
     "date": "2026-10-27"
   },
   "migration": {
@@ -87,11 +87,11 @@
       "key": "2026-10-27|000678|UNFILLED",
       "title": "S19 已封板/未成交｜襄阳轴承",
       "body": "2026-10-27T10:40:41.736453+08:00\n000678 襄阳轴承｜“羊”字辈｜龙头\n题材封板5只；连板4\n模拟仓门槛：允许模拟开仓；883958涨幅 +3.30%。连板指数开仓门槛满足。原选股信号仍有效，不代表成交。\n指数行情时间：2026-10-27T10:40:00+08:00；这是当时读数，不是收盘值。\n候选来自当日实时池；提醒不等于模拟买入。\n扫描证据：40429165413-1:2185\n\n记录编号：2026-10-27|000678|UNFILLED",
-      "status": "pending",
+      "status": "expired",
       "created_at": "2026-10-27T10:40:41.736453+08:00",
       "expires_at": "2026-10-27T10:42:41.736453+08:00",
-      "attempts": 1,
-      "next_attempt": "2026-10-27T10:41:47.457097+08:00",
+      "attempts": 2,
+      "next_attempt": "2026-10-27T10:43:56.063164+08:00",
       "live_signal": true,
       "last_error": "RuntimeError: notification transport failed: HTTPError"
     }
@@ -116,7 +116,7 @@
         "name": "青岛食品",
         "theme": "三季报增长",
         "role": "龙头",
-        "selection_scans": 524
+        "selection_scans": 577
       },
       "002724": {
         "first_selected_at": "2026-10-27T10:24:22.018872+08:00",
@@ -132,7 +132,7 @@
         "name": "东方海洋",
         "theme": "“羊”字辈",
         "role": "二龙头",
-        "selection_scans": 105
+        "selection_scans": 158
       },
       "000678": {
         "first_selected_at": "2026-10-27T10:40:41.736453+08:00",
@@ -140,20 +140,20 @@
         "name": "襄阳轴承",
         "theme": "“羊”字辈",
         "role": "龙头",
-        "selection_scans": 2
+        "selection_scans": 55
       }
     }
   },
-  "saved_at": "2026-10-27T10:40:47.457097+08:00",
+  "saved_at": "2026-10-27T10:45:51.046916+08:00",
   "equity": 200000,
-  "valuation_at": "2026-10-27T10:40:47.457097+08:00",
+  "valuation_at": "2026-10-27T10:45:51.046916+08:00",
   "health": {
-    "cycles": 938,
+    "cycles": 991,
     "pool_errors": 0,
     "quote_errors": 0,
     "fills": 0,
     "first_cycle": "2026-10-27T09:15:04.051590+08:00",
-    "last_cycle": "2026-10-27T10:40:47.457097+08:00",
+    "last_cycle": "2026-10-27T10:45:51.046916+08:00",
     "entry_coverage_start": "2026-10-27T09:30:04.610782+08:00",
     "opening_delay_seconds": 4.610782,
     "pool_ok": true,
@@ -162,9 +162,9 @@
   "last_pool_size": 43,
   "last_valid_gate": {
     "allowed": true,
-    "index_pct": 3.2964127218275907,
-    "index_time": "2026-10-27T10:40:00+08:00",
-    "checked_at": "2026-10-27T10:40:47.457097+08:00",
+    "index_pct": 3.0505268321306067,
+    "index_time": "2026-10-27T10:43:00+08:00",
+    "checked_at": "2026-10-27T10:44:24.947307+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "连板指数开仓门槛满足",
