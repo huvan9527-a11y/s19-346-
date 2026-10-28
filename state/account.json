@@ -2,15 +2,15 @@
   "cash": 200000,
   "positions": {},
   "last_scan_date": "2026-10-28",
-  "last_scan_time": "09:40:09",
+  "last_scan_time": "09:40:36",
   "pool_date": "2026-10-28",
   "pool_seen_nonempty": true,
   "valuation_stale_codes": [],
   "market_gate": {
     "allowed": false,
-    "index_pct": -0.24466249771409876,
-    "index_time": "2026-10-28T09:39:00+08:00",
-    "checked_at": "2026-10-28T09:40:09.587558+08:00",
+    "index_pct": -0.5096185214840454,
+    "index_time": "2026-10-28T09:40:00+08:00",
+    "checked_at": "2026-10-28T09:40:36.182677+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "883958当日涨幅不大于0%",
@@ -118,6 +118,18 @@
       "next_attempt": "2026-10-28T09:35:04.400079+08:00",
       "live_signal": true,
       "sent_at": "2026-10-28T09:35:09.405733+08:00"
+    },
+    "2026-10-28|001219|UNFILLED": {
+      "key": "2026-10-28|001219|UNFILLED",
+      "title": "S19 已封板/未成交｜青岛食品",
+      "body": "2026-10-28T09:40:30.602873+08:00\n001219 青岛食品｜三季报增长｜龙头\n题材封板7只；连板3\n模拟仓门槛：禁止模拟新开仓；883958涨幅 -0.51%。883958当日涨幅不大于0%。原选股信号仍有效，不代表成交。\n指数行情时间：2026-10-28T09:40:00+08:00；这是当时读数，不是收盘值。\n候选来自当日实时池；提醒不等于模拟买入。\n扫描证据：40610852914-1:731\n\n记录编号：2026-10-28|001219|UNFILLED",
+      "status": "sent",
+      "created_at": "2026-10-28T09:40:30.602873+08:00",
+      "expires_at": "2026-10-28T09:42:30.602873+08:00",
+      "attempts": 1,
+      "next_attempt": "2026-10-28T09:40:30.602873+08:00",
+      "live_signal": true,
+      "sent_at": "2026-10-28T09:40:36.182677+08:00"
     }
   },
   "fill_ids": [],
@@ -166,18 +178,28 @@
         "role": "龙头",
         "selection_scans": 174
       }
+    },
+    "2026-10-28": {
+      "001219": {
+        "first_selected_at": "2026-10-28T09:40:30.602873+08:00",
+        "first_evidence": "40610852914-1:731",
+        "name": "青岛食品",
+        "theme": "三季报增长",
+        "role": "龙头",
+        "selection_scans": 2
+      }
     }
   },
-  "saved_at": "2026-10-28T09:40:09.587558+08:00",
+  "saved_at": "2026-10-28T09:40:36.182677+08:00",
   "equity": 200000,
-  "valuation_at": "2026-10-28T09:40:09.587558+08:00",
+  "valuation_at": "2026-10-28T09:40:36.182677+08:00",
   "health": {
-    "cycles": 301,
+    "cycles": 306,
     "pool_errors": 34,
     "quote_errors": 0,
     "fills": 0,
     "first_cycle": "2026-10-28T09:15:08.736638+08:00",
-    "last_cycle": "2026-10-28T09:40:09.587558+08:00",
+    "last_cycle": "2026-10-28T09:40:36.182677+08:00",
     "entry_coverage_start": "2026-10-28T09:30:04.216942+08:00",
     "opening_delay_seconds": 4.216942,
     "pool_ok": true,
@@ -186,9 +208,9 @@
   "last_pool_size": 20,
   "last_valid_gate": {
     "allowed": false,
-    "index_pct": -0.24466249771409876,
-    "index_time": "2026-10-28T09:39:00+08:00",
-    "checked_at": "2026-10-28T09:40:09.587558+08:00",
+    "index_pct": -0.5096185214840454,
+    "index_time": "2026-10-28T09:40:00+08:00",
+    "checked_at": "2026-10-28T09:40:36.182677+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "883958当日涨幅不大于0%",
