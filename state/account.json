@@ -2,7 +2,7 @@
   "cash": 200000,
   "positions": {},
   "last_scan_date": "2026-10-28",
-  "last_scan_time": "09:20:08",
+  "last_scan_time": "09:25:09",
   "pool_date": "2026-10-28",
   "pool_seen_nonempty": false,
   "valuation_stale_codes": [],
@@ -10,7 +10,7 @@
     "allowed": false,
     "index_pct": null,
     "index_time": null,
-    "checked_at": "2026-10-28T09:20:08.896288+08:00",
+    "checked_at": "2026-10-28T09:25:09.056404+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "竞价阶段禁止模拟开仓；883958涨幅不可用/过期",
@@ -144,16 +144,16 @@
       }
     }
   },
-  "saved_at": "2026-10-28T09:20:08.896288+08:00",
+  "saved_at": "2026-10-28T09:25:09.056404+08:00",
   "equity": 200000,
-  "valuation_at": "2026-10-28T09:20:08.896288+08:00",
+  "valuation_at": "2026-10-28T09:25:09.056404+08:00",
   "health": {
-    "cycles": 61,
+    "cycles": 121,
     "pool_errors": 0,
     "quote_errors": 0,
     "fills": 0,
     "first_cycle": "2026-10-28T09:15:08.736638+08:00",
-    "last_cycle": "2026-10-28T09:20:08.896288+08:00",
+    "last_cycle": "2026-10-28T09:25:09.056404+08:00",
     "entry_coverage_start": null,
     "pool_ok": true,
     "quote_error": null
