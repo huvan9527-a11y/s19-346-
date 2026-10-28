@@ -2,15 +2,15 @@
   "cash": 200000,
   "positions": {},
   "last_scan_date": "2026-10-28",
-  "last_scan_time": "09:52:06",
+  "last_scan_time": "09:57:08",
   "pool_date": "2026-10-28",
   "pool_seen_nonempty": true,
   "valuation_stale_codes": [],
   "market_gate": {
     "allowed": true,
-    "index_pct": 1.076387713472049,
-    "index_time": "2026-10-28T09:51:00+08:00",
-    "checked_at": "2026-10-28T09:52:06.761596+08:00",
+    "index_pct": 1.1490855583366821,
+    "index_time": "2026-10-28T09:56:00+08:00",
+    "checked_at": "2026-10-28T09:57:08.547552+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "连板指数开仓门槛满足",
@@ -147,7 +147,7 @@
       "key": "2026-10-28|000559|UNFILLED",
       "title": "S19 已封板/未成交｜万向钱潮",
       "body": "2026-10-28T09:50:48.667831+08:00\n000559 万向钱潮｜人形机器人｜二龙头\n题材封板4只；连板3\n模拟仓门槛：允许模拟开仓；883958涨幅 +1.30%。连板指数开仓门槛满足。原选股信号仍有效，不代表成交。\n指数行情时间：2026-10-28T09:50:00+08:00；这是当时读数，不是收盘值。\n候选来自当日实时池；提醒不等于模拟买入。\n扫描证据：40610852914-1:1073\n\n记录编号：2026-10-28|000559|UNFILLED",
-      "status": "pending",
+      "status": "expired",
       "created_at": "2026-10-28T09:50:48.667831+08:00",
       "expires_at": "2026-10-28T09:52:48.667831+08:00",
       "attempts": 2,
@@ -210,7 +210,7 @@
         "name": "青岛食品",
         "theme": "三季报增长",
         "role": "龙头",
-        "selection_scans": 61
+        "selection_scans": 115
       },
       "002708": {
         "first_selected_at": "2026-10-28T09:50:48.667831+08:00",
@@ -218,7 +218,7 @@
         "name": "光洋股份",
         "theme": "人形机器人",
         "role": "龙头",
-        "selection_scans": 15
+        "selection_scans": 42
       },
       "000559": {
         "first_selected_at": "2026-10-28T09:50:48.667831+08:00",
@@ -226,20 +226,20 @@
         "name": "万向钱潮",
         "theme": "人形机器人",
         "role": "二龙头",
-        "selection_scans": 15
+        "selection_scans": 42
       }
     }
   },
-  "saved_at": "2026-10-28T09:52:06.761596+08:00",
+  "saved_at": "2026-10-28T09:57:08.547552+08:00",
   "equity": 200000,
-  "valuation_at": "2026-10-28T09:52:06.761596+08:00",
+  "valuation_at": "2026-10-28T09:57:08.547552+08:00",
   "health": {
-    "cycles": 437,
+    "cycles": 491,
     "pool_errors": 106,
     "quote_errors": 0,
     "fills": 0,
     "first_cycle": "2026-10-28T09:15:08.736638+08:00",
-    "last_cycle": "2026-10-28T09:52:06.761596+08:00",
+    "last_cycle": "2026-10-28T09:57:08.547552+08:00",
     "entry_coverage_start": "2026-10-28T09:30:04.216942+08:00",
     "opening_delay_seconds": 4.216942,
     "pool_ok": true,
@@ -248,9 +248,9 @@
   "last_pool_size": 31,
   "last_valid_gate": {
     "allowed": true,
-    "index_pct": 1.076387713472049,
-    "index_time": "2026-10-28T09:51:00+08:00",
-    "checked_at": "2026-10-28T09:52:06.761596+08:00",
+    "index_pct": 1.1490855583366821,
+    "index_time": "2026-10-28T09:56:00+08:00",
+    "checked_at": "2026-10-28T09:57:08.547552+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "连板指数开仓门槛满足",
