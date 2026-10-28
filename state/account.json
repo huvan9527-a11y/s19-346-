@@ -2,15 +2,15 @@
   "cash": 200000,
   "positions": {},
   "last_scan_date": "2026-10-28",
-  "last_scan_time": "10:42:28",
+  "last_scan_time": "10:47:30",
   "pool_date": "2026-10-28",
   "pool_seen_nonempty": true,
   "valuation_stale_codes": [],
   "market_gate": {
     "allowed": true,
-    "index_pct": 2.1712481923868765,
-    "index_time": "2026-10-28T10:41:00+08:00",
-    "checked_at": "2026-10-28T10:42:28.480542+08:00",
+    "index_pct": 2.279830930886839,
+    "index_time": "2026-10-28T10:47:00+08:00",
+    "checked_at": "2026-10-28T10:47:30.108096+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "连板指数开仓门槛满足",
@@ -218,7 +218,7 @@
         "name": "光洋股份",
         "theme": "人形机器人",
         "role": "龙头",
-        "selection_scans": 466
+        "selection_scans": 494
       },
       "000559": {
         "first_selected_at": "2026-10-28T09:50:48.667831+08:00",
@@ -226,31 +226,31 @@
         "name": "万向钱潮",
         "theme": "人形机器人",
         "role": "二龙头",
-        "selection_scans": 466
+        "selection_scans": 494
       }
     }
   },
-  "saved_at": "2026-10-28T10:42:28.480542+08:00",
+  "saved_at": "2026-10-28T10:47:30.108096+08:00",
   "equity": 200000,
-  "valuation_at": "2026-10-28T10:42:28.480542+08:00",
+  "valuation_at": "2026-10-28T10:47:30.108096+08:00",
   "health": {
-    "cycles": 985,
-    "pool_errors": 174,
+    "cycles": 1042,
+    "pool_errors": 203,
     "quote_errors": 0,
     "fills": 0,
     "first_cycle": "2026-10-28T09:15:08.736638+08:00",
-    "last_cycle": "2026-10-28T10:42:28.480542+08:00",
+    "last_cycle": "2026-10-28T10:47:30.108096+08:00",
     "entry_coverage_start": "2026-10-28T09:30:04.216942+08:00",
     "opening_delay_seconds": 4.216942,
-    "pool_ok": true,
+    "pool_ok": false,
     "quote_error": null
   },
   "last_pool_size": 45,
   "last_valid_gate": {
     "allowed": true,
-    "index_pct": 2.1712481923868765,
-    "index_time": "2026-10-28T10:41:00+08:00",
-    "checked_at": "2026-10-28T10:42:28.480542+08:00",
+    "index_pct": 2.279830930886839,
+    "index_time": "2026-10-28T10:47:00+08:00",
+    "checked_at": "2026-10-28T10:47:30.108096+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "连板指数开仓门槛满足",
