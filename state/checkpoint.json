@@ -1,25 +1,25 @@
 {
   "schema": "s19-session-v2",
-  "saved_at": "2026-10-28T09:15:08.733326+08:00",
+  "saved_at": "2026-10-28T09:20:08.896288+08:00",
   "run_id": "40610852914-1",
   "final": false,
   "account": {
     "cash": 200000,
     "positions": {},
-    "last_scan_date": "2026-10-27",
-    "last_scan_time": "11:30:56",
-    "pool_date": "2026-10-27",
-    "pool_seen_nonempty": true,
+    "last_scan_date": "2026-10-28",
+    "last_scan_time": "09:20:08",
+    "pool_date": "2026-10-28",
+    "pool_seen_nonempty": false,
     "valuation_stale_codes": [],
     "market_gate": {
       "allowed": false,
       "index_pct": null,
       "index_time": null,
-      "checked_at": "2026-10-27T11:30:56.228960+08:00",
+      "checked_at": "2026-10-28T09:20:08.896288+08:00",
       "opening_limit_down": null,
       "opening_limit_down_required": false,
-      "reason": "883958涨幅不可用/过期",
-      "date": "2026-10-27"
+      "reason": "竞价阶段禁止模拟开仓；883958涨幅不可用/过期",
+      "date": "2026-10-28"
     },
     "migration": {
       "date": "2026-10-24",
@@ -149,22 +149,21 @@
         }
       }
     },
-    "saved_at": "2026-10-28T09:15:08.733326+08:00",
+    "saved_at": "2026-10-28T09:20:08.896288+08:00",
     "equity": 200000,
-    "valuation_at": "2026-10-27T11:30:56.228960+08:00",
+    "valuation_at": "2026-10-28T09:20:08.896288+08:00",
     "health": {
-      "cycles": 1514,
-      "pool_errors": 7,
+      "cycles": 61,
+      "pool_errors": 0,
       "quote_errors": 0,
       "fills": 0,
-      "first_cycle": "2026-10-27T09:15:04.051590+08:00",
-      "last_cycle": "2026-10-27T11:30:56.228960+08:00",
-      "entry_coverage_start": "2026-10-27T09:30:04.610782+08:00",
-      "opening_delay_seconds": 4.610782,
-      "pool_ok": false,
+      "first_cycle": "2026-10-28T09:15:08.736638+08:00",
+      "last_cycle": "2026-10-28T09:20:08.896288+08:00",
+      "entry_coverage_start": null,
+      "pool_ok": true,
       "quote_error": null
     },
-    "last_pool_size": 44,
+    "last_pool_size": 0,
     "last_valid_gate": {
       "allowed": true,
       "index_pct": 2.7109387226339487,
@@ -192,12 +191,17 @@
       }
     }
   },
-  "report": "# S19 统一实时模拟仓\n\n- 更新时间：2026-10-28T09:15:08.733326+08:00\n- 候选口径：当日实时涨停池；推送与模拟仓共享本轮候选和行情证据。\n- 现金：200000.00；总权益：200000.00；持仓：0；待确认意向：0。\n- 估值状态：有效\n- 模拟仓门槛：禁止模拟新开仓；883958涨幅 不可用。883958涨幅不可用/过期。原选股信号仍有效，不代表成交。\n指数行情时间：None；这是当时读数，不是收盘值。\n- 开盘跌停家数限制：当前未启用，保持本次修复前实际执行口径。\n- 通知：启用；成功4，待重试0，已过期2。\n- 运行覆盖与错误：`{\"cycles\": 0, \"entry_coverage_start\": null, \"fills\": 0, \"first_cycle\": null, \"last_cycle\": null, \"pool_errors\": 0, \"quote_errors\": 0}`\n\n## 本轮候选\n\n- 无；需结合上面的数据状态判断，不能把数据失败当成无信号。\n\n## 今日首次候选与模拟执行\n\n| 股票 | 首次入选 | 题材/角色 | 模拟成交 | 最近状态/原因 |\n|---|---|---|---|---|\n\n- 分时段覆盖：`{\"2026-10-27\": {\"morning\": {\"cycles\": 1514, \"entry_coverage_start\": \"2026-10-27T09:30:04.610782+08:00\", \"fills\": 0, \"first_cycle\": \"2026-10-27T09:15:04.051590+08:00\", \"last_cycle\": \"2026-10-27T11:30:56.228960+08:00\", \"opening_delay_seconds\": 4.610782, \"pool_errors\": 7, \"quote_errors\": 0}}}`\n\n## 持仓与待确认意向\n\n```json\n{\"pending_intents\": {}, \"positions\": {}}\n```\n\n> 仅模拟：信号后必须出现源时间严格更新的下一次盘口才能记成交。盘口快照不能证明实盘排队/成交。\n",
+  "report": "# S19 统一实时模拟仓\n\n- 更新时间：2026-10-28T09:20:08.896288+08:00\n- 候选口径：当日实时涨停池；推送与模拟仓共享本轮候选和行情证据。\n- 现金：200000.00；总权益：200000.00；持仓：0；待确认意向：0。\n- 估值状态：有效\n- 模拟仓门槛：禁止模拟新开仓；883958涨幅 不可用。竞价阶段禁止模拟开仓；883958涨幅不可用/过期。原选股信号仍有效，不代表成交。\n指数行情时间：None；这是当时读数，不是收盘值。\n- 开盘跌停家数限制：当前未启用，保持本次修复前实际执行口径。\n- 通知：启用；成功4，待重试0，已过期2。\n- 运行覆盖与错误：`{\"cycles\": 61, \"entry_coverage_start\": null, \"fills\": 0, \"first_cycle\": \"2026-10-28T09:15:08.736638+08:00\", \"last_cycle\": \"2026-10-28T09:20:08.896288+08:00\", \"pool_errors\": 0, \"quote_errors\": 0}`\n\n## 本轮候选\n\n- 无；需结合上面的数据状态判断，不能把数据失败当成无信号。\n\n## 今日首次候选与模拟执行\n\n| 股票 | 首次入选 | 题材/角色 | 模拟成交 | 最近状态/原因 |\n|---|---|---|---|---|\n\n- 分时段覆盖：`{\"2026-10-27\": {\"morning\": {\"cycles\": 1514, \"entry_coverage_start\": \"2026-10-27T09:30:04.610782+08:00\", \"fills\": 0, \"first_cycle\": \"2026-10-27T09:15:04.051590+08:00\", \"last_cycle\": \"2026-10-27T11:30:56.228960+08:00\", \"opening_delay_seconds\": 4.610782, \"pool_errors\": 7, \"quote_errors\": 0}}}`\n\n## 持仓与待确认意向\n\n```json\n{\"pending_intents\": {}, \"positions\": {}}\n```\n\n> 仅模拟：信号后必须出现源时间严格更新的下一次盘口才能记成交。盘口快照不能证明实盘排队/成交。\n",
   "journal": [
     {
       "path": "logs/sessions/2026-10-28/0915-40610852914-1.jsonl",
-      "size": 398,
-      "sha256": "8ff02c5c0df3c02d076c34fbc8bb60beabccb83571771954ffedf83ce2b83b2a"
+      "size": 59506,
+      "sha256": "617be59baa09d3baef289578620d2dc634c7cd057efcaab048276df485ca638e"
+    },
+    {
+      "path": "logs/sessions/2026-10-28/0920-40610852914-1.jsonl",
+      "size": 2228,
+      "sha256": "87bcd464b93ac7adf64ae6b8c86e4ff26581f1bc9d50410d9e39eba3feb26f3a"
     }
   ],
   "exports": [
@@ -208,8 +212,8 @@
     },
     {
       "path": "logs/equity.csv",
-      "size": 362984,
-      "sha256": "d31e647861f06209dcaa573c57a6a485285c0eb4b15abb678a30dbcbb4311af3"
+      "size": 366705,
+      "sha256": "7b9fed007ddba50a52a35cf661b57a6660b00413c750f1a952b18256e1eb95f3"
     }
   ]
 }
