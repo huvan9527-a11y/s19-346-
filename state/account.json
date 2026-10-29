@@ -2,7 +2,7 @@
   "cash": 200000,
   "positions": {},
   "last_scan_date": "2026-10-29",
-  "last_scan_time": "10:41:39",
+  "last_scan_time": "10:41:45",
   "pool_date": "2026-10-29",
   "pool_seen_nonempty": true,
   "valuation_stale_codes": [],
@@ -10,7 +10,7 @@
     "allowed": false,
     "index_pct": null,
     "index_time": null,
-    "checked_at": "2026-10-29T10:41:39.971718+08:00",
+    "checked_at": "2026-10-29T10:41:45.801154+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "883958涨幅不可用/过期",
@@ -246,8 +246,8 @@
       "status": "pending",
       "created_at": "2026-10-29T10:40:24.269369+08:00",
       "expires_at": "2026-10-29T10:42:24.269369+08:00",
-      "attempts": 1,
-      "next_attempt": "2026-10-29T10:41:35.929862+08:00",
+      "attempts": 2,
+      "next_attempt": "2026-10-29T10:43:45.801154+08:00",
       "live_signal": true,
       "last_error": "RuntimeError: notification transport failed: HTTPError"
     }
@@ -364,7 +364,7 @@
         "name": "澳洋健康",
         "theme": "“羊”字辈",
         "role": "二龙头",
-        "selection_scans": 165
+        "selection_scans": 166
       },
       "001400": {
         "first_selected_at": "2026-10-29T10:40:24.269369+08:00",
@@ -372,7 +372,7 @@
         "name": "江顺科技",
         "theme": "三季报增长",
         "role": "二龙头",
-        "selection_scans": 14
+        "selection_scans": 15
       },
       "603131": {
         "first_selected_at": "2026-10-29T10:40:24.269369+08:00",
@@ -380,20 +380,20 @@
         "name": "上海沪工",
         "theme": "商业航天",
         "role": "龙头",
-        "selection_scans": 14
+        "selection_scans": 15
       }
     }
   },
-  "saved_at": "2026-10-29T10:41:39.971718+08:00",
+  "saved_at": "2026-10-29T10:41:45.801154+08:00",
   "equity": 200000,
-  "valuation_at": "2026-10-29T10:41:39.971718+08:00",
+  "valuation_at": "2026-10-29T10:41:45.801154+08:00",
   "health": {
-    "cycles": 921,
+    "cycles": 922,
     "pool_errors": 53,
     "quote_errors": 0,
     "fills": 0,
     "first_cycle": "2026-10-29T09:17:09.113529+08:00",
-    "last_cycle": "2026-10-29T10:41:39.971718+08:00",
+    "last_cycle": "2026-10-29T10:41:45.801154+08:00",
     "entry_coverage_start": "2026-10-29T09:30:04.558455+08:00",
     "opening_delay_seconds": 4.558455,
     "pool_ok": true,
