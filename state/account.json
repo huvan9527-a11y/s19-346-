@@ -2,7 +2,7 @@
   "cash": 200000,
   "positions": {},
   "last_scan_date": "2026-10-29",
-  "last_scan_time": "10:41:45",
+  "last_scan_time": "10:46:50",
   "pool_date": "2026-10-29",
   "pool_seen_nonempty": true,
   "valuation_stale_codes": [],
@@ -10,7 +10,7 @@
     "allowed": false,
     "index_pct": null,
     "index_time": null,
-    "checked_at": "2026-10-29T10:41:45.801154+08:00",
+    "checked_at": "2026-10-29T10:46:50.217589+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "883958涨幅不可用/过期",
@@ -231,7 +231,7 @@
       "key": "2026-10-29|001400|UNFILLED",
       "title": "S19 已封板/未成交｜江顺科技",
       "body": "2026-10-29T10:40:24.269369+08:00\n001400 江顺科技｜三季报增长｜二龙头\n题材封板10只；连板3\n模拟仓门槛：允许模拟开仓；883958涨幅 +8.19%。连板指数开仓门槛满足。原选股信号仍有效，不代表成交。\n指数行情时间：2026-10-29T10:40:00+08:00；这是当时读数，不是收盘值。\n候选来自当日实时池；提醒不等于模拟买入。\n扫描证据：40799438143-1:2167\n\n记录编号：2026-10-29|001400|UNFILLED",
-      "status": "pending",
+      "status": "expired",
       "created_at": "2026-10-29T10:40:24.269369+08:00",
       "expires_at": "2026-10-29T10:42:24.269369+08:00",
       "attempts": 2,
@@ -243,7 +243,7 @@
       "key": "2026-10-29|603131|UNFILLED",
       "title": "S19 已封板/未成交｜上海沪工",
       "body": "2026-10-29T10:40:24.269369+08:00\n603131 上海沪工｜商业航天｜龙头\n题材封板6只；连板2\n模拟仓门槛：允许模拟开仓；883958涨幅 +8.19%。连板指数开仓门槛满足。原选股信号仍有效，不代表成交。\n指数行情时间：2026-10-29T10:40:00+08:00；这是当时读数，不是收盘值。\n候选来自当日实时池；提醒不等于模拟买入。\n扫描证据：40799438143-1:2167\n\n记录编号：2026-10-29|603131|UNFILLED",
-      "status": "pending",
+      "status": "expired",
       "created_at": "2026-10-29T10:40:24.269369+08:00",
       "expires_at": "2026-10-29T10:42:24.269369+08:00",
       "attempts": 2,
@@ -364,7 +364,7 @@
         "name": "澳洋健康",
         "theme": "“羊”字辈",
         "role": "二龙头",
-        "selection_scans": 166
+        "selection_scans": 218
       },
       "001400": {
         "first_selected_at": "2026-10-29T10:40:24.269369+08:00",
@@ -372,7 +372,7 @@
         "name": "江顺科技",
         "theme": "三季报增长",
         "role": "二龙头",
-        "selection_scans": 15
+        "selection_scans": 67
       },
       "603131": {
         "first_selected_at": "2026-10-29T10:40:24.269369+08:00",
@@ -380,31 +380,31 @@
         "name": "上海沪工",
         "theme": "商业航天",
         "role": "龙头",
-        "selection_scans": 15
+        "selection_scans": 67
       }
     }
   },
-  "saved_at": "2026-10-29T10:41:45.801154+08:00",
+  "saved_at": "2026-10-29T10:46:50.217589+08:00",
   "equity": 200000,
-  "valuation_at": "2026-10-29T10:41:45.801154+08:00",
+  "valuation_at": "2026-10-29T10:46:50.217589+08:00",
   "health": {
-    "cycles": 922,
+    "cycles": 974,
     "pool_errors": 53,
     "quote_errors": 0,
     "fills": 0,
     "first_cycle": "2026-10-29T09:17:09.113529+08:00",
-    "last_cycle": "2026-10-29T10:41:45.801154+08:00",
+    "last_cycle": "2026-10-29T10:46:50.217589+08:00",
     "entry_coverage_start": "2026-10-29T09:30:04.558455+08:00",
     "opening_delay_seconds": 4.558455,
     "pool_ok": true,
     "quote_error": null
   },
-  "last_pool_size": 37,
+  "last_pool_size": 35,
   "last_valid_gate": {
     "allowed": true,
-    "index_pct": 8.185191938151547,
-    "index_time": "2026-10-29T10:40:00+08:00",
-    "checked_at": "2026-10-29T10:41:28.308990+08:00",
+    "index_pct": 8.154217476923975,
+    "index_time": "2026-10-29T10:46:00+08:00",
+    "checked_at": "2026-10-29T10:46:44.408102+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "连板指数开仓门槛满足",
