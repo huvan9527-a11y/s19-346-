@@ -2,15 +2,15 @@
   "cash": 200000,
   "positions": {},
   "last_scan_date": "2026-10-29",
-  "last_scan_time": "10:31:09",
+  "last_scan_time": "10:36:13",
   "pool_date": "2026-10-29",
   "pool_seen_nonempty": true,
   "valuation_stale_codes": [],
   "market_gate": {
     "allowed": true,
-    "index_pct": 7.486742090403675,
-    "index_time": "2026-10-29T10:30:00+08:00",
-    "checked_at": "2026-10-29T10:31:09.025492+08:00",
+    "index_pct": 8.274234852418715,
+    "index_time": "2026-10-29T10:35:00+08:00",
+    "checked_at": "2026-10-29T10:36:13.478812+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "连板指数开仓门槛满足",
@@ -316,7 +316,7 @@
         "name": "联明股份",
         "theme": "三季报增长",
         "role": "二龙头",
-        "selection_scans": 453
+        "selection_scans": 505
       },
       "002708": {
         "first_selected_at": "2026-10-29T10:00:17.618646+08:00",
@@ -324,7 +324,7 @@
         "name": "光洋股份",
         "theme": "“羊”字辈",
         "role": "龙头",
-        "selection_scans": 196
+        "selection_scans": 198
       },
       "000678": {
         "first_selected_at": "2026-10-29T10:10:27.307663+08:00",
@@ -340,20 +340,20 @@
         "name": "澳洋健康",
         "theme": "“羊”字辈",
         "role": "二龙头",
-        "selection_scans": 57
+        "selection_scans": 109
       }
     }
   },
-  "saved_at": "2026-10-29T10:31:09.025492+08:00",
+  "saved_at": "2026-10-29T10:36:13.478812+08:00",
   "equity": 200000,
-  "valuation_at": "2026-10-29T10:31:09.025492+08:00",
+  "valuation_at": "2026-10-29T10:36:13.478812+08:00",
   "health": {
-    "cycles": 813,
+    "cycles": 865,
     "pool_errors": 53,
     "quote_errors": 0,
     "fills": 0,
     "first_cycle": "2026-10-29T09:17:09.113529+08:00",
-    "last_cycle": "2026-10-29T10:31:09.025492+08:00",
+    "last_cycle": "2026-10-29T10:36:13.478812+08:00",
     "entry_coverage_start": "2026-10-29T09:30:04.558455+08:00",
     "opening_delay_seconds": 4.558455,
     "pool_ok": true,
@@ -362,9 +362,9 @@
   "last_pool_size": 35,
   "last_valid_gate": {
     "allowed": true,
-    "index_pct": 7.486742090403675,
-    "index_time": "2026-10-29T10:30:00+08:00",
-    "checked_at": "2026-10-29T10:31:09.025492+08:00",
+    "index_pct": 8.274234852418715,
+    "index_time": "2026-10-29T10:35:00+08:00",
+    "checked_at": "2026-10-29T10:36:13.478812+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "连板指数开仓门槛满足",
