@@ -2,18 +2,18 @@
   "cash": 200000,
   "positions": {},
   "last_scan_date": "2026-10-29",
-  "last_scan_time": "10:16:43",
+  "last_scan_time": "10:21:46",
   "pool_date": "2026-10-29",
   "pool_seen_nonempty": true,
   "valuation_stale_codes": [],
   "market_gate": {
-    "allowed": false,
-    "index_pct": null,
-    "index_time": null,
-    "checked_at": "2026-10-29T10:16:43.633481+08:00",
+    "allowed": true,
+    "index_pct": 7.030457787118993,
+    "index_time": "2026-10-29T10:21:00+08:00",
+    "checked_at": "2026-10-29T10:21:46.582615+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
-    "reason": "883958涨幅不可用/过期",
+    "reason": "连板指数开仓门槛满足",
     "date": "2026-10-29"
   },
   "migration": {
@@ -296,7 +296,7 @@
         "name": "青岛食品",
         "theme": "三季报增长",
         "role": "龙头",
-        "selection_scans": 308
+        "selection_scans": 356
       },
       "603006": {
         "first_selected_at": "2026-10-29T09:40:51.354827+08:00",
@@ -304,15 +304,15 @@
         "name": "联明股份",
         "theme": "三季报增长",
         "role": "二龙头",
-        "selection_scans": 308
+        "selection_scans": 360
       },
       "002708": {
         "first_selected_at": "2026-10-29T10:00:17.618646+08:00",
         "first_evidence": "40799438143-1:1144",
         "name": "光洋股份",
         "theme": "“羊”字辈",
-        "role": "龙头",
-        "selection_scans": 108
+        "role": "二龙头",
+        "selection_scans": 112
       },
       "000678": {
         "first_selected_at": "2026-10-29T10:10:27.307663+08:00",
@@ -320,31 +320,31 @@
         "name": "襄阳轴承",
         "theme": "“羊”字辈",
         "role": "龙头",
-        "selection_scans": 31
+        "selection_scans": 83
       }
     }
   },
-  "saved_at": "2026-10-29T10:16:43.633481+08:00",
+  "saved_at": "2026-10-29T10:21:46.582615+08:00",
   "equity": 200000,
-  "valuation_at": "2026-10-29T10:16:43.633481+08:00",
+  "valuation_at": "2026-10-29T10:21:46.582615+08:00",
   "health": {
-    "cycles": 664,
+    "cycles": 716,
     "pool_errors": 49,
     "quote_errors": 0,
     "fills": 0,
     "first_cycle": "2026-10-29T09:17:09.113529+08:00",
-    "last_cycle": "2026-10-29T10:16:43.633481+08:00",
+    "last_cycle": "2026-10-29T10:21:46.582615+08:00",
     "entry_coverage_start": "2026-10-29T09:30:04.558455+08:00",
     "opening_delay_seconds": 4.558455,
     "pool_ok": true,
     "quote_error": null
   },
-  "last_pool_size": 31,
+  "last_pool_size": 34,
   "last_valid_gate": {
     "allowed": true,
-    "index_pct": 6.866828439509942,
-    "index_time": "2026-10-29T10:14:00+08:00",
-    "checked_at": "2026-10-29T10:15:16.438667+08:00",
+    "index_pct": 7.030457787118993,
+    "index_time": "2026-10-29T10:21:00+08:00",
+    "checked_at": "2026-10-29T10:21:46.582615+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "连板指数开仓门槛满足",
