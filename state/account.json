@@ -1,20 +1,20 @@
 {
   "cash": 200000,
   "positions": {},
-  "last_scan_date": "2026-10-28",
-  "last_scan_time": "11:30:59",
-  "pool_date": "2026-10-28",
-  "pool_seen_nonempty": true,
+  "last_scan_date": "2026-10-29",
+  "last_scan_time": "09:22:09",
+  "pool_date": "2026-10-29",
+  "pool_seen_nonempty": false,
   "valuation_stale_codes": [],
   "market_gate": {
     "allowed": false,
     "index_pct": null,
     "index_time": null,
-    "checked_at": "2026-10-28T11:30:59.014357+08:00",
+    "checked_at": "2026-10-29T09:22:09.284896+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
-    "reason": "883958涨幅不可用/过期",
-    "date": "2026-10-28"
+    "reason": "竞价阶段禁止模拟开仓；883958涨幅不可用/过期",
+    "date": "2026-10-29"
   },
   "migration": {
     "date": "2026-10-24",
@@ -230,22 +230,21 @@
       }
     }
   },
-  "saved_at": "2026-10-29T09:17:09.110275+08:00",
+  "saved_at": "2026-10-29T09:22:09.284896+08:00",
   "equity": 200000,
-  "valuation_at": "2026-10-28T11:30:59.014357+08:00",
+  "valuation_at": "2026-10-29T09:22:09.284896+08:00",
   "health": {
-    "cycles": 1557,
-    "pool_errors": 268,
+    "cycles": 61,
+    "pool_errors": 0,
     "quote_errors": 0,
     "fills": 0,
-    "first_cycle": "2026-10-28T09:15:08.736638+08:00",
-    "last_cycle": "2026-10-28T11:30:59.014357+08:00",
-    "entry_coverage_start": "2026-10-28T09:30:04.216942+08:00",
-    "opening_delay_seconds": 4.216942,
-    "pool_ok": false,
+    "first_cycle": "2026-10-29T09:17:09.113529+08:00",
+    "last_cycle": "2026-10-29T09:22:09.284896+08:00",
+    "entry_coverage_start": null,
+    "pool_ok": true,
     "quote_error": null
   },
-  "last_pool_size": 51,
+  "last_pool_size": 0,
   "last_valid_gate": {
     "allowed": true,
     "index_pct": 3.8939617302635066,
