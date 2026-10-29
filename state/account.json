@@ -2,15 +2,15 @@
   "cash": 200000,
   "positions": {},
   "last_scan_date": "2026-10-29",
-  "last_scan_time": "10:26:05",
+  "last_scan_time": "10:31:09",
   "pool_date": "2026-10-29",
   "pool_seen_nonempty": true,
   "valuation_stale_codes": [],
   "market_gate": {
     "allowed": true,
-    "index_pct": 7.1145115264233505,
-    "index_time": "2026-10-29T10:25:00+08:00",
-    "checked_at": "2026-10-29T10:26:05.181835+08:00",
+    "index_pct": 7.486742090403675,
+    "index_time": "2026-10-29T10:30:00+08:00",
+    "checked_at": "2026-10-29T10:31:09.025492+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "连板指数开仓门槛满足",
@@ -219,7 +219,7 @@
       "key": "2026-10-29|002172|UNFILLED",
       "title": "S19 已封板/未成交｜澳洋健康",
       "body": "2026-10-29T10:24:49.634773+08:00\n002172 澳洋健康｜“羊”字辈｜二龙头\n题材封板5只；连板2\n模拟仓门槛：允许模拟开仓；883958涨幅 +7.13%。连板指数开仓门槛满足。原选股信号仍有效，不代表成交。\n指数行情时间：2026-10-29T10:24:00+08:00；这是当时读数，不是收盘值。\n候选来自当日实时池；提醒不等于模拟买入。\n扫描证据：40799438143-1:1788\n\n记录编号：2026-10-29|002172|UNFILLED",
-      "status": "pending",
+      "status": "expired",
       "created_at": "2026-10-29T10:24:49.634773+08:00",
       "expires_at": "2026-10-29T10:26:49.634773+08:00",
       "attempts": 2,
@@ -316,15 +316,15 @@
         "name": "联明股份",
         "theme": "三季报增长",
         "role": "二龙头",
-        "selection_scans": 401
+        "selection_scans": 453
       },
       "002708": {
         "first_selected_at": "2026-10-29T10:00:17.618646+08:00",
         "first_evidence": "40799438143-1:1144",
         "name": "光洋股份",
         "theme": "“羊”字辈",
-        "role": "二龙头",
-        "selection_scans": 153
+        "role": "龙头",
+        "selection_scans": 196
       },
       "000678": {
         "first_selected_at": "2026-10-29T10:10:27.307663+08:00",
@@ -332,7 +332,7 @@
         "name": "襄阳轴承",
         "theme": "“羊”字辈",
         "role": "龙头",
-        "selection_scans": 114
+        "selection_scans": 119
       },
       "002172": {
         "first_selected_at": "2026-10-29T10:24:49.634773+08:00",
@@ -340,31 +340,31 @@
         "name": "澳洋健康",
         "theme": "“羊”字辈",
         "role": "二龙头",
-        "selection_scans": 10
+        "selection_scans": 57
       }
     }
   },
-  "saved_at": "2026-10-29T10:26:05.181835+08:00",
+  "saved_at": "2026-10-29T10:31:09.025492+08:00",
   "equity": 200000,
-  "valuation_at": "2026-10-29T10:26:05.181835+08:00",
+  "valuation_at": "2026-10-29T10:31:09.025492+08:00",
   "health": {
-    "cycles": 761,
+    "cycles": 813,
     "pool_errors": 53,
     "quote_errors": 0,
     "fills": 0,
     "first_cycle": "2026-10-29T09:17:09.113529+08:00",
-    "last_cycle": "2026-10-29T10:26:05.181835+08:00",
+    "last_cycle": "2026-10-29T10:31:09.025492+08:00",
     "entry_coverage_start": "2026-10-29T09:30:04.558455+08:00",
     "opening_delay_seconds": 4.558455,
     "pool_ok": true,
     "quote_error": null
   },
-  "last_pool_size": 37,
+  "last_pool_size": 35,
   "last_valid_gate": {
     "allowed": true,
-    "index_pct": 7.1145115264233505,
-    "index_time": "2026-10-29T10:25:00+08:00",
-    "checked_at": "2026-10-29T10:26:05.181835+08:00",
+    "index_pct": 7.486742090403675,
+    "index_time": "2026-10-29T10:30:00+08:00",
+    "checked_at": "2026-10-29T10:31:09.025492+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "连板指数开仓门槛满足",
