@@ -2,15 +2,15 @@
   "cash": 200000,
   "positions": {},
   "last_scan_date": "2026-10-29",
-  "last_scan_time": "10:56:57",
+  "last_scan_time": "11:01:57",
   "pool_date": "2026-10-29",
   "pool_seen_nonempty": true,
   "valuation_stale_codes": [],
   "market_gate": {
     "allowed": true,
-    "index_pct": 6.97835728815821,
-    "index_time": "2026-10-29T10:56:00+08:00",
-    "checked_at": "2026-10-29T10:56:57.222412+08:00",
+    "index_pct": 6.034008676487068,
+    "index_time": "2026-10-29T11:01:00+08:00",
+    "checked_at": "2026-10-29T11:01:57.256973+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "连板指数开仓门槛满足",
@@ -372,7 +372,7 @@
         "name": "江顺科技",
         "theme": "三季报增长",
         "role": "二龙头",
-        "selection_scans": 171
+        "selection_scans": 181
       },
       "603131": {
         "first_selected_at": "2026-10-29T10:40:24.269369+08:00",
@@ -380,31 +380,31 @@
         "name": "上海沪工",
         "theme": "商业航天",
         "role": "龙头",
-        "selection_scans": 171
+        "selection_scans": 181
       }
     }
   },
-  "saved_at": "2026-10-29T10:56:57.222412+08:00",
+  "saved_at": "2026-10-29T11:01:57.256973+08:00",
   "equity": 200000,
-  "valuation_at": "2026-10-29T10:56:57.222412+08:00",
+  "valuation_at": "2026-10-29T11:01:57.256973+08:00",
   "health": {
-    "cycles": 1078,
+    "cycles": 1136,
     "pool_errors": 53,
     "quote_errors": 0,
     "fills": 0,
     "first_cycle": "2026-10-29T09:17:09.113529+08:00",
-    "last_cycle": "2026-10-29T10:56:57.222412+08:00",
+    "last_cycle": "2026-10-29T11:01:57.256973+08:00",
     "entry_coverage_start": "2026-10-29T09:30:04.558455+08:00",
     "opening_delay_seconds": 4.558455,
-    "pool_ok": true,
+    "pool_ok": false,
     "quote_error": null
   },
   "last_pool_size": 34,
   "last_valid_gate": {
     "allowed": true,
-    "index_pct": 6.97835728815821,
-    "index_time": "2026-10-29T10:56:00+08:00",
-    "checked_at": "2026-10-29T10:56:57.222412+08:00",
+    "index_pct": 6.034008676487068,
+    "index_time": "2026-10-29T11:01:00+08:00",
+    "checked_at": "2026-10-29T11:01:57.256973+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "连板指数开仓门槛满足",
