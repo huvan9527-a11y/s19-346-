@@ -2,18 +2,18 @@
   "cash": 200000,
   "positions": {},
   "last_scan_date": "2026-10-30",
-  "last_scan_time": "10:16:47",
+  "last_scan_time": "10:21:51",
   "pool_date": "2026-10-30",
   "pool_seen_nonempty": true,
   "valuation_stale_codes": [],
   "market_gate": {
     "allowed": false,
-    "index_pct": -3.442532324396941,
-    "index_time": "2026-10-30T10:16:00+08:00",
-    "checked_at": "2026-10-30T10:16:47.195611+08:00",
+    "index_pct": null,
+    "index_time": null,
+    "checked_at": "2026-10-30T10:21:51.881948+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
-    "reason": "883958当日涨幅不大于0%",
+    "reason": "883958涨幅不可用/过期",
     "date": "2026-10-30"
   },
   "migration": {
@@ -462,7 +462,7 @@
         "name": "青岛食品",
         "theme": "三季报增长",
         "role": "龙头",
-        "selection_scans": 175
+        "selection_scans": 179
       },
       "002275": {
         "first_selected_at": "2026-10-30T09:40:30.571573+08:00",
@@ -470,7 +470,7 @@
         "name": "桂林三金",
         "theme": "三季报增长",
         "role": "二龙头",
-        "selection_scans": 373
+        "selection_scans": 426
       },
       "002086": {
         "first_selected_at": "2026-10-30T10:10:22.394992+08:00",
@@ -478,7 +478,7 @@
         "name": "东方海洋",
         "theme": "“羊”字辈",
         "role": "龙头",
-        "selection_scans": 62
+        "selection_scans": 115
       },
       "603703": {
         "first_selected_at": "2026-10-30T10:10:22.394992+08:00",
@@ -486,31 +486,31 @@
         "name": "盛洋科技",
         "theme": "“羊”字辈",
         "role": "二龙头",
-        "selection_scans": 62
+        "selection_scans": 111
       }
     }
   },
-  "saved_at": "2026-10-30T10:16:47.195611+08:00",
+  "saved_at": "2026-10-30T10:21:51.881948+08:00",
   "equity": 200000,
-  "valuation_at": "2026-10-30T10:16:47.195611+08:00",
+  "valuation_at": "2026-10-30T10:21:51.881948+08:00",
   "health": {
-    "cycles": 602,
+    "cycles": 655,
     "pool_errors": 6,
     "quote_errors": 0,
     "fills": 0,
     "first_cycle": "2026-10-30T09:22:03.630759+08:00",
-    "last_cycle": "2026-10-30T10:16:47.195611+08:00",
+    "last_cycle": "2026-10-30T10:21:51.881948+08:00",
     "entry_coverage_start": "2026-10-30T09:30:03.940779+08:00",
     "opening_delay_seconds": 3.940779,
     "pool_ok": true,
     "quote_error": null
   },
-  "last_pool_size": 33,
+  "last_pool_size": 35,
   "last_valid_gate": {
     "allowed": false,
-    "index_pct": -3.442532324396941,
-    "index_time": "2026-10-30T10:16:00+08:00",
-    "checked_at": "2026-10-30T10:16:47.195611+08:00",
+    "index_pct": -3.5381131715099934,
+    "index_time": "2026-10-30T10:20:00+08:00",
+    "checked_at": "2026-10-30T10:21:29.004473+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "883958当日涨幅不大于0%",
