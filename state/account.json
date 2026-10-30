@@ -2,18 +2,18 @@
   "cash": 200000,
   "positions": {},
   "last_scan_date": "2026-10-30",
-  "last_scan_time": "09:27:03",
+  "last_scan_time": "09:31:34",
   "pool_date": "2026-10-30",
   "pool_seen_nonempty": true,
   "valuation_stale_codes": [],
   "market_gate": {
     "allowed": false,
-    "index_pct": null,
-    "index_time": null,
-    "checked_at": "2026-10-30T09:27:03.820471+08:00",
+    "index_pct": -2.3037618596196463,
+    "index_time": "2026-10-30T09:31:00+08:00",
+    "checked_at": "2026-10-30T09:31:34.006284+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
-    "reason": "竞价阶段禁止模拟开仓；883958涨幅不可用/过期",
+    "reason": "883958当日涨幅不大于0%",
     "date": "2026-10-30"
   },
   "migration": {
@@ -250,6 +250,18 @@
       "next_attempt": "2026-10-29T10:43:45.801154+08:00",
       "live_signal": true,
       "last_error": "RuntimeError: notification transport failed: HTTPError"
+    },
+    "2026-10-30|STATUS|MARKET_GATE|INDEX_NONPOSITIVE": {
+      "key": "2026-10-30|STATUS|MARKET_GATE|INDEX_NONPOSITIVE",
+      "title": "S19 风险提醒｜禁止模拟新开仓",
+      "body": "模拟仓门槛：禁止模拟新开仓；883958涨幅 -2.30%。883958当日涨幅不大于0%。原选股信号仍有效，不代表成交。\n指数行情时间：2026-10-30T09:31:00+08:00；这是当时读数，不是收盘值。\n\n记录编号：2026-10-30|STATUS|MARKET_GATE|INDEX_NONPOSITIVE",
+      "status": "sent",
+      "created_at": "2026-10-30T09:31:28.997585+08:00",
+      "expires_at": "2026-10-30T09:41:28.997585+08:00",
+      "attempts": 1,
+      "next_attempt": "2026-10-30T09:31:28.997585+08:00",
+      "live_signal": true,
+      "sent_at": "2026-10-30T09:31:34.006284+08:00"
     }
   },
   "fill_ids": [],
@@ -384,30 +396,31 @@
       }
     }
   },
-  "saved_at": "2026-10-30T09:27:03.820471+08:00",
+  "saved_at": "2026-10-30T09:31:34.006284+08:00",
   "equity": 200000,
-  "valuation_at": "2026-10-30T09:27:03.820471+08:00",
+  "valuation_at": "2026-10-30T09:31:34.006284+08:00",
   "health": {
-    "cycles": 61,
+    "cycles": 115,
     "pool_errors": 0,
     "quote_errors": 0,
     "fills": 0,
     "first_cycle": "2026-10-30T09:22:03.630759+08:00",
-    "last_cycle": "2026-10-30T09:27:03.820471+08:00",
-    "entry_coverage_start": null,
+    "last_cycle": "2026-10-30T09:31:34.006284+08:00",
+    "entry_coverage_start": "2026-10-30T09:30:03.940779+08:00",
+    "opening_delay_seconds": 3.940779,
     "pool_ok": true,
     "quote_error": null
   },
-  "last_pool_size": 3,
+  "last_pool_size": 5,
   "last_valid_gate": {
-    "allowed": true,
-    "index_pct": 6.896373709992942,
-    "index_time": "2026-10-29T11:29:00+08:00",
-    "checked_at": "2026-10-29T11:30:28.218521+08:00",
+    "allowed": false,
+    "index_pct": -2.3037618596196463,
+    "index_time": "2026-10-30T09:31:00+08:00",
+    "checked_at": "2026-10-30T09:31:34.006284+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
-    "reason": "连板指数开仓门槛满足",
-    "date": "2026-10-29"
+    "reason": "883958当日涨幅不大于0%",
+    "date": "2026-10-30"
   },
   "morning_completed_at": "2026-10-29T11:31:03.236441+08:00",
   "session_finished_at": "2026-10-29T11:31:03.236441+08:00",
