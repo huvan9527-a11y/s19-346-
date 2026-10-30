@@ -2,15 +2,15 @@
   "cash": 200000,
   "positions": {},
   "last_scan_date": "2026-10-30",
-  "last_scan_time": "10:11:43",
+  "last_scan_time": "10:16:47",
   "pool_date": "2026-10-30",
   "pool_seen_nonempty": true,
   "valuation_stale_codes": [],
   "market_gate": {
     "allowed": false,
-    "index_pct": -3.4474636704280193,
-    "index_time": "2026-10-30T10:11:00+08:00",
-    "checked_at": "2026-10-30T10:11:43.484958+08:00",
+    "index_pct": -3.442532324396941,
+    "index_time": "2026-10-30T10:16:00+08:00",
+    "checked_at": "2026-10-30T10:16:47.195611+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "883958当日涨幅不大于0%",
@@ -315,7 +315,7 @@
       "key": "2026-10-30|603703|UNFILLED",
       "title": "S19 已封板/未成交｜盛洋科技",
       "body": "2026-10-30T10:10:22.394992+08:00\n603703 盛洋科技｜“羊”字辈｜二龙头\n题材封板4只；连板2\n模拟仓门槛：禁止模拟新开仓；883958涨幅 -3.43%。883958当日涨幅不大于0%。原选股信号仍有效，不代表成交。\n指数行情时间：2026-10-30T10:09:00+08:00；这是当时读数，不是收盘值。\n候选来自当日实时池；提醒不等于模拟买入。\n扫描证据：40985388148-1:1252\n\n记录编号：2026-10-30|603703|UNFILLED",
-      "status": "pending",
+      "status": "expired",
       "created_at": "2026-10-30T10:10:22.394992+08:00",
       "expires_at": "2026-10-30T10:12:22.394992+08:00",
       "attempts": 2,
@@ -470,7 +470,7 @@
         "name": "桂林三金",
         "theme": "三季报增长",
         "role": "二龙头",
-        "selection_scans": 320
+        "selection_scans": 373
       },
       "002086": {
         "first_selected_at": "2026-10-30T10:10:22.394992+08:00",
@@ -478,7 +478,7 @@
         "name": "东方海洋",
         "theme": "“羊”字辈",
         "role": "龙头",
-        "selection_scans": 9
+        "selection_scans": 62
       },
       "603703": {
         "first_selected_at": "2026-10-30T10:10:22.394992+08:00",
@@ -486,31 +486,31 @@
         "name": "盛洋科技",
         "theme": "“羊”字辈",
         "role": "二龙头",
-        "selection_scans": 9
+        "selection_scans": 62
       }
     }
   },
-  "saved_at": "2026-10-30T10:11:43.484958+08:00",
+  "saved_at": "2026-10-30T10:16:47.195611+08:00",
   "equity": 200000,
-  "valuation_at": "2026-10-30T10:11:43.484958+08:00",
+  "valuation_at": "2026-10-30T10:16:47.195611+08:00",
   "health": {
-    "cycles": 549,
+    "cycles": 602,
     "pool_errors": 6,
     "quote_errors": 0,
     "fills": 0,
     "first_cycle": "2026-10-30T09:22:03.630759+08:00",
-    "last_cycle": "2026-10-30T10:11:43.484958+08:00",
+    "last_cycle": "2026-10-30T10:16:47.195611+08:00",
     "entry_coverage_start": "2026-10-30T09:30:03.940779+08:00",
     "opening_delay_seconds": 3.940779,
     "pool_ok": true,
     "quote_error": null
   },
-  "last_pool_size": 30,
+  "last_pool_size": 33,
   "last_valid_gate": {
     "allowed": false,
-    "index_pct": -3.4474636704280193,
-    "index_time": "2026-10-30T10:11:00+08:00",
-    "checked_at": "2026-10-30T10:11:43.484958+08:00",
+    "index_pct": -3.442532324396941,
+    "index_time": "2026-10-30T10:16:00+08:00",
+    "checked_at": "2026-10-30T10:16:47.195611+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "883958当日涨幅不大于0%",
