@@ -2,7 +2,7 @@
   "cash": 200000,
   "positions": {},
   "last_scan_date": "2026-11-02",
-  "last_scan_time": "10:01:01",
+  "last_scan_time": "10:06:05",
   "pool_date": "2026-11-02",
   "pool_seen_nonempty": true,
   "valuation_stale_codes": [],
@@ -10,7 +10,7 @@
     "allowed": false,
     "index_pct": null,
     "index_time": null,
-    "checked_at": "2026-11-02T10:01:01.068588+08:00",
+    "checked_at": "2026-11-02T10:06:05.780514+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "883958涨幅不可用/过期",
@@ -532,7 +532,7 @@
         "name": "东方海洋",
         "theme": "“羊”字辈",
         "role": "龙头",
-        "selection_scans": 3
+        "selection_scans": 57
       },
       "002172": {
         "first_selected_at": "2026-11-02T10:00:49.773661+08:00",
@@ -540,31 +540,31 @@
         "name": "澳洋健康",
         "theme": "“羊”字辈",
         "role": "二龙头",
-        "selection_scans": 3
+        "selection_scans": 57
       }
     }
   },
-  "saved_at": "2026-11-02T10:01:01.068588+08:00",
+  "saved_at": "2026-11-02T10:06:05.780514+08:00",
   "equity": 200000,
-  "valuation_at": "2026-11-02T10:01:01.068588+08:00",
+  "valuation_at": "2026-11-02T10:06:05.780514+08:00",
   "health": {
-    "cycles": 552,
+    "cycles": 606,
     "pool_errors": 57,
     "quote_errors": 0,
     "fills": 0,
     "first_cycle": "2026-11-02T09:15:01.530877+08:00",
-    "last_cycle": "2026-11-02T10:01:01.068588+08:00",
+    "last_cycle": "2026-11-02T10:06:05.780514+08:00",
     "entry_coverage_start": "2026-11-02T09:30:02.116917+08:00",
     "opening_delay_seconds": 2.116917,
     "pool_ok": true,
     "quote_error": null
   },
-  "last_pool_size": 33,
+  "last_pool_size": 35,
   "last_valid_gate": {
     "allowed": true,
-    "index_pct": 6.3595056999642186,
-    "index_time": "2026-11-02T09:58:00+08:00",
-    "checked_at": "2026-11-02T09:59:28.448652+08:00",
+    "index_pct": 5.038305033540236,
+    "index_time": "2026-11-02T10:04:00+08:00",
+    "checked_at": "2026-11-02T10:05:26.307767+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "连板指数开仓门槛满足",
