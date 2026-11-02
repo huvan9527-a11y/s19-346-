@@ -2,18 +2,18 @@
   "cash": 200000,
   "positions": {},
   "last_scan_date": "2026-11-02",
-  "last_scan_time": "10:10:56",
+  "last_scan_time": "10:13:14",
   "pool_date": "2026-11-02",
   "pool_seen_nonempty": true,
   "valuation_stale_codes": [],
   "market_gate": {
-    "allowed": false,
-    "index_pct": null,
-    "index_time": null,
-    "checked_at": "2026-11-02T10:10:56.282711+08:00",
+    "allowed": true,
+    "index_pct": 5.437122780789094,
+    "index_time": "2026-11-02T10:12:00+08:00",
+    "checked_at": "2026-11-02T10:13:14.677072+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
-    "reason": "883958涨幅不可用/过期",
+    "reason": "连板指数开仓门槛满足",
     "date": "2026-11-02"
   },
   "migration": {
@@ -382,6 +382,18 @@
       "next_attempt": "2026-11-02T10:10:50.642335+08:00",
       "live_signal": true,
       "sent_at": "2026-11-02T10:10:56.282711+08:00"
+    },
+    "2026-11-02|000525|UNFILLED": {
+      "key": "2026-11-02|000525|UNFILLED",
+      "title": "S19 已封板/未成交｜红太阳",
+      "body": "2026-11-02T10:13:09.035144+08:00\n000525 红太阳｜“羊”字辈｜二龙头\n题材封板4只；连板2\n模拟仓门槛：允许模拟开仓；883958涨幅 +5.44%。连板指数开仓门槛满足。原选股信号仍有效，不代表成交。\n指数行情时间：2026-11-02T10:12:00+08:00；这是当时读数，不是收盘值。\n候选来自当日实时池；提醒不等于模拟买入。\n扫描证据：41370405599-1:1641\n\n记录编号：2026-11-02|000525|UNFILLED",
+      "status": "pending",
+      "created_at": "2026-11-02T10:13:09.035144+08:00",
+      "expires_at": "2026-11-02T10:15:09.035144+08:00",
+      "attempts": 1,
+      "next_attempt": "2026-11-02T10:14:14.677072+08:00",
+      "live_signal": true,
+      "last_error": "RuntimeError: notification transport failed: HTTPError"
     }
   },
   "fill_ids": [],
@@ -556,7 +568,7 @@
         "name": "东方海洋",
         "theme": "“羊”字辈",
         "role": "龙头",
-        "selection_scans": 96
+        "selection_scans": 117
       },
       "002172": {
         "first_selected_at": "2026-11-02T10:00:49.773661+08:00",
@@ -564,7 +576,7 @@
         "name": "澳洋健康",
         "theme": "“羊”字辈",
         "role": "二龙头",
-        "selection_scans": 96
+        "selection_scans": 115
       },
       "603587": {
         "first_selected_at": "2026-11-02T10:10:33.719447+08:00",
@@ -580,31 +592,39 @@
         "name": "青岛食品",
         "theme": "三季报增长",
         "role": "龙头",
+        "selection_scans": 23
+      },
+      "000525": {
+        "first_selected_at": "2026-11-02T10:13:09.035144+08:00",
+        "first_evidence": "41370405599-1:1641",
+        "name": "红太阳",
+        "theme": "“羊”字辈",
+        "role": "二龙头",
         "selection_scans": 2
       }
     }
   },
-  "saved_at": "2026-11-02T10:10:56.282711+08:00",
+  "saved_at": "2026-11-02T10:13:14.677072+08:00",
   "equity": 200000,
-  "valuation_at": "2026-11-02T10:10:56.282711+08:00",
+  "valuation_at": "2026-11-02T10:13:14.677072+08:00",
   "health": {
-    "cycles": 659,
-    "pool_errors": 71,
+    "cycles": 684,
+    "pool_errors": 75,
     "quote_errors": 0,
     "fills": 0,
     "first_cycle": "2026-11-02T09:15:01.530877+08:00",
-    "last_cycle": "2026-11-02T10:10:56.282711+08:00",
+    "last_cycle": "2026-11-02T10:13:14.677072+08:00",
     "entry_coverage_start": "2026-11-02T09:30:02.116917+08:00",
     "opening_delay_seconds": 2.116917,
     "pool_ok": true,
     "quote_error": null
   },
-  "last_pool_size": 46,
+  "last_pool_size": 45,
   "last_valid_gate": {
     "allowed": true,
-    "index_pct": 5.28986634033719,
-    "index_time": "2026-11-02T10:09:00+08:00",
-    "checked_at": "2026-11-02T10:10:28.083174+08:00",
+    "index_pct": 5.437122780789094,
+    "index_time": "2026-11-02T10:12:00+08:00",
+    "checked_at": "2026-11-02T10:13:14.677072+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "连板指数开仓门槛满足",
