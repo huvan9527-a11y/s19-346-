@@ -2,18 +2,18 @@
   "cash": 200000,
   "positions": {},
   "last_scan_date": "2026-11-02",
-  "last_scan_time": "09:30:02",
+  "last_scan_time": "09:35:07",
   "pool_date": "2026-11-02",
   "pool_seen_nonempty": true,
   "valuation_stale_codes": [],
   "market_gate": {
-    "allowed": false,
-    "index_pct": null,
-    "index_time": null,
-    "checked_at": "2026-11-02T09:30:02.116917+08:00",
+    "allowed": true,
+    "index_pct": 5.695669055303609,
+    "index_time": "2026-11-02T09:34:00+08:00",
+    "checked_at": "2026-11-02T09:35:07.338479+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
-    "reason": "883958涨幅不可用/过期",
+    "reason": "连板指数开仓门槛满足",
     "date": "2026-11-02"
   },
   "migration": {
@@ -322,6 +322,18 @@
       "next_attempt": "2026-10-30T10:13:43.484958+08:00",
       "live_signal": true,
       "last_error": "RuntimeError: notification transport failed: HTTPError"
+    },
+    "2026-11-02|STATUS|NO_SIGNAL": {
+      "key": "2026-11-02|STATUS|NO_SIGNAL",
+      "title": "S19 扫描正常｜本轮暂无候选",
+      "body": "2026-11-02T09:35:02.330944+08:00\n当日实时池已成功获取，本轮没有通过全部S19条件的股票。后续继续监控。\n\n记录编号：2026-11-02|STATUS|NO_SIGNAL",
+      "status": "sent",
+      "created_at": "2026-11-02T09:35:02.330944+08:00",
+      "expires_at": "2026-11-02T09:37:02.330944+08:00",
+      "attempts": 1,
+      "next_attempt": "2026-11-02T09:35:02.330944+08:00",
+      "live_signal": true,
+      "sent_at": "2026-11-02T09:35:07.338479+08:00"
     }
   },
   "fill_ids": [],
@@ -490,31 +502,31 @@
       }
     }
   },
-  "saved_at": "2026-11-02T09:30:02.116917+08:00",
+  "saved_at": "2026-11-02T09:35:07.338479+08:00",
   "equity": 200000,
-  "valuation_at": "2026-11-02T09:30:02.116917+08:00",
+  "valuation_at": "2026-11-02T09:35:07.338479+08:00",
   "health": {
-    "cycles": 181,
+    "cycles": 242,
     "pool_errors": 0,
     "quote_errors": 0,
     "fills": 0,
     "first_cycle": "2026-11-02T09:15:01.530877+08:00",
-    "last_cycle": "2026-11-02T09:30:02.116917+08:00",
+    "last_cycle": "2026-11-02T09:35:07.338479+08:00",
     "entry_coverage_start": "2026-11-02T09:30:02.116917+08:00",
     "opening_delay_seconds": 2.116917,
     "pool_ok": true,
     "quote_error": null
   },
-  "last_pool_size": 7,
+  "last_pool_size": 17,
   "last_valid_gate": {
-    "allowed": false,
-    "index_pct": -2.339269197569571,
-    "index_time": "2026-10-30T11:30:00+08:00",
-    "checked_at": "2026-10-30T11:30:57.143008+08:00",
+    "allowed": true,
+    "index_pct": 5.695669055303609,
+    "index_time": "2026-11-02T09:34:00+08:00",
+    "checked_at": "2026-11-02T09:35:07.338479+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
-    "reason": "883958当日涨幅不大于0%",
-    "date": "2026-10-30"
+    "reason": "连板指数开仓门槛满足",
+    "date": "2026-11-02"
   },
   "morning_completed_at": "2026-10-30T11:31:02.145511+08:00",
   "session_finished_at": "2026-10-30T11:31:02.145511+08:00",
