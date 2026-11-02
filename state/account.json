@@ -2,15 +2,15 @@
   "cash": 200000,
   "positions": {},
   "last_scan_date": "2026-11-02",
-  "last_scan_time": "10:13:14",
+  "last_scan_time": "10:14:23",
   "pool_date": "2026-11-02",
   "pool_seen_nonempty": true,
   "valuation_stale_codes": [],
   "market_gate": {
     "allowed": true,
-    "index_pct": 5.437122780789094,
-    "index_time": "2026-11-02T10:12:00+08:00",
-    "checked_at": "2026-11-02T10:13:14.677072+08:00",
+    "index_pct": 4.987087629664866,
+    "index_time": "2026-11-02T10:14:00+08:00",
+    "checked_at": "2026-11-02T10:14:23.147038+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "连板指数开仓门槛满足",
@@ -390,8 +390,8 @@
       "status": "pending",
       "created_at": "2026-11-02T10:13:09.035144+08:00",
       "expires_at": "2026-11-02T10:15:09.035144+08:00",
-      "attempts": 1,
-      "next_attempt": "2026-11-02T10:14:14.677072+08:00",
+      "attempts": 2,
+      "next_attempt": "2026-11-02T10:16:23.147038+08:00",
       "live_signal": true,
       "last_error": "RuntimeError: notification transport failed: HTTPError"
     }
@@ -568,7 +568,7 @@
         "name": "东方海洋",
         "theme": "“羊”字辈",
         "role": "龙头",
-        "selection_scans": 117
+        "selection_scans": 129
       },
       "002172": {
         "first_selected_at": "2026-11-02T10:00:49.773661+08:00",
@@ -576,7 +576,7 @@
         "name": "澳洋健康",
         "theme": "“羊”字辈",
         "role": "二龙头",
-        "selection_scans": 115
+        "selection_scans": 117
       },
       "603587": {
         "first_selected_at": "2026-11-02T10:10:33.719447+08:00",
@@ -592,7 +592,7 @@
         "name": "青岛食品",
         "theme": "三季报增长",
         "role": "龙头",
-        "selection_scans": 23
+        "selection_scans": 35
       },
       "000525": {
         "first_selected_at": "2026-11-02T10:13:09.035144+08:00",
@@ -600,31 +600,31 @@
         "name": "红太阳",
         "theme": "“羊”字辈",
         "role": "二龙头",
-        "selection_scans": 2
+        "selection_scans": 12
       }
     }
   },
-  "saved_at": "2026-11-02T10:13:14.677072+08:00",
+  "saved_at": "2026-11-02T10:14:23.147038+08:00",
   "equity": 200000,
-  "valuation_at": "2026-11-02T10:13:14.677072+08:00",
+  "valuation_at": "2026-11-02T10:14:23.147038+08:00",
   "health": {
-    "cycles": 684,
+    "cycles": 696,
     "pool_errors": 75,
     "quote_errors": 0,
     "fills": 0,
     "first_cycle": "2026-11-02T09:15:01.530877+08:00",
-    "last_cycle": "2026-11-02T10:13:14.677072+08:00",
+    "last_cycle": "2026-11-02T10:14:23.147038+08:00",
     "entry_coverage_start": "2026-11-02T09:30:02.116917+08:00",
     "opening_delay_seconds": 2.116917,
     "pool_ok": true,
     "quote_error": null
   },
-  "last_pool_size": 45,
+  "last_pool_size": 47,
   "last_valid_gate": {
     "allowed": true,
-    "index_pct": 5.437122780789094,
-    "index_time": "2026-11-02T10:12:00+08:00",
-    "checked_at": "2026-11-02T10:13:14.677072+08:00",
+    "index_pct": 4.987087629664866,
+    "index_time": "2026-11-02T10:14:00+08:00",
+    "checked_at": "2026-11-02T10:14:23.147038+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "连板指数开仓门槛满足",
