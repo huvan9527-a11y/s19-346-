@@ -1,20 +1,20 @@
 {
   "cash": 200000,
   "positions": {},
-  "last_scan_date": "2026-11-02",
-  "last_scan_time": "11:30:57",
+  "last_scan_date": "2026-11-03",
+  "last_scan_time": "11:11:06",
   "pool_date": "2026-11-02",
   "pool_seen_nonempty": true,
   "valuation_stale_codes": [],
   "market_gate": {
-    "allowed": true,
-    "index_pct": 6.748290027814363,
-    "index_time": "2026-11-02T11:30:00+08:00",
-    "checked_at": "2026-11-02T11:30:57.390677+08:00",
+    "allowed": false,
+    "index_pct": null,
+    "index_time": null,
+    "checked_at": "2026-11-03T11:11:06.067000+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
-    "reason": "连板指数开仓门槛满足",
-    "date": "2026-11-02"
+    "reason": "883958涨幅不可用/过期",
+    "date": "2026-11-03"
   },
   "migration": {
     "date": "2026-10-24",
@@ -604,31 +604,30 @@
       }
     }
   },
-  "saved_at": "2026-11-03T11:06:05.884815+08:00",
+  "saved_at": "2026-11-03T11:11:06.067000+08:00",
   "equity": 200000,
-  "valuation_at": "2026-11-02T11:30:57.390677+08:00",
+  "valuation_at": "2026-11-03T11:11:06.067000+08:00",
   "health": {
-    "cycles": 1564,
-    "pool_errors": 156,
+    "cycles": 61,
+    "pool_errors": 0,
     "quote_errors": 0,
     "fills": 0,
-    "first_cycle": "2026-11-02T09:15:01.530877+08:00",
-    "last_cycle": "2026-11-02T11:30:57.390677+08:00",
-    "entry_coverage_start": "2026-11-02T09:30:02.116917+08:00",
-    "opening_delay_seconds": 2.116917,
+    "first_cycle": "2026-11-03T11:06:05.888165+08:00",
+    "last_cycle": "2026-11-03T11:11:06.067000+08:00",
+    "entry_coverage_start": null,
     "pool_ok": false,
     "quote_error": null
   },
   "last_pool_size": 51,
   "last_valid_gate": {
     "allowed": true,
-    "index_pct": 6.748290027814363,
-    "index_time": "2026-11-02T11:30:00+08:00",
-    "checked_at": "2026-11-02T11:30:57.390677+08:00",
+    "index_pct": 2.3149968016020095,
+    "index_time": "2026-11-03T11:09:00+08:00",
+    "checked_at": "2026-11-03T11:10:11.034564+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "连板指数开仓门槛满足",
-    "date": "2026-11-02"
+    "date": "2026-11-03"
   },
   "morning_completed_at": "2026-11-02T11:31:02.393177+08:00",
   "session_finished_at": "2026-11-02T11:31:02.393177+08:00",
