@@ -2,18 +2,18 @@
   "cash": 200000,
   "positions": {},
   "last_scan_date": "2026-11-04",
-  "last_scan_time": "10:49:04",
+  "last_scan_time": "10:54:09",
   "pool_date": "2026-11-04",
   "pool_seen_nonempty": true,
   "valuation_stale_codes": [],
   "market_gate": {
-    "allowed": false,
-    "index_pct": null,
-    "index_time": null,
-    "checked_at": "2026-11-04T10:49:04.280191+08:00",
+    "allowed": true,
+    "index_pct": 0.8736286224990675,
+    "index_time": "2026-11-04T10:53:00+08:00",
+    "checked_at": "2026-11-04T10:54:09.171287+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
-    "reason": "883958涨幅不可用/过期",
+    "reason": "连板指数开仓门槛满足",
     "date": "2026-11-04"
   },
   "migration": {
@@ -572,7 +572,7 @@
         "name": "浙文影业",
         "theme": "三季报增长",
         "role": "龙头",
-        "selection_scans": 580
+        "selection_scans": 634
       },
       "601123": {
         "first_selected_at": "2026-11-04T09:50:38.872123+08:00",
@@ -580,7 +580,7 @@
         "name": "马矿股份",
         "theme": "三季报增长",
         "role": "二龙头",
-        "selection_scans": 571
+        "selection_scans": 625
       },
       "603598": {
         "first_selected_at": "2026-11-04T10:28:39.316623+08:00",
@@ -592,27 +592,27 @@
       }
     }
   },
-  "saved_at": "2026-11-04T10:49:04.280191+08:00",
+  "saved_at": "2026-11-04T10:54:09.171287+08:00",
   "equity": 200000,
-  "valuation_at": "2026-11-04T10:49:04.280191+08:00",
+  "valuation_at": "2026-11-04T10:54:09.171287+08:00",
   "health": {
-    "cycles": 719,
+    "cycles": 773,
     "pool_errors": 47,
     "quote_errors": 0,
     "fills": 0,
     "first_cycle": "2026-11-04T09:41:59.770717+08:00",
-    "last_cycle": "2026-11-04T10:49:04.280191+08:00",
+    "last_cycle": "2026-11-04T10:54:09.171287+08:00",
     "entry_coverage_start": "2026-11-04T09:42:05.834269+08:00",
     "opening_delay_seconds": 725.834269,
     "pool_ok": true,
     "quote_error": null
   },
-  "last_pool_size": 30,
+  "last_pool_size": 28,
   "last_valid_gate": {
     "allowed": true,
-    "index_pct": 0.9540966255559891,
-    "index_time": "2026-11-04T10:47:00+08:00",
-    "checked_at": "2026-11-04T10:48:24.857680+08:00",
+    "index_pct": 0.8736286224990675,
+    "index_time": "2026-11-04T10:53:00+08:00",
+    "checked_at": "2026-11-04T10:54:09.171287+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "连板指数开仓门槛满足",
