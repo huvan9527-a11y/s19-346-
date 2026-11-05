@@ -2,15 +2,15 @@
   "cash": 200000,
   "positions": {},
   "last_scan_date": "2026-11-05",
-  "last_scan_time": "10:45:29",
+  "last_scan_time": "10:50:24",
   "pool_date": "2026-11-05",
   "pool_seen_nonempty": true,
   "valuation_stale_codes": [],
   "market_gate": {
     "allowed": true,
-    "index_pct": 3.1966850500288135,
-    "index_time": "2026-11-05T10:44:00+08:00",
-    "checked_at": "2026-11-05T10:45:29.574059+08:00",
+    "index_pct": 3.233323522601106,
+    "index_time": "2026-11-05T10:50:00+08:00",
+    "checked_at": "2026-11-05T10:50:24.106862+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "连板指数开仓门槛满足",
@@ -358,6 +358,17 @@
       "next_attempt": "2026-11-05T10:00:14.043565+08:00",
       "live_signal": true,
       "sent_at": "2026-11-05T10:00:19.708945+08:00"
+    },
+    "2026-11-05|603381|UNFILLED": {
+      "key": "2026-11-05|603381|UNFILLED",
+      "title": "S19 已封板/未成交｜永臻股份",
+      "body": "2026-11-05T10:50:24.106862+08:00\n603381 永臻股份｜三季报增长｜龙头\n题材封板9只；连板3\n模拟仓门槛：允许模拟开仓；883958涨幅 +3.23%。连板指数开仓门槛满足。原选股信号仍有效，不代表成交。\n指数行情时间：2026-11-05T10:50:00+08:00；这是当时读数，不是收盘值。\n候选来自当日实时池；提醒不等于模拟买入。\n扫描证据：41951128360-1:1549\n\n记录编号：2026-11-05|603381|UNFILLED",
+      "status": "pending",
+      "created_at": "2026-11-05T10:50:24.106862+08:00",
+      "expires_at": "2026-11-05T10:52:24.106862+08:00",
+      "attempts": 0,
+      "next_attempt": "2026-11-05T10:50:24.106862+08:00",
+      "live_signal": true
     }
   },
   "fill_ids": [],
@@ -548,7 +559,7 @@
         "name": "闽发铝业",
         "theme": "其它",
         "role": "龙头",
-        "selection_scans": 553
+        "selection_scans": 605
       },
       "601599": {
         "first_selected_at": "2026-11-05T09:50:08.396726+08:00",
@@ -565,30 +576,38 @@
         "theme": "其它",
         "role": "龙头",
         "selection_scans": 323
+      },
+      "603381": {
+        "first_selected_at": "2026-11-05T10:50:24.106862+08:00",
+        "first_evidence": "41951128360-1:1549",
+        "name": "永臻股份",
+        "theme": "三季报增长",
+        "role": "龙头",
+        "selection_scans": 1
       }
     }
   },
-  "saved_at": "2026-11-05T10:45:29.574059+08:00",
+  "saved_at": "2026-11-05T10:50:24.106862+08:00",
   "equity": 200000,
-  "valuation_at": "2026-11-05T10:45:29.574059+08:00",
+  "valuation_at": "2026-11-05T10:50:24.106862+08:00",
   "health": {
-    "cycles": 591,
+    "cycles": 643,
     "pool_errors": 37,
     "quote_errors": 0,
     "fills": 0,
     "first_cycle": "2026-11-05T09:50:02.044492+08:00",
-    "last_cycle": "2026-11-05T10:45:29.574059+08:00",
+    "last_cycle": "2026-11-05T10:50:24.106862+08:00",
     "entry_coverage_start": "2026-11-05T09:50:08.396726+08:00",
     "opening_delay_seconds": 1208.396726,
     "pool_ok": true,
     "quote_error": null
   },
-  "last_pool_size": 65,
+  "last_pool_size": 67,
   "last_valid_gate": {
     "allowed": true,
-    "index_pct": 3.1966850500288135,
-    "index_time": "2026-11-05T10:44:00+08:00",
-    "checked_at": "2026-11-05T10:45:29.574059+08:00",
+    "index_pct": 3.233323522601106,
+    "index_time": "2026-11-05T10:50:00+08:00",
+    "checked_at": "2026-11-05T10:50:24.106862+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "连板指数开仓门槛满足",
