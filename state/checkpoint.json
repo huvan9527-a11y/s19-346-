@@ -1,21 +1,21 @@
 {
   "schema": "s19-session-v2",
-  "saved_at": "2026-11-06T11:21:20.913334+08:00",
+  "saved_at": "2026-11-06T11:26:21.109174+08:00",
   "run_id": "42146397353-1",
   "final": false,
   "account": {
     "cash": 200000,
     "positions": {},
     "last_scan_date": "2026-11-06",
-    "last_scan_time": "11:21:20",
+    "last_scan_time": "11:26:21",
     "pool_date": "2026-11-06",
     "pool_seen_nonempty": true,
     "valuation_stale_codes": [],
     "market_gate": {
       "allowed": true,
-      "index_pct": 2.591119770892969,
-      "index_time": "2026-11-06T11:20:00+08:00",
-      "checked_at": "2026-11-06T11:21:20.913334+08:00",
+      "index_pct": 2.7427442843903194,
+      "index_time": "2026-11-06T11:25:00+08:00",
+      "checked_at": "2026-11-06T11:26:21.109174+08:00",
       "opening_limit_down": null,
       "opening_limit_down_required": false,
       "reason": "连板指数开仓门槛满足",
@@ -473,16 +473,16 @@
         }
       }
     },
-    "saved_at": "2026-11-06T11:21:20.913334+08:00",
+    "saved_at": "2026-11-06T11:26:21.109174+08:00",
     "equity": 200000,
-    "valuation_at": "2026-11-06T11:21:20.913334+08:00",
+    "valuation_at": "2026-11-06T11:26:21.109174+08:00",
     "health": {
-      "cycles": 1061,
+      "cycles": 1121,
       "pool_errors": 0,
       "quote_errors": 0,
       "fills": 0,
       "first_cycle": "2026-11-06T09:50:06.008532+08:00",
-      "last_cycle": "2026-11-06T11:21:20.913334+08:00",
+      "last_cycle": "2026-11-06T11:26:21.109174+08:00",
       "entry_coverage_start": "2026-11-06T09:50:11.015328+08:00",
       "opening_delay_seconds": 1211.015328,
       "pool_ok": false,
@@ -491,9 +491,9 @@
     "last_pool_size": 22,
     "last_valid_gate": {
       "allowed": true,
-      "index_pct": 2.591119770892969,
-      "index_time": "2026-11-06T11:20:00+08:00",
-      "checked_at": "2026-11-06T11:21:20.913334+08:00",
+      "index_pct": 2.7427442843903194,
+      "index_time": "2026-11-06T11:25:00+08:00",
+      "checked_at": "2026-11-06T11:26:21.109174+08:00",
       "opening_limit_down": null,
       "opening_limit_down_required": false,
       "reason": "连板指数开仓门槛满足",
@@ -599,7 +599,7 @@
       }
     }
   },
-  "report": "# S19 统一实时模拟仓\n\n- 更新时间：2026-11-06T11:21:20.913334+08:00\n- 候选口径：当日实时涨停池；推送与模拟仓共享本轮候选和行情证据。\n- 现金：200000.00；总权益：200000.00；持仓：0；待确认意向：0。\n- 估值状态：有效\n- 模拟仓门槛：允许模拟开仓；883958涨幅 +2.59%。连板指数开仓门槛满足。原选股信号仍有效，不代表成交。\n指数行情时间：2026-11-06T11:20:00+08:00；这是当时读数，不是收盘值。\n- 开盘跌停家数限制：当前未启用，保持本次修复前实际执行口径。\n- 通知：启用；成功21，待重试0，已过期2。\n- 运行覆盖与错误：`{\"cycles\": 1061, \"entry_coverage_start\": \"2026-11-06T09:50:11.015328+08:00\", \"fills\": 0, \"first_cycle\": \"2026-11-06T09:50:06.008532+08:00\", \"last_cycle\": \"2026-11-06T11:21:20.913334+08:00\", \"opening_delay_seconds\": 1211.015328, \"pool_errors\": 0, \"quote_errors\": 0}`\n\n## 本轮候选\n\n- 无；需结合上面的数据状态判断，不能把数据失败当成无信号。\n\n## 今日首次候选与模拟执行\n\n| 股票 | 首次入选 | 题材/角色 | 模拟成交 | 最近状态/原因 |\n|---|---|---|---|---|\n| 603381 永臻股份 | 2026-11-06T10:25:54.130657+08:00 | 三季报增长/二龙头 | 无 | 观察/ |\n\n- 分时段覆盖：`{\"2026-10-27\": {\"morning\": {\"cycles\": 1514, \"entry_coverage_start\": \"2026-10-27T09:30:04.610782+08:00\", \"fills\": 0, \"first_cycle\": \"2026-10-27T09:15:04.051590+08:00\", \"last_cycle\": \"2026-10-27T11:30:56.228960+08:00\", \"opening_delay_seconds\": 4.610782, \"pool_errors\": 7, \"quote_errors\": 0}}, \"2026-10-28\": {\"morning\": {\"cycles\": 1557, \"entry_coverage_start\": \"2026-10-28T09:30:04.216942+08:00\", \"fills\": 0, \"first_cycle\": \"2026-10-28T09:15:08.736638+08:00\", \"last_cycle\": \"2026-10-28T11:30:59.014357+08:00\", \"opening_delay_seconds\": 4.216942, \"pool_errors\": 268, \"quote_errors\": 0}}, \"2026-10-29\": {\"morning\": {\"cycles\": 1484, \"entry_coverage_start\": \"2026-10-29T09:30:04.558455+08:00\", \"fills\": 0, \"first_cycle\": \"2026-10-29T09:17:09.113529+08:00\", \"last_cycle\": \"2026-10-29T11:30:58.234309+08:00\", \"opening_delay_seconds\": 4.558455, \"pool_errors\": 53, \"quote_errors\": 0}}, \"2026-10-30\": {\"morning\": {\"cycles\": 1429, \"entry_coverage_start\": \"2026-10-30T09:30:03.940779+08:00\", \"fills\": 0, \"first_cycle\": \"2026-10-30T09:22:03.630759+08:00\", \"last_cycle\": \"2026-10-30T11:30:57.143008+08:00\", \"opening_delay_seconds\": 3.940779, \"pool_errors\": 15, \"quote_errors\": 0}}, \"2026-11-02\": {\"morning\": {\"cycles\": 1564, \"entry_coverage_start\": \"2026-11-02T09:30:02.116917+08:00\", \"fills\": 0, \"first_cycle\": \"2026-11-02T09:15:01.530877+08:00\", \"last_cycle\": \"2026-11-02T11:30:57.390677+08:00\", \"opening_delay_seconds\": 2.116917, \"pool_errors\": 156, \"quote_errors\": 0}}, \"2026-11-03\": {\"morning\": {\"cycles\": 299, \"entry_coverage_start\": null, \"fills\": 0, \"first_cycle\": \"2026-11-03T11:06:05.888165+08:00\", \"last_cycle\": \"2026-11-03T11:30:56.787839+08:00\", \"pool_errors\": 0, \"quote_errors\": 0}}, \"2026-11-04\": {\"morning\": {\"cycles\": 1211, \"entry_coverage_start\": \"2026-11-04T09:42:05.834269+08:00\", \"fills\": 0, \"first_cycle\": \"2026-11-04T09:41:59.770717+08:00\", \"last_cycle\": \"2026-11-04T11:30:57.168833+08:00\", \"opening_delay_seconds\": 725.834269, \"pool_errors\": 64, \"quote_errors\": 0}}, \"2026-11-05\": {\"morning\": {\"cycles\": 1118, \"entry_coverage_start\": \"2026-11-05T09:50:08.396726+08:00\", \"fills\": 0, \"first_cycle\": \"2026-11-05T09:50:02.044492+08:00\", \"last_cycle\": \"2026-11-05T11:30:55.344521+08:00\", \"opening_delay_seconds\": 1208.396726, \"pool_errors\": 37, \"quote_errors\": 0}}}`\n\n## 持仓与待确认意向\n\n```json\n{\"pending_intents\": {}, \"positions\": {}}\n```\n\n> 仅模拟：信号后必须出现源时间严格更新的下一次盘口才能记成交。盘口快照不能证明实盘排队/成交。\n",
+  "report": "# S19 统一实时模拟仓\n\n- 更新时间：2026-11-06T11:26:21.109174+08:00\n- 候选口径：当日实时涨停池；推送与模拟仓共享本轮候选和行情证据。\n- 现金：200000.00；总权益：200000.00；持仓：0；待确认意向：0。\n- 估值状态：有效\n- 模拟仓门槛：允许模拟开仓；883958涨幅 +2.74%。连板指数开仓门槛满足。原选股信号仍有效，不代表成交。\n指数行情时间：2026-11-06T11:25:00+08:00；这是当时读数，不是收盘值。\n- 开盘跌停家数限制：当前未启用，保持本次修复前实际执行口径。\n- 通知：启用；成功21，待重试0，已过期2。\n- 运行覆盖与错误：`{\"cycles\": 1121, \"entry_coverage_start\": \"2026-11-06T09:50:11.015328+08:00\", \"fills\": 0, \"first_cycle\": \"2026-11-06T09:50:06.008532+08:00\", \"last_cycle\": \"2026-11-06T11:26:21.109174+08:00\", \"opening_delay_seconds\": 1211.015328, \"pool_errors\": 0, \"quote_errors\": 0}`\n\n## 本轮候选\n\n- 无；需结合上面的数据状态判断，不能把数据失败当成无信号。\n\n## 今日首次候选与模拟执行\n\n| 股票 | 首次入选 | 题材/角色 | 模拟成交 | 最近状态/原因 |\n|---|---|---|---|---|\n| 603381 永臻股份 | 2026-11-06T10:25:54.130657+08:00 | 三季报增长/二龙头 | 无 | 观察/ |\n\n- 分时段覆盖：`{\"2026-10-27\": {\"morning\": {\"cycles\": 1514, \"entry_coverage_start\": \"2026-10-27T09:30:04.610782+08:00\", \"fills\": 0, \"first_cycle\": \"2026-10-27T09:15:04.051590+08:00\", \"last_cycle\": \"2026-10-27T11:30:56.228960+08:00\", \"opening_delay_seconds\": 4.610782, \"pool_errors\": 7, \"quote_errors\": 0}}, \"2026-10-28\": {\"morning\": {\"cycles\": 1557, \"entry_coverage_start\": \"2026-10-28T09:30:04.216942+08:00\", \"fills\": 0, \"first_cycle\": \"2026-10-28T09:15:08.736638+08:00\", \"last_cycle\": \"2026-10-28T11:30:59.014357+08:00\", \"opening_delay_seconds\": 4.216942, \"pool_errors\": 268, \"quote_errors\": 0}}, \"2026-10-29\": {\"morning\": {\"cycles\": 1484, \"entry_coverage_start\": \"2026-10-29T09:30:04.558455+08:00\", \"fills\": 0, \"first_cycle\": \"2026-10-29T09:17:09.113529+08:00\", \"last_cycle\": \"2026-10-29T11:30:58.234309+08:00\", \"opening_delay_seconds\": 4.558455, \"pool_errors\": 53, \"quote_errors\": 0}}, \"2026-10-30\": {\"morning\": {\"cycles\": 1429, \"entry_coverage_start\": \"2026-10-30T09:30:03.940779+08:00\", \"fills\": 0, \"first_cycle\": \"2026-10-30T09:22:03.630759+08:00\", \"last_cycle\": \"2026-10-30T11:30:57.143008+08:00\", \"opening_delay_seconds\": 3.940779, \"pool_errors\": 15, \"quote_errors\": 0}}, \"2026-11-02\": {\"morning\": {\"cycles\": 1564, \"entry_coverage_start\": \"2026-11-02T09:30:02.116917+08:00\", \"fills\": 0, \"first_cycle\": \"2026-11-02T09:15:01.530877+08:00\", \"last_cycle\": \"2026-11-02T11:30:57.390677+08:00\", \"opening_delay_seconds\": 2.116917, \"pool_errors\": 156, \"quote_errors\": 0}}, \"2026-11-03\": {\"morning\": {\"cycles\": 299, \"entry_coverage_start\": null, \"fills\": 0, \"first_cycle\": \"2026-11-03T11:06:05.888165+08:00\", \"last_cycle\": \"2026-11-03T11:30:56.787839+08:00\", \"pool_errors\": 0, \"quote_errors\": 0}}, \"2026-11-04\": {\"morning\": {\"cycles\": 1211, \"entry_coverage_start\": \"2026-11-04T09:42:05.834269+08:00\", \"fills\": 0, \"first_cycle\": \"2026-11-04T09:41:59.770717+08:00\", \"last_cycle\": \"2026-11-04T11:30:57.168833+08:00\", \"opening_delay_seconds\": 725.834269, \"pool_errors\": 64, \"quote_errors\": 0}}, \"2026-11-05\": {\"morning\": {\"cycles\": 1118, \"entry_coverage_start\": \"2026-11-05T09:50:08.396726+08:00\", \"fills\": 0, \"first_cycle\": \"2026-11-05T09:50:02.044492+08:00\", \"last_cycle\": \"2026-11-05T11:30:55.344521+08:00\", \"opening_delay_seconds\": 1208.396726, \"pool_errors\": 37, \"quote_errors\": 0}}}`\n\n## 持仓与待确认意向\n\n```json\n{\"pending_intents\": {}, \"positions\": {}}\n```\n\n> 仅模拟：信号后必须出现源时间严格更新的下一次盘口才能记成交。盘口快照不能证明实盘排队/成交。\n",
   "journal": [
     {
       "path": "logs/sessions/2026-11-06/0950-42146397353-1.jsonl",
@@ -693,8 +693,13 @@
     },
     {
       "path": "logs/sessions/2026-11-06/1120-42146397353-1.jsonl",
-      "size": 16762,
-      "sha256": "618925495ad895e803d169715d3dee9b05cb8f35f2312f661a8634ceda0d78ce"
+      "size": 57283,
+      "sha256": "71241783af168e645f0aa5108ff5324ea4f2a284d17c06e2b0dcb740915187cb"
+    },
+    {
+      "path": "logs/sessions/2026-11-06/1125-42146397353-1.jsonl",
+      "size": 16360,
+      "sha256": "79a4e6ba3c4129d76eac579abb4a0f79857e79e6b8934dc6bdeb784c17b07230"
     }
   ],
   "exports": [
@@ -705,8 +710,8 @@
     },
     {
       "path": "logs/equity.csv",
-      "size": 947425,
-      "sha256": "660d27e30a6217c722b37d3c13e34c28e61d2ff550d9b999cba8a056ae54e85b"
+      "size": 951085,
+      "sha256": "f6527116448e02747bd7522f61c79b0599183d27e6567f8354cf692b1c4be690"
     }
   ]
 }
