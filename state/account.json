@@ -1,20 +1,20 @@
 {
   "cash": 200000,
   "positions": {},
-  "last_scan_date": "2026-11-06",
-  "last_scan_time": "11:30:56",
-  "pool_date": "2026-11-06",
-  "pool_seen_nonempty": true,
+  "last_scan_date": "2026-11-09",
+  "last_scan_time": "09:20:09",
+  "pool_date": "2026-11-09",
+  "pool_seen_nonempty": false,
   "valuation_stale_codes": [],
   "market_gate": {
-    "allowed": true,
-    "index_pct": 2.701545676032535,
-    "index_time": "2026-11-06T11:30:00+08:00",
-    "checked_at": "2026-11-06T11:30:56.286337+08:00",
+    "allowed": false,
+    "index_pct": null,
+    "index_time": null,
+    "checked_at": "2026-11-09T09:20:09.399583+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
-    "reason": "连板指数开仓门槛满足",
-    "date": "2026-11-06"
+    "reason": "竞价阶段禁止模拟开仓；883958涨幅不可用/过期",
+    "date": "2026-11-09"
   },
   "migration": {
     "date": "2026-10-24",
@@ -362,22 +362,21 @@
       }
     }
   },
-  "saved_at": "2026-11-09T09:15:09.210805+08:00",
+  "saved_at": "2026-11-09T09:20:09.399583+08:00",
   "equity": 200000,
-  "valuation_at": "2026-11-06T11:30:56.286337+08:00",
+  "valuation_at": "2026-11-09T09:20:09.399583+08:00",
   "health": {
-    "cycles": 1176,
+    "cycles": 61,
     "pool_errors": 0,
     "quote_errors": 0,
     "fills": 0,
-    "first_cycle": "2026-11-06T09:50:06.008532+08:00",
-    "last_cycle": "2026-11-06T11:30:56.286337+08:00",
-    "entry_coverage_start": "2026-11-06T09:50:11.015328+08:00",
-    "opening_delay_seconds": 1211.015328,
-    "pool_ok": false,
+    "first_cycle": "2026-11-09T09:15:09.215144+08:00",
+    "last_cycle": "2026-11-09T09:20:09.399583+08:00",
+    "entry_coverage_start": null,
+    "pool_ok": true,
     "quote_error": null
   },
-  "last_pool_size": 22,
+  "last_pool_size": 0,
   "last_valid_gate": {
     "allowed": true,
     "index_pct": 2.701545676032535,
