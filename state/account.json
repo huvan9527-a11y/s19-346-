@@ -2,15 +2,15 @@
   "cash": 200000,
   "positions": {},
   "last_scan_date": "2026-11-11",
-  "last_scan_time": "10:20:08",
+  "last_scan_time": "10:21:49",
   "pool_date": "2026-11-11",
   "pool_seen_nonempty": true,
   "valuation_stale_codes": [],
   "market_gate": {
     "allowed": true,
-    "index_pct": 3.887749234657445,
-    "index_time": "2026-11-11T10:19:00+08:00",
-    "checked_at": "2026-11-11T10:20:08.072922+08:00",
+    "index_pct": 3.8374855846869504,
+    "index_time": "2026-11-11T10:21:00+08:00",
+    "checked_at": "2026-11-11T10:21:49.431276+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "连板指数开仓门槛满足",
@@ -250,6 +250,17 @@
       "next_attempt": "2026-11-11T09:35:01.260209+08:00",
       "live_signal": true,
       "sent_at": "2026-11-11T09:35:06.265756+08:00"
+    },
+    "2026-11-11|603366|UNFILLED": {
+      "key": "2026-11-11|603366|UNFILLED",
+      "title": "S19 已封板/未成交｜日出东方",
+      "body": "2026-11-11T10:21:49.431276+08:00\n603366 日出东方｜三季报增长｜龙头\n题材封板4只；连板4\n模拟仓门槛：允许模拟开仓；883958涨幅 +3.84%。连板指数开仓门槛满足。原选股信号仍有效，不代表成交。\n指数行情时间：2026-11-11T10:21:00+08:00；这是当时读数，不是收盘值。\n候选来自当日实时池；提醒不等于模拟买入。\n扫描证据：42939293728-1:1436\n\n记录编号：2026-11-11|603366|UNFILLED",
+      "status": "pending",
+      "created_at": "2026-11-11T10:21:49.431276+08:00",
+      "expires_at": "2026-11-11T10:23:49.431276+08:00",
+      "attempts": 0,
+      "next_attempt": "2026-11-11T10:21:49.431276+08:00",
+      "live_signal": true
     }
   },
   "fill_ids": [],
@@ -392,29 +403,39 @@
         "role": "龙头",
         "selection_scans": 202
       }
+    },
+    "2026-11-11": {
+      "603366": {
+        "first_selected_at": "2026-11-11T10:21:49.431276+08:00",
+        "first_evidence": "42939293728-1:1436",
+        "name": "日出东方",
+        "theme": "三季报增长",
+        "role": "龙头",
+        "selection_scans": 1
+      }
     }
   },
-  "saved_at": "2026-11-11T10:20:08.072922+08:00",
+  "saved_at": "2026-11-11T10:21:49.431276+08:00",
   "equity": 200000,
-  "valuation_at": "2026-11-11T10:20:08.072922+08:00",
+  "valuation_at": "2026-11-11T10:21:49.431276+08:00",
   "health": {
-    "cycles": 608,
+    "cycles": 628,
     "pool_errors": 8,
     "quote_errors": 0,
     "fills": 0,
     "first_cycle": "2026-11-11T09:29:31.056143+08:00",
-    "last_cycle": "2026-11-11T10:20:08.072922+08:00",
+    "last_cycle": "2026-11-11T10:21:49.431276+08:00",
     "entry_coverage_start": "2026-11-11T09:30:01.077350+08:00",
     "opening_delay_seconds": 1.07735,
     "pool_ok": true,
     "quote_error": null
   },
-  "last_pool_size": 40,
+  "last_pool_size": 39,
   "last_valid_gate": {
     "allowed": true,
-    "index_pct": 3.887749234657445,
-    "index_time": "2026-11-11T10:19:00+08:00",
-    "checked_at": "2026-11-11T10:20:08.072922+08:00",
+    "index_pct": 3.8374855846869504,
+    "index_time": "2026-11-11T10:21:00+08:00",
+    "checked_at": "2026-11-11T10:21:49.431276+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "连板指数开仓门槛满足",
