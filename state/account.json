@@ -2,18 +2,18 @@
   "cash": 200000,
   "positions": {},
   "last_scan_date": "2026-11-11",
-  "last_scan_time": "10:51:19",
+  "last_scan_time": "10:56:20",
   "pool_date": "2026-11-11",
   "pool_seen_nonempty": true,
   "valuation_stale_codes": [],
   "market_gate": {
-    "allowed": false,
-    "index_pct": null,
-    "index_time": null,
-    "checked_at": "2026-11-11T10:51:19.616410+08:00",
+    "allowed": true,
+    "index_pct": 4.168908174697261,
+    "index_time": "2026-11-11T10:55:00+08:00",
+    "checked_at": "2026-11-11T10:56:20.563177+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
-    "reason": "883958涨幅不可用/过期",
+    "reason": "连板指数开仓门槛满足",
     "date": "2026-11-11"
   },
   "migration": {
@@ -424,7 +424,7 @@
         "name": "日出东方",
         "theme": "三季报增长",
         "role": "龙头",
-        "selection_scans": 290
+        "selection_scans": 343
       },
       "002931": {
         "first_selected_at": "2026-11-11T10:51:13.943248+08:00",
@@ -432,20 +432,20 @@
         "name": "锋龙股份",
         "theme": "人形机器人",
         "role": "龙头",
-        "selection_scans": 2
+        "selection_scans": 55
       }
     }
   },
-  "saved_at": "2026-11-11T10:51:19.616410+08:00",
+  "saved_at": "2026-11-11T10:56:20.563177+08:00",
   "equity": 200000,
-  "valuation_at": "2026-11-11T10:51:19.616410+08:00",
+  "valuation_at": "2026-11-11T10:56:20.563177+08:00",
   "health": {
-    "cycles": 942,
+    "cycles": 995,
     "pool_errors": 33,
     "quote_errors": 0,
     "fills": 0,
     "first_cycle": "2026-11-11T09:29:31.056143+08:00",
-    "last_cycle": "2026-11-11T10:51:19.616410+08:00",
+    "last_cycle": "2026-11-11T10:56:20.563177+08:00",
     "entry_coverage_start": "2026-11-11T09:30:01.077350+08:00",
     "opening_delay_seconds": 1.07735,
     "pool_ok": true,
@@ -454,9 +454,9 @@
   "last_pool_size": 44,
   "last_valid_gate": {
     "allowed": true,
-    "index_pct": 4.125373518128694,
-    "index_time": "2026-11-11T10:49:00+08:00",
-    "checked_at": "2026-11-11T10:50:07.312344+08:00",
+    "index_pct": 4.168908174697261,
+    "index_time": "2026-11-11T10:55:00+08:00",
+    "checked_at": "2026-11-11T10:56:20.563177+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "连板指数开仓门槛满足",
