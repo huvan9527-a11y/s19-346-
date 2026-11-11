@@ -2,15 +2,15 @@
   "cash": 200000,
   "positions": {},
   "last_scan_date": "2026-11-11",
-  "last_scan_time": "11:26:22",
+  "last_scan_time": "11:30:57",
   "pool_date": "2026-11-11",
   "pool_seen_nonempty": true,
   "valuation_stale_codes": [],
   "market_gate": {
     "allowed": true,
-    "index_pct": 4.631328033708737,
-    "index_time": "2026-11-11T11:25:00+08:00",
-    "checked_at": "2026-11-11T11:26:22.749047+08:00",
+    "index_pct": 4.538888397463392,
+    "index_time": "2026-11-11T11:30:00+08:00",
+    "checked_at": "2026-11-11T11:30:57.893156+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "连板指数开仓门槛满足",
@@ -436,16 +436,16 @@
       }
     }
   },
-  "saved_at": "2026-11-11T11:26:22.749047+08:00",
+  "saved_at": "2026-11-11T11:31:02.896210+08:00",
   "equity": 200000,
-  "valuation_at": "2026-11-11T11:26:22.749047+08:00",
+  "valuation_at": "2026-11-11T11:30:57.893156+08:00",
   "health": {
-    "cycles": 1353,
+    "cycles": 1408,
     "pool_errors": 33,
     "quote_errors": 0,
     "fills": 0,
     "first_cycle": "2026-11-11T09:29:31.056143+08:00",
-    "last_cycle": "2026-11-11T11:26:22.749047+08:00",
+    "last_cycle": "2026-11-11T11:30:57.893156+08:00",
     "entry_coverage_start": "2026-11-11T09:30:01.077350+08:00",
     "opening_delay_seconds": 1.07735,
     "pool_ok": false,
@@ -454,16 +454,16 @@
   "last_pool_size": 44,
   "last_valid_gate": {
     "allowed": true,
-    "index_pct": 4.631328033708737,
-    "index_time": "2026-11-11T11:25:00+08:00",
-    "checked_at": "2026-11-11T11:26:22.749047+08:00",
+    "index_pct": 4.538888397463392,
+    "index_time": "2026-11-11T11:30:00+08:00",
+    "checked_at": "2026-11-11T11:30:57.893156+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "连板指数开仓门槛满足",
     "date": "2026-11-11"
   },
-  "morning_completed_at": "2026-11-09T11:31:02.514619+08:00",
-  "session_finished_at": "2026-11-09T11:31:02.514619+08:00",
+  "morning_completed_at": "2026-11-11T11:31:02.896210+08:00",
+  "session_finished_at": "2026-11-11T11:31:02.896210+08:00",
   "session_history": {
     "2026-10-27": {
       "morning": {
@@ -582,6 +582,18 @@
         "last_cycle": "2026-11-09T11:30:57.511256+08:00",
         "entry_coverage_start": "2026-11-09T09:30:04.774800+08:00",
         "opening_delay_seconds": 4.7748
+      }
+    },
+    "2026-11-11": {
+      "morning": {
+        "cycles": 1408,
+        "pool_errors": 33,
+        "quote_errors": 0,
+        "fills": 0,
+        "first_cycle": "2026-11-11T09:29:31.056143+08:00",
+        "last_cycle": "2026-11-11T11:30:57.893156+08:00",
+        "entry_coverage_start": "2026-11-11T09:30:01.077350+08:00",
+        "opening_delay_seconds": 1.07735
       }
     }
   }
