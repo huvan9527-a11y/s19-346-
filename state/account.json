@@ -1,20 +1,20 @@
 {
   "cash": 200000,
   "positions": {},
-  "last_scan_date": "2026-11-19",
-  "last_scan_time": "11:30:57",
-  "pool_date": "2026-11-19",
+  "last_scan_date": "2026-11-20",
+  "last_scan_time": "10:39:47",
+  "pool_date": "2026-11-20",
   "pool_seen_nonempty": true,
   "valuation_stale_codes": [],
   "market_gate": {
     "allowed": true,
-    "index_pct": 4.524880855154101,
-    "index_time": "2026-11-19T11:30:00+08:00",
-    "checked_at": "2026-11-19T11:30:57.910837+08:00",
+    "index_pct": 1.36136947958172,
+    "index_time": "2026-11-20T10:39:00+08:00",
+    "checked_at": "2026-11-20T10:39:47.547430+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "连板指数开仓门槛满足",
-    "date": "2026-11-19"
+    "date": "2026-11-20"
   },
   "migration": {
     "date": "2026-10-24",
@@ -23,30 +23,6 @@
   },
   "pending_intents": {},
   "notifications": {
-    "2026-11-12|000678|UNFILLED": {
-      "key": "2026-11-12|000678|UNFILLED",
-      "title": "S19 已封板/未成交｜襄阳轴承",
-      "body": "2026-11-12T10:33:21.913176+08:00\n000678 襄阳轴承｜“羊”字辈｜龙头\n题材封板7只；连板3\n模拟仓门槛：允许模拟开仓；883958涨幅 +2.57%。连板指数开仓门槛满足。原选股信号仍有效，不代表成交。\n指数行情时间：2026-11-12T10:32:00+08:00；这是当时读数，不是收盘值。\n候选来自当日实时池；提醒不等于模拟买入。\n扫描证据：43142178338-1:8\n\n记录编号：2026-11-12|000678|UNFILLED",
-      "status": "sent",
-      "created_at": "2026-11-12T10:33:21.913176+08:00",
-      "expires_at": "2026-11-12T10:35:21.913176+08:00",
-      "attempts": 1,
-      "next_attempt": "2026-11-12T10:33:21.913176+08:00",
-      "live_signal": true,
-      "sent_at": "2026-11-12T10:33:27.753701+08:00"
-    },
-    "2026-11-12|603330|UNFILLED": {
-      "key": "2026-11-12|603330|UNFILLED",
-      "title": "S19 已封板/未成交｜天洋新材",
-      "body": "2026-11-12T10:33:21.913176+08:00\n603330 天洋新材｜“羊”字辈｜二龙头\n题材封板7只；连板2\n模拟仓门槛：允许模拟开仓；883958涨幅 +2.57%。连板指数开仓门槛满足。原选股信号仍有效，不代表成交。\n指数行情时间：2026-11-12T10:32:00+08:00；这是当时读数，不是收盘值。\n候选来自当日实时池；提醒不等于模拟买入。\n扫描证据：43142178338-1:8\n\n记录编号：2026-11-12|603330|UNFILLED",
-      "status": "sent",
-      "created_at": "2026-11-12T10:33:21.913176+08:00",
-      "expires_at": "2026-11-12T10:35:21.913176+08:00",
-      "attempts": 1,
-      "next_attempt": "2026-11-12T10:33:21.913176+08:00",
-      "live_signal": true,
-      "sent_at": "2026-11-12T10:33:33.652198+08:00"
-    },
     "2026-11-13|STATUS|NO_SIGNAL": {
       "key": "2026-11-13|STATUS|NO_SIGNAL",
       "title": "S19 扫描正常｜本轮暂无候选",
@@ -106,57 +82,50 @@
       "next_attempt": "2026-11-19T10:50:36.532431+08:00",
       "live_signal": true,
       "sent_at": "2026-11-19T10:50:41.538811+08:00"
+    },
+    "2026-11-20|STATUS|NO_SIGNAL": {
+      "key": "2026-11-20|STATUS|NO_SIGNAL",
+      "title": "S19 扫描正常｜本轮暂无候选",
+      "body": "2026-11-20T10:39:42.543367+08:00\n当日实时池已成功获取，本轮没有通过全部S19条件的股票。后续继续监控。\n\n记录编号：2026-11-20|STATUS|NO_SIGNAL",
+      "status": "sent",
+      "created_at": "2026-11-20T10:39:42.543367+08:00",
+      "expires_at": "2026-11-20T10:41:42.543367+08:00",
+      "attempts": 1,
+      "next_attempt": "2026-11-20T10:39:42.543367+08:00",
+      "live_signal": true,
+      "sent_at": "2026-11-20T10:39:47.547430+08:00"
     }
   },
   "fill_ids": [],
   "schema": "s19-session-v2",
-  "engine_day": "2026-11-19",
+  "engine_day": "2026-11-20",
   "phase": "morning",
-  "day_activity": {
-    "2026-11-12": {
-      "000678": {
-        "first_selected_at": "2026-11-12T10:33:21.913176+08:00",
-        "first_evidence": "43142178338-1:8",
-        "name": "襄阳轴承",
-        "theme": "“羊”字辈",
-        "role": "龙头",
-        "selection_scans": 224
-      },
-      "603330": {
-        "first_selected_at": "2026-11-12T10:33:21.913176+08:00",
-        "first_evidence": "43142178338-1:8",
-        "name": "天洋新材",
-        "theme": "“羊”字辈",
-        "role": "二龙头",
-        "selection_scans": 224
-      }
-    }
-  },
-  "saved_at": "2026-11-19T11:31:02.913008+08:00",
+  "day_activity": {},
+  "saved_at": "2026-11-20T10:39:47.547430+08:00",
   "equity": 200000,
-  "valuation_at": "2026-11-19T11:30:57.910837+08:00",
+  "valuation_at": "2026-11-20T10:39:47.547430+08:00",
   "health": {
-    "cycles": 486,
-    "pool_errors": 4,
+    "cycles": 3,
+    "pool_errors": 0,
     "quote_errors": 0,
     "fills": 0,
-    "first_cycle": "2026-11-19T10:50:31.525589+08:00",
-    "last_cycle": "2026-11-19T11:30:57.910837+08:00",
-    "entry_coverage_start": "2026-11-19T10:50:36.532431+08:00",
-    "opening_delay_seconds": 4836.532431,
-    "pool_ok": false,
+    "first_cycle": "2026-11-20T10:39:37.536001+08:00",
+    "last_cycle": "2026-11-20T10:39:47.547430+08:00",
+    "entry_coverage_start": "2026-11-20T10:39:42.543367+08:00",
+    "opening_delay_seconds": 4182.543367,
+    "pool_ok": true,
     "quote_error": null
   },
-  "last_pool_size": 18,
+  "last_pool_size": 17,
   "last_valid_gate": {
     "allowed": true,
-    "index_pct": 4.524880855154101,
-    "index_time": "2026-11-19T11:30:00+08:00",
-    "checked_at": "2026-11-19T11:30:57.910837+08:00",
+    "index_pct": 1.36136947958172,
+    "index_time": "2026-11-20T10:39:00+08:00",
+    "checked_at": "2026-11-20T10:39:47.547430+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "连板指数开仓门槛满足",
-    "date": "2026-11-19"
+    "date": "2026-11-20"
   },
   "morning_completed_at": "2026-11-19T11:31:02.913008+08:00",
   "session_finished_at": "2026-11-19T11:31:02.913008+08:00",

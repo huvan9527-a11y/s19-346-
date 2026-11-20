@@ -1,25 +1,25 @@
 {
   "schema": "s19-session-v2",
-  "saved_at": "2026-11-19T11:31:02.913008+08:00",
-  "run_id": "44447173203-1",
-  "final": true,
+  "saved_at": "2026-11-20T10:39:47.547430+08:00",
+  "run_id": "44662345826-1",
+  "final": false,
   "account": {
     "cash": 200000,
     "positions": {},
-    "last_scan_date": "2026-11-19",
-    "last_scan_time": "11:30:57",
-    "pool_date": "2026-11-19",
+    "last_scan_date": "2026-11-20",
+    "last_scan_time": "10:39:47",
+    "pool_date": "2026-11-20",
     "pool_seen_nonempty": true,
     "valuation_stale_codes": [],
     "market_gate": {
       "allowed": true,
-      "index_pct": 4.524880855154101,
-      "index_time": "2026-11-19T11:30:00+08:00",
-      "checked_at": "2026-11-19T11:30:57.910837+08:00",
+      "index_pct": 1.36136947958172,
+      "index_time": "2026-11-20T10:39:00+08:00",
+      "checked_at": "2026-11-20T10:39:47.547430+08:00",
       "opening_limit_down": null,
       "opening_limit_down_required": false,
       "reason": "连板指数开仓门槛满足",
-      "date": "2026-11-19"
+      "date": "2026-11-20"
     },
     "migration": {
       "date": "2026-10-24",
@@ -28,30 +28,6 @@
     },
     "pending_intents": {},
     "notifications": {
-      "2026-11-12|000678|UNFILLED": {
-        "key": "2026-11-12|000678|UNFILLED",
-        "title": "S19 已封板/未成交｜襄阳轴承",
-        "body": "2026-11-12T10:33:21.913176+08:00\n000678 襄阳轴承｜“羊”字辈｜龙头\n题材封板7只；连板3\n模拟仓门槛：允许模拟开仓；883958涨幅 +2.57%。连板指数开仓门槛满足。原选股信号仍有效，不代表成交。\n指数行情时间：2026-11-12T10:32:00+08:00；这是当时读数，不是收盘值。\n候选来自当日实时池；提醒不等于模拟买入。\n扫描证据：43142178338-1:8\n\n记录编号：2026-11-12|000678|UNFILLED",
-        "status": "sent",
-        "created_at": "2026-11-12T10:33:21.913176+08:00",
-        "expires_at": "2026-11-12T10:35:21.913176+08:00",
-        "attempts": 1,
-        "next_attempt": "2026-11-12T10:33:21.913176+08:00",
-        "live_signal": true,
-        "sent_at": "2026-11-12T10:33:27.753701+08:00"
-      },
-      "2026-11-12|603330|UNFILLED": {
-        "key": "2026-11-12|603330|UNFILLED",
-        "title": "S19 已封板/未成交｜天洋新材",
-        "body": "2026-11-12T10:33:21.913176+08:00\n603330 天洋新材｜“羊”字辈｜二龙头\n题材封板7只；连板2\n模拟仓门槛：允许模拟开仓；883958涨幅 +2.57%。连板指数开仓门槛满足。原选股信号仍有效，不代表成交。\n指数行情时间：2026-11-12T10:32:00+08:00；这是当时读数，不是收盘值。\n候选来自当日实时池；提醒不等于模拟买入。\n扫描证据：43142178338-1:8\n\n记录编号：2026-11-12|603330|UNFILLED",
-        "status": "sent",
-        "created_at": "2026-11-12T10:33:21.913176+08:00",
-        "expires_at": "2026-11-12T10:35:21.913176+08:00",
-        "attempts": 1,
-        "next_attempt": "2026-11-12T10:33:21.913176+08:00",
-        "live_signal": true,
-        "sent_at": "2026-11-12T10:33:33.652198+08:00"
-      },
       "2026-11-13|STATUS|NO_SIGNAL": {
         "key": "2026-11-13|STATUS|NO_SIGNAL",
         "title": "S19 扫描正常｜本轮暂无候选",
@@ -111,57 +87,50 @@
         "next_attempt": "2026-11-19T10:50:36.532431+08:00",
         "live_signal": true,
         "sent_at": "2026-11-19T10:50:41.538811+08:00"
+      },
+      "2026-11-20|STATUS|NO_SIGNAL": {
+        "key": "2026-11-20|STATUS|NO_SIGNAL",
+        "title": "S19 扫描正常｜本轮暂无候选",
+        "body": "2026-11-20T10:39:42.543367+08:00\n当日实时池已成功获取，本轮没有通过全部S19条件的股票。后续继续监控。\n\n记录编号：2026-11-20|STATUS|NO_SIGNAL",
+        "status": "sent",
+        "created_at": "2026-11-20T10:39:42.543367+08:00",
+        "expires_at": "2026-11-20T10:41:42.543367+08:00",
+        "attempts": 1,
+        "next_attempt": "2026-11-20T10:39:42.543367+08:00",
+        "live_signal": true,
+        "sent_at": "2026-11-20T10:39:47.547430+08:00"
       }
     },
     "fill_ids": [],
     "schema": "s19-session-v2",
-    "engine_day": "2026-11-19",
+    "engine_day": "2026-11-20",
     "phase": "morning",
-    "day_activity": {
-      "2026-11-12": {
-        "000678": {
-          "first_selected_at": "2026-11-12T10:33:21.913176+08:00",
-          "first_evidence": "43142178338-1:8",
-          "name": "襄阳轴承",
-          "theme": "“羊”字辈",
-          "role": "龙头",
-          "selection_scans": 224
-        },
-        "603330": {
-          "first_selected_at": "2026-11-12T10:33:21.913176+08:00",
-          "first_evidence": "43142178338-1:8",
-          "name": "天洋新材",
-          "theme": "“羊”字辈",
-          "role": "二龙头",
-          "selection_scans": 224
-        }
-      }
-    },
-    "saved_at": "2026-11-19T11:31:02.913008+08:00",
+    "day_activity": {},
+    "saved_at": "2026-11-20T10:39:47.547430+08:00",
     "equity": 200000,
-    "valuation_at": "2026-11-19T11:30:57.910837+08:00",
+    "valuation_at": "2026-11-20T10:39:47.547430+08:00",
     "health": {
-      "cycles": 486,
-      "pool_errors": 4,
+      "cycles": 3,
+      "pool_errors": 0,
       "quote_errors": 0,
       "fills": 0,
-      "first_cycle": "2026-11-19T10:50:31.525589+08:00",
-      "last_cycle": "2026-11-19T11:30:57.910837+08:00",
-      "entry_coverage_start": "2026-11-19T10:50:36.532431+08:00",
-      "opening_delay_seconds": 4836.532431,
-      "pool_ok": false,
+      "first_cycle": "2026-11-20T10:39:37.536001+08:00",
+      "last_cycle": "2026-11-20T10:39:47.547430+08:00",
+      "entry_coverage_start": "2026-11-20T10:39:42.543367+08:00",
+      "opening_delay_seconds": 4182.543367,
+      "pool_ok": true,
       "quote_error": null
     },
-    "last_pool_size": 18,
+    "last_pool_size": 17,
     "last_valid_gate": {
       "allowed": true,
-      "index_pct": 4.524880855154101,
-      "index_time": "2026-11-19T11:30:00+08:00",
-      "checked_at": "2026-11-19T11:30:57.910837+08:00",
+      "index_pct": 1.36136947958172,
+      "index_time": "2026-11-20T10:39:00+08:00",
+      "checked_at": "2026-11-20T10:39:47.547430+08:00",
       "opening_limit_down": null,
       "opening_limit_down_required": false,
       "reason": "连板指数开仓门槛满足",
-      "date": "2026-11-19"
+      "date": "2026-11-20"
     },
     "morning_completed_at": "2026-11-19T11:31:02.913008+08:00",
     "session_finished_at": "2026-11-19T11:31:02.913008+08:00",
@@ -358,52 +327,12 @@
       }
     }
   },
-  "report": "# S19 统一实时模拟仓\n\n- 更新时间：2026-11-19T11:31:02.913008+08:00\n- 候选口径：当日实时涨停池；推送与模拟仓共享本轮候选和行情证据。\n- 现金：200000.00；总权益：200000.00；持仓：0；待确认意向：0。\n- 估值状态：有效\n- 模拟仓门槛：允许模拟开仓；883958涨幅 +4.52%。连板指数开仓门槛满足。原选股信号仍有效，不代表成交。\n指数行情时间：2026-11-19T11:30:00+08:00；这是当时读数，不是收盘值。\n- 开盘跌停家数限制：当前未启用，保持本次修复前实际执行口径。\n- 通知：启用；成功7，待重试0，已过期0。\n- 运行覆盖与错误：`{\"cycles\": 486, \"entry_coverage_start\": \"2026-11-19T10:50:36.532431+08:00\", \"fills\": 0, \"first_cycle\": \"2026-11-19T10:50:31.525589+08:00\", \"last_cycle\": \"2026-11-19T11:30:57.910837+08:00\", \"opening_delay_seconds\": 4836.532431, \"pool_errors\": 4, \"quote_errors\": 0}`\n\n## 本轮候选\n\n- 无；需结合上面的数据状态判断，不能把数据失败当成无信号。\n\n## 今日首次候选与模拟执行\n\n| 股票 | 首次入选 | 题材/角色 | 模拟成交 | 最近状态/原因 |\n|---|---|---|---|---|\n\n- 分时段覆盖：`{\"2026-10-27\": {\"morning\": {\"cycles\": 1514, \"entry_coverage_start\": \"2026-10-27T09:30:04.610782+08:00\", \"fills\": 0, \"first_cycle\": \"2026-10-27T09:15:04.051590+08:00\", \"last_cycle\": \"2026-10-27T11:30:56.228960+08:00\", \"opening_delay_seconds\": 4.610782, \"pool_errors\": 7, \"quote_errors\": 0}}, \"2026-10-28\": {\"morning\": {\"cycles\": 1557, \"entry_coverage_start\": \"2026-10-28T09:30:04.216942+08:00\", \"fills\": 0, \"first_cycle\": \"2026-10-28T09:15:08.736638+08:00\", \"last_cycle\": \"2026-10-28T11:30:59.014357+08:00\", \"opening_delay_seconds\": 4.216942, \"pool_errors\": 268, \"quote_errors\": 0}}, \"2026-10-29\": {\"morning\": {\"cycles\": 1484, \"entry_coverage_start\": \"2026-10-29T09:30:04.558455+08:00\", \"fills\": 0, \"first_cycle\": \"2026-10-29T09:17:09.113529+08:00\", \"last_cycle\": \"2026-10-29T11:30:58.234309+08:00\", \"opening_delay_seconds\": 4.558455, \"pool_errors\": 53, \"quote_errors\": 0}}, \"2026-10-30\": {\"morning\": {\"cycles\": 1429, \"entry_coverage_start\": \"2026-10-30T09:30:03.940779+08:00\", \"fills\": 0, \"first_cycle\": \"2026-10-30T09:22:03.630759+08:00\", \"last_cycle\": \"2026-10-30T11:30:57.143008+08:00\", \"opening_delay_seconds\": 3.940779, \"pool_errors\": 15, \"quote_errors\": 0}}, \"2026-11-02\": {\"morning\": {\"cycles\": 1564, \"entry_coverage_start\": \"2026-11-02T09:30:02.116917+08:00\", \"fills\": 0, \"first_cycle\": \"2026-11-02T09:15:01.530877+08:00\", \"last_cycle\": \"2026-11-02T11:30:57.390677+08:00\", \"opening_delay_seconds\": 2.116917, \"pool_errors\": 156, \"quote_errors\": 0}}, \"2026-11-03\": {\"morning\": {\"cycles\": 299, \"entry_coverage_start\": null, \"fills\": 0, \"first_cycle\": \"2026-11-03T11:06:05.888165+08:00\", \"last_cycle\": \"2026-11-03T11:30:56.787839+08:00\", \"pool_errors\": 0, \"quote_errors\": 0}}, \"2026-11-04\": {\"morning\": {\"cycles\": 1211, \"entry_coverage_start\": \"2026-11-04T09:42:05.834269+08:00\", \"fills\": 0, \"first_cycle\": \"2026-11-04T09:41:59.770717+08:00\", \"last_cycle\": \"2026-11-04T11:30:57.168833+08:00\", \"opening_delay_seconds\": 725.834269, \"pool_errors\": 64, \"quote_errors\": 0}}, \"2026-11-05\": {\"morning\": {\"cycles\": 1118, \"entry_coverage_start\": \"2026-11-05T09:50:08.396726+08:00\", \"fills\": 0, \"first_cycle\": \"2026-11-05T09:50:02.044492+08:00\", \"last_cycle\": \"2026-11-05T11:30:55.344521+08:00\", \"opening_delay_seconds\": 1208.396726, \"pool_errors\": 37, \"quote_errors\": 0}}, \"2026-11-06\": {\"morning\": {\"cycles\": 1176, \"entry_coverage_start\": \"2026-11-06T09:50:11.015328+08:00\", \"fills\": 0, \"first_cycle\": \"2026-11-06T09:50:06.008532+08:00\", \"last_cycle\": \"2026-11-06T11:30:56.286337+08:00\", \"opening_delay_seconds\": 1211.015328, \"pool_errors\": 0, \"quote_errors\": 0}}, \"2026-11-09\": {\"morning\": {\"cycles\": 1554, \"entry_coverage_start\": \"2026-11-09T09:30:04.774800+08:00\", \"fills\": 0, \"first_cycle\": \"2026-11-09T09:15:09.215144+08:00\", \"last_cycle\": \"2026-11-09T11:30:57.511256+08:00\", \"opening_delay_seconds\": 4.7748, \"pool_errors\": 328, \"quote_errors\": 0}}, \"2026-11-11\": {\"morning\": {\"cycles\": 1408, \"entry_coverage_start\": \"2026-11-11T09:30:01.077350+08:00\", \"fills\": 0, \"first_cycle\": \"2026-11-11T09:29:31.056143+08:00\", \"last_cycle\": \"2026-11-11T11:30:57.893156+08:00\", \"opening_delay_seconds\": 1.07735, \"pool_errors\": 33, \"quote_errors\": 0}}, \"2026-11-12\": {\"morning\": {\"cycles\": 655, \"entry_coverage_start\": \"2026-11-12T10:33:21.913176+08:00\", \"fills\": 0, \"first_cycle\": \"2026-11-12T10:33:15.807922+08:00\", \"last_cycle\": \"2026-11-12T11:30:58.033179+08:00\", \"opening_delay_seconds\": 3801.913176, \"pool_errors\": 34, \"quote_errors\": 0}}, \"2026-11-13\": {\"morning\": {\"cycles\": 971, \"entry_coverage_start\": \"2026-11-13T10:10:11.093178+08:00\", \"fills\": 0, \"first_cycle\": \"2026-11-13T10:10:06.086544+08:00\", \"last_cycle\": \"2026-11-13T11:30:59.336183+08:00\", \"opening_delay_seconds\": 2411.093178, \"pool_errors\": 0, \"quote_errors\": 0}}, \"2026-11-16\": {\"morning\": {\"cycles\": 1499, \"entry_coverage_start\": \"2026-11-16T09:30:03.881545+08:00\", \"fills\": 0, \"first_cycle\": \"2026-11-16T09:26:03.682743+08:00\", \"last_cycle\": \"2026-11-16T11:30:59.489818+08:00\", \"opening_delay_seconds\": 3.881545, \"pool_errors\": 12, \"quote_errors\": 0}}, \"2026-11-18\": {\"morning\": {\"cycles\": 258, \"entry_coverage_start\": null, \"fills\": 0, \"first_cycle\": \"2026-11-18T11:09:29.566799+08:00\", \"last_cycle\": \"2026-11-18T11:30:55.062770+08:00\", \"pool_errors\": 0, \"quote_errors\": 0}}, \"2026-11-19\": {\"morning\": {\"cycles\": 486, \"entry_coverage_start\": \"2026-11-19T10:50:36.532431+08:00\", \"fills\": 0, \"first_cycle\": \"2026-11-19T10:50:31.525589+08:00\", \"last_cycle\": \"2026-11-19T11:30:57.910837+08:00\", \"opening_delay_seconds\": 4836.532431, \"pool_errors\": 4, \"quote_errors\": 0}}}`\n\n## 持仓与待确认意向\n\n```json\n{\"pending_intents\": {}, \"positions\": {}}\n```\n\n> 仅模拟：信号后必须出现源时间严格更新的下一次盘口才能记成交。盘口快照不能证明实盘排队/成交。\n",
+  "report": "# S19 统一实时模拟仓\n\n- 更新时间：2026-11-20T10:39:47.547430+08:00\n- 候选口径：当日实时涨停池；推送与模拟仓共享本轮候选和行情证据。\n- 现金：200000.00；总权益：200000.00；持仓：0；待确认意向：0。\n- 估值状态：有效\n- 模拟仓门槛：允许模拟开仓；883958涨幅 +1.36%。连板指数开仓门槛满足。原选股信号仍有效，不代表成交。\n指数行情时间：2026-11-20T10:39:00+08:00；这是当时读数，不是收盘值。\n- 开盘跌停家数限制：当前未启用，保持本次修复前实际执行口径。\n- 通知：启用；成功6，待重试0，已过期0。\n- 运行覆盖与错误：`{\"cycles\": 3, \"entry_coverage_start\": \"2026-11-20T10:39:42.543367+08:00\", \"fills\": 0, \"first_cycle\": \"2026-11-20T10:39:37.536001+08:00\", \"last_cycle\": \"2026-11-20T10:39:47.547430+08:00\", \"opening_delay_seconds\": 4182.543367, \"pool_errors\": 0, \"quote_errors\": 0}`\n\n## 本轮候选\n\n- 无；需结合上面的数据状态判断，不能把数据失败当成无信号。\n\n## 今日首次候选与模拟执行\n\n| 股票 | 首次入选 | 题材/角色 | 模拟成交 | 最近状态/原因 |\n|---|---|---|---|---|\n\n- 分时段覆盖：`{\"2026-10-27\": {\"morning\": {\"cycles\": 1514, \"entry_coverage_start\": \"2026-10-27T09:30:04.610782+08:00\", \"fills\": 0, \"first_cycle\": \"2026-10-27T09:15:04.051590+08:00\", \"last_cycle\": \"2026-10-27T11:30:56.228960+08:00\", \"opening_delay_seconds\": 4.610782, \"pool_errors\": 7, \"quote_errors\": 0}}, \"2026-10-28\": {\"morning\": {\"cycles\": 1557, \"entry_coverage_start\": \"2026-10-28T09:30:04.216942+08:00\", \"fills\": 0, \"first_cycle\": \"2026-10-28T09:15:08.736638+08:00\", \"last_cycle\": \"2026-10-28T11:30:59.014357+08:00\", \"opening_delay_seconds\": 4.216942, \"pool_errors\": 268, \"quote_errors\": 0}}, \"2026-10-29\": {\"morning\": {\"cycles\": 1484, \"entry_coverage_start\": \"2026-10-29T09:30:04.558455+08:00\", \"fills\": 0, \"first_cycle\": \"2026-10-29T09:17:09.113529+08:00\", \"last_cycle\": \"2026-10-29T11:30:58.234309+08:00\", \"opening_delay_seconds\": 4.558455, \"pool_errors\": 53, \"quote_errors\": 0}}, \"2026-10-30\": {\"morning\": {\"cycles\": 1429, \"entry_coverage_start\": \"2026-10-30T09:30:03.940779+08:00\", \"fills\": 0, \"first_cycle\": \"2026-10-30T09:22:03.630759+08:00\", \"last_cycle\": \"2026-10-30T11:30:57.143008+08:00\", \"opening_delay_seconds\": 3.940779, \"pool_errors\": 15, \"quote_errors\": 0}}, \"2026-11-02\": {\"morning\": {\"cycles\": 1564, \"entry_coverage_start\": \"2026-11-02T09:30:02.116917+08:00\", \"fills\": 0, \"first_cycle\": \"2026-11-02T09:15:01.530877+08:00\", \"last_cycle\": \"2026-11-02T11:30:57.390677+08:00\", \"opening_delay_seconds\": 2.116917, \"pool_errors\": 156, \"quote_errors\": 0}}, \"2026-11-03\": {\"morning\": {\"cycles\": 299, \"entry_coverage_start\": null, \"fills\": 0, \"first_cycle\": \"2026-11-03T11:06:05.888165+08:00\", \"last_cycle\": \"2026-11-03T11:30:56.787839+08:00\", \"pool_errors\": 0, \"quote_errors\": 0}}, \"2026-11-04\": {\"morning\": {\"cycles\": 1211, \"entry_coverage_start\": \"2026-11-04T09:42:05.834269+08:00\", \"fills\": 0, \"first_cycle\": \"2026-11-04T09:41:59.770717+08:00\", \"last_cycle\": \"2026-11-04T11:30:57.168833+08:00\", \"opening_delay_seconds\": 725.834269, \"pool_errors\": 64, \"quote_errors\": 0}}, \"2026-11-05\": {\"morning\": {\"cycles\": 1118, \"entry_coverage_start\": \"2026-11-05T09:50:08.396726+08:00\", \"fills\": 0, \"first_cycle\": \"2026-11-05T09:50:02.044492+08:00\", \"last_cycle\": \"2026-11-05T11:30:55.344521+08:00\", \"opening_delay_seconds\": 1208.396726, \"pool_errors\": 37, \"quote_errors\": 0}}, \"2026-11-06\": {\"morning\": {\"cycles\": 1176, \"entry_coverage_start\": \"2026-11-06T09:50:11.015328+08:00\", \"fills\": 0, \"first_cycle\": \"2026-11-06T09:50:06.008532+08:00\", \"last_cycle\": \"2026-11-06T11:30:56.286337+08:00\", \"opening_delay_seconds\": 1211.015328, \"pool_errors\": 0, \"quote_errors\": 0}}, \"2026-11-09\": {\"morning\": {\"cycles\": 1554, \"entry_coverage_start\": \"2026-11-09T09:30:04.774800+08:00\", \"fills\": 0, \"first_cycle\": \"2026-11-09T09:15:09.215144+08:00\", \"last_cycle\": \"2026-11-09T11:30:57.511256+08:00\", \"opening_delay_seconds\": 4.7748, \"pool_errors\": 328, \"quote_errors\": 0}}, \"2026-11-11\": {\"morning\": {\"cycles\": 1408, \"entry_coverage_start\": \"2026-11-11T09:30:01.077350+08:00\", \"fills\": 0, \"first_cycle\": \"2026-11-11T09:29:31.056143+08:00\", \"last_cycle\": \"2026-11-11T11:30:57.893156+08:00\", \"opening_delay_seconds\": 1.07735, \"pool_errors\": 33, \"quote_errors\": 0}}, \"2026-11-12\": {\"morning\": {\"cycles\": 655, \"entry_coverage_start\": \"2026-11-12T10:33:21.913176+08:00\", \"fills\": 0, \"first_cycle\": \"2026-11-12T10:33:15.807922+08:00\", \"last_cycle\": \"2026-11-12T11:30:58.033179+08:00\", \"opening_delay_seconds\": 3801.913176, \"pool_errors\": 34, \"quote_errors\": 0}}, \"2026-11-13\": {\"morning\": {\"cycles\": 971, \"entry_coverage_start\": \"2026-11-13T10:10:11.093178+08:00\", \"fills\": 0, \"first_cycle\": \"2026-11-13T10:10:06.086544+08:00\", \"last_cycle\": \"2026-11-13T11:30:59.336183+08:00\", \"opening_delay_seconds\": 2411.093178, \"pool_errors\": 0, \"quote_errors\": 0}}, \"2026-11-16\": {\"morning\": {\"cycles\": 1499, \"entry_coverage_start\": \"2026-11-16T09:30:03.881545+08:00\", \"fills\": 0, \"first_cycle\": \"2026-11-16T09:26:03.682743+08:00\", \"last_cycle\": \"2026-11-16T11:30:59.489818+08:00\", \"opening_delay_seconds\": 3.881545, \"pool_errors\": 12, \"quote_errors\": 0}}, \"2026-11-18\": {\"morning\": {\"cycles\": 258, \"entry_coverage_start\": null, \"fills\": 0, \"first_cycle\": \"2026-11-18T11:09:29.566799+08:00\", \"last_cycle\": \"2026-11-18T11:30:55.062770+08:00\", \"pool_errors\": 0, \"quote_errors\": 0}}, \"2026-11-19\": {\"morning\": {\"cycles\": 486, \"entry_coverage_start\": \"2026-11-19T10:50:36.532431+08:00\", \"fills\": 0, \"first_cycle\": \"2026-11-19T10:50:31.525589+08:00\", \"last_cycle\": \"2026-11-19T11:30:57.910837+08:00\", \"opening_delay_seconds\": 4836.532431, \"pool_errors\": 4, \"quote_errors\": 0}}}`\n\n## 持仓与待确认意向\n\n```json\n{\"pending_intents\": {}, \"positions\": {}}\n```\n\n> 仅模拟：信号后必须出现源时间严格更新的下一次盘口才能记成交。盘口快照不能证明实盘排队/成交。\n",
   "journal": [
     {
-      "path": "logs/sessions/2026-11-19/1050-44447173203-1.jsonl",
-      "size": 238784,
-      "sha256": "f3c7c8465078874b2439135884ab974124e44749c2671bc60ecec81dc21404a8"
-    },
-    {
-      "path": "logs/sessions/2026-11-19/1055-44447173203-1.jsonl",
-      "size": 156952,
-      "sha256": "b5ff19c61671543ef25c3af26a62a8e627d366fa4fc4525f9e75e8380b619216"
-    },
-    {
-      "path": "logs/sessions/2026-11-19/1100-44447173203-1.jsonl",
-      "size": 56622,
-      "sha256": "ea606448a0eb6add24dce1efeb30542542506a0814a979edf73f16e140412843"
-    },
-    {
-      "path": "logs/sessions/2026-11-19/1105-44447173203-1.jsonl",
-      "size": 57773,
-      "sha256": "160d7488fe8bb031d08d31c6e33f9eeb8f37be0b6ecc5917215a1add85ff3f99"
-    },
-    {
-      "path": "logs/sessions/2026-11-19/1110-44447173203-1.jsonl",
-      "size": 54629,
-      "sha256": "bd9a36411957cc89f67c1451ddb47168fa4121482d0ed1f00cdda9e4f711727c"
-    },
-    {
-      "path": "logs/sessions/2026-11-19/1115-44447173203-1.jsonl",
-      "size": 57397,
-      "sha256": "3321df6459632d8da0cd6d7488b423248d31e6376619e21b51adf4bf83d758c8"
-    },
-    {
-      "path": "logs/sessions/2026-11-19/1120-44447173203-1.jsonl",
-      "size": 56913,
-      "sha256": "ea22b9b75f2b27fd734f2a3b9bd221d6b9d03e6f1c6e4932dce8ccfcb9e48851"
-    },
-    {
-      "path": "logs/sessions/2026-11-19/1125-44447173203-1.jsonl",
-      "size": 57488,
-      "sha256": "ffc25437dd32b226270a8923af1e2b86f7c1c2a94eece27734372e0042096cb3"
-    },
-    {
-      "path": "logs/sessions/2026-11-19/1130-44447173203-1.jsonl",
-      "size": 12535,
-      "sha256": "b48497f316c718bde82096deb047c6bf29e4cafa91a6409dd1ac9f3c2f0393a4"
+      "path": "logs/sessions/2026-11-20/1035-44662345826-1.jsonl",
+      "size": 17088,
+      "sha256": "56b126b0e6a233ca7090ac7088640469973af9c23ea34b676c58d87f0a605786"
     }
   ],
   "exports": [
@@ -414,8 +343,8 @@
     },
     {
       "path": "logs/equity.csv",
-      "size": 1363610,
-      "sha256": "19422f70cc0972f8a9abca70380d32755a8875b96abe09f65a52ac2f1787abc3"
+      "size": 1363307,
+      "sha256": "d004efba22e5692dbb6f5f1be80c41b19a96b57e5443b03a2e9b704de236e08e"
     }
   ]
 }
