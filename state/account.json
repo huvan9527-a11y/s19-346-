@@ -2,7 +2,7 @@
   "cash": 200000,
   "positions": {},
   "last_scan_date": "2026-11-23",
-  "last_scan_time": "11:26:46",
+  "last_scan_time": "11:30:56",
   "pool_date": "2026-11-23",
   "pool_seen_nonempty": true,
   "valuation_stale_codes": [],
@@ -10,7 +10,7 @@
     "allowed": false,
     "index_pct": null,
     "index_time": null,
-    "checked_at": "2026-11-23T11:26:46.221759+08:00",
+    "checked_at": "2026-11-23T11:30:56.391966+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "883958涨幅不可用/过期",
@@ -124,16 +124,16 @@
       }
     }
   },
-  "saved_at": "2026-11-23T11:26:46.221759+08:00",
+  "saved_at": "2026-11-23T11:31:01.393994+08:00",
   "equity": 200000,
-  "valuation_at": "2026-11-23T11:26:46.221759+08:00",
+  "valuation_at": "2026-11-23T11:30:56.391966+08:00",
   "health": {
-    "cycles": 991,
+    "cycles": 1041,
     "pool_errors": 58,
     "quote_errors": 0,
     "fills": 0,
     "first_cycle": "2026-11-23T09:59:40.451268+08:00",
-    "last_cycle": "2026-11-23T11:26:46.221759+08:00",
+    "last_cycle": "2026-11-23T11:30:56.391966+08:00",
     "entry_coverage_start": "2026-11-23T09:59:45.456975+08:00",
     "opening_delay_seconds": 1785.456975,
     "pool_ok": false,
@@ -142,16 +142,16 @@
   "last_pool_size": 29,
   "last_valid_gate": {
     "allowed": true,
-    "index_pct": 3.7448820323336296,
-    "index_time": "2026-11-23T11:25:00+08:00",
-    "checked_at": "2026-11-23T11:26:16.205584+08:00",
+    "index_pct": 3.309425142262179,
+    "index_time": "2026-11-23T11:29:00+08:00",
+    "checked_at": "2026-11-23T11:30:26.375395+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "连板指数开仓门槛满足",
     "date": "2026-11-23"
   },
-  "morning_completed_at": "2026-11-20T11:31:04.077014+08:00",
-  "session_finished_at": "2026-11-20T11:31:04.077014+08:00",
+  "morning_completed_at": "2026-11-23T11:31:01.393994+08:00",
+  "session_finished_at": "2026-11-23T11:31:01.393994+08:00",
   "session_history": {
     "2026-10-27": {
       "morning": {
@@ -353,6 +353,18 @@
         "last_cycle": "2026-11-20T11:30:59.075473+08:00",
         "entry_coverage_start": "2026-11-20T10:39:42.543367+08:00",
         "opening_delay_seconds": 4182.543367
+      }
+    },
+    "2026-11-23": {
+      "morning": {
+        "cycles": 1041,
+        "pool_errors": 58,
+        "quote_errors": 0,
+        "fills": 0,
+        "first_cycle": "2026-11-23T09:59:40.451268+08:00",
+        "last_cycle": "2026-11-23T11:30:56.391966+08:00",
+        "entry_coverage_start": "2026-11-23T09:59:45.456975+08:00",
+        "opening_delay_seconds": 1785.456975
       }
     }
   }
