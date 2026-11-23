@@ -2,18 +2,18 @@
   "cash": 200000,
   "positions": {},
   "last_scan_date": "2026-11-23",
-  "last_scan_time": "09:59:50",
+  "last_scan_time": "10:00:52",
   "pool_date": "2026-11-23",
   "pool_seen_nonempty": true,
   "valuation_stale_codes": [],
   "market_gate": {
-    "allowed": true,
-    "index_pct": 3.952700544425669,
-    "index_time": "2026-11-23T09:59:00+08:00",
-    "checked_at": "2026-11-23T09:59:50.463148+08:00",
+    "allowed": false,
+    "index_pct": null,
+    "index_time": null,
+    "checked_at": "2026-11-23T10:00:52.458002+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
-    "reason": "连板指数开仓门槛满足",
+    "reason": "883958涨幅不可用/过期",
     "date": "2026-11-23"
   },
   "migration": {
@@ -82,23 +82,46 @@
       "next_attempt": "2026-11-23T09:59:45.456975+08:00",
       "live_signal": true,
       "sent_at": "2026-11-23T09:59:50.463148+08:00"
+    },
+    "2026-11-23|605018|UNFILLED": {
+      "key": "2026-11-23|605018|UNFILLED",
+      "title": "S19 已封板/未成交｜长华集团",
+      "body": "2026-11-23T10:00:46.734166+08:00\n605018 长华集团｜人形机器人｜龙头\n题材封板4只；连板2\n模拟仓门槛：禁止模拟新开仓；883958涨幅 不可用。883958涨幅不可用/过期。原选股信号仍有效，不代表成交。\n指数行情时间：None；这是当时读数，不是收盘值。\n候选来自当日实时池；提醒不等于模拟买入。\n扫描证据：45097609622-1:37\n\n记录编号：2026-11-23|605018|UNFILLED",
+      "status": "sent",
+      "created_at": "2026-11-23T10:00:46.734166+08:00",
+      "expires_at": "2026-11-23T10:02:46.734166+08:00",
+      "attempts": 1,
+      "next_attempt": "2026-11-23T10:00:46.734166+08:00",
+      "live_signal": true,
+      "sent_at": "2026-11-23T10:00:52.458002+08:00"
     }
   },
   "fill_ids": [],
   "schema": "s19-session-v2",
   "engine_day": "2026-11-23",
   "phase": "morning",
-  "day_activity": {},
-  "saved_at": "2026-11-23T09:59:50.463148+08:00",
+  "day_activity": {
+    "2026-11-23": {
+      "605018": {
+        "first_selected_at": "2026-11-23T10:00:46.734166+08:00",
+        "first_evidence": "45097609622-1:37",
+        "name": "长华集团",
+        "theme": "人形机器人",
+        "role": "龙头",
+        "selection_scans": 2
+      }
+    }
+  },
+  "saved_at": "2026-11-23T10:00:52.458002+08:00",
   "equity": 200000,
-  "valuation_at": "2026-11-23T09:59:50.463148+08:00",
+  "valuation_at": "2026-11-23T10:00:52.458002+08:00",
   "health": {
-    "cycles": 3,
+    "cycles": 15,
     "pool_errors": 0,
     "quote_errors": 0,
     "fills": 0,
     "first_cycle": "2026-11-23T09:59:40.451268+08:00",
-    "last_cycle": "2026-11-23T09:59:50.463148+08:00",
+    "last_cycle": "2026-11-23T10:00:52.458002+08:00",
     "entry_coverage_start": "2026-11-23T09:59:45.456975+08:00",
     "opening_delay_seconds": 1785.456975,
     "pool_ok": true,
@@ -109,7 +132,7 @@
     "allowed": true,
     "index_pct": 3.952700544425669,
     "index_time": "2026-11-23T09:59:00+08:00",
-    "checked_at": "2026-11-23T09:59:50.463148+08:00",
+    "checked_at": "2026-11-23T10:00:25.556507+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
     "reason": "连板指数开仓门槛满足",
