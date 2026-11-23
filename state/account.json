@@ -2,18 +2,18 @@
   "cash": 200000,
   "positions": {},
   "last_scan_date": "2026-11-23",
-  "last_scan_time": "10:41:09",
+  "last_scan_time": "10:46:44",
   "pool_date": "2026-11-23",
   "pool_seen_nonempty": true,
   "valuation_stale_codes": [],
   "market_gate": {
-    "allowed": true,
-    "index_pct": 1.3765564716752943,
-    "index_time": "2026-11-23T10:40:00+08:00",
-    "checked_at": "2026-11-23T10:41:09.310861+08:00",
+    "allowed": false,
+    "index_pct": -0.23369632201170054,
+    "index_time": "2026-11-23T10:46:00+08:00",
+    "checked_at": "2026-11-23T10:46:44.583601+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
-    "reason": "连板指数开仓门槛满足",
+    "reason": "883958当日涨幅不大于0%",
     "date": "2026-11-23"
   },
   "migration": {
@@ -94,6 +94,18 @@
       "next_attempt": "2026-11-23T10:00:46.734166+08:00",
       "live_signal": true,
       "sent_at": "2026-11-23T10:00:52.458002+08:00"
+    },
+    "2026-11-23|STATUS|MARKET_GATE|INDEX_NONPOSITIVE": {
+      "key": "2026-11-23|STATUS|MARKET_GATE|INDEX_NONPOSITIVE",
+      "title": "S19 风险提醒｜禁止模拟新开仓",
+      "body": "模拟仓门槛：禁止模拟新开仓；883958涨幅 -0.23%。883958当日涨幅不大于0%。原选股信号仍有效，不代表成交。\n指数行情时间：2026-11-23T10:46:00+08:00；这是当时读数，不是收盘值。\n\n记录编号：2026-11-23|STATUS|MARKET_GATE|INDEX_NONPOSITIVE",
+      "status": "sent",
+      "created_at": "2026-11-23T10:46:39.573977+08:00",
+      "expires_at": "2026-11-23T10:56:39.573977+08:00",
+      "attempts": 1,
+      "next_attempt": "2026-11-23T10:46:39.573977+08:00",
+      "live_signal": true,
+      "sent_at": "2026-11-23T10:46:44.583601+08:00"
     }
   },
   "fill_ids": [],
@@ -108,34 +120,34 @@
         "name": "长华集团",
         "theme": "人形机器人",
         "role": "龙头",
-        "selection_scans": 366
+        "selection_scans": 372
       }
     }
   },
-  "saved_at": "2026-11-23T10:41:09.310861+08:00",
+  "saved_at": "2026-11-23T10:46:44.583601+08:00",
   "equity": 200000,
-  "valuation_at": "2026-11-23T10:41:09.310861+08:00",
+  "valuation_at": "2026-11-23T10:46:44.583601+08:00",
   "health": {
-    "cycles": 445,
-    "pool_errors": 46,
+    "cycles": 511,
+    "pool_errors": 54,
     "quote_errors": 0,
     "fills": 0,
     "first_cycle": "2026-11-23T09:59:40.451268+08:00",
-    "last_cycle": "2026-11-23T10:41:09.310861+08:00",
+    "last_cycle": "2026-11-23T10:46:44.583601+08:00",
     "entry_coverage_start": "2026-11-23T09:59:45.456975+08:00",
     "opening_delay_seconds": 1785.456975,
     "pool_ok": true,
     "quote_error": null
   },
-  "last_pool_size": 25,
+  "last_pool_size": 23,
   "last_valid_gate": {
-    "allowed": true,
-    "index_pct": 1.3765564716752943,
-    "index_time": "2026-11-23T10:40:00+08:00",
-    "checked_at": "2026-11-23T10:41:09.310861+08:00",
+    "allowed": false,
+    "index_pct": -0.23369632201170054,
+    "index_time": "2026-11-23T10:46:00+08:00",
+    "checked_at": "2026-11-23T10:46:44.583601+08:00",
     "opening_limit_down": null,
     "opening_limit_down_required": false,
-    "reason": "连板指数开仓门槛满足",
+    "reason": "883958当日涨幅不大于0%",
     "date": "2026-11-23"
   },
   "morning_completed_at": "2026-11-20T11:31:04.077014+08:00",
